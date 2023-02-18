@@ -1,0 +1,110 @@
+.searchItem{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    
+}
+
+.siImg{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.siDesc{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 2;
+}
+
+
+.siTitle{
+    font-size: 20px;
+    color: #0072c4;
+}
+
+.siDistance{
+    font-size: 14px;
+}
+
+.siTaxiOp{
+    font-size: 14px;
+    background-color: #279d2f;
+    color: white;
+    width: max-content;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.siSubtitle{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.siFeatures{
+    font-size: 14px;
+}
+
+.siHuyPhong{
+    font-size: 14px;
+    color: #279d2f;
+    font-weight: bold;
+}
+
+.siTdeHuyPhong{
+    font-size: 14px;
+    color: #279d2f;
+}
+
+.siChiTiet{
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.siRating{
+    display: flex;
+    justify-content: space-between;   
+}
+
+.siRating>span{
+    font-weight: 500;
+}
+
+.siRating>button{
+    background-color: #003580;
+    color: white;
+    padding: 5px;
+    border: none;
+    font-weight: bold;
+}
+
+.siChiTietVb{
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.siGia{
+    font-size: 24px;
+}
+
+.siThue{
+    font-size: 14px;
+    color: gray;
+}
+
+.siNutKTra{
+    background-color: #0072c4;
+    color: white;
+    padding: 10px 5px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}

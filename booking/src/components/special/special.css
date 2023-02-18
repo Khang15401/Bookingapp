@@ -1,0 +1,29 @@
+.special{
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    gap: 20px;
+}
+
+.specialItem{
+    position: relative;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 250px;
+}
+
+.specialImg{
+    width: 100%;
+    object-fit: cover;
+}
+
+.specialTitles{
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    margin-bottom: 150px;
+
+}

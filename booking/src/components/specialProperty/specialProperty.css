@@ -1,0 +1,46 @@
+.sp {
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.spItem{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.spImg{
+    width: 100%;
+}
+
+.spName{
+    font-weight: bold;
+}
+
+.spCity{
+    font-weight: 300;
+}
+
+.spGia{
+    font-weight: 500;
+}
+
+.spTitle>span{
+    font-size: 14px;
+}
+
+.spTitle>button{
+    background-color: #003580;
+    color: white;
+    border:none;
+    font-weight: bold;
+    padding: 4px;
+    margin-right: 9px;
+}
+
+
+
