@@ -22,27 +22,6 @@ const Datatable = ({columns}) => {
       setList(list.filter((item) => item._id !== id));
     } catch (err) {}
   };
- 
-  // const handleGet = async (id) => {
-  //   try{
-  //     const ttin = await axios.get("/users/" + id);
-  //     console.log(ttin);
-  //   } catch(err) {
-  //     console.log(err);
-  //   }
-  // }
-  // const handleUpdate = async (id) => {
-  //   try {
-  //     await axios.get(`/${path}/${id}`);
-  //     setList(list.map((item) => item._id !== id));
-  //   } catch (err) {}
-  // };
-  // const handleClick = async (id) => {
-  //   try{
-  //     await axios.get(`/${path}/${id}`);
-  //     setList(list.filter((item) => item._id !== id));
-  //   } catch (err) {}
-  // };
 
   const actionColumn = [
     {
@@ -52,8 +31,8 @@ const Datatable = ({columns}) => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            {/* <Link to={`/${path}/${params.row._id}`} style={{ textDecoration: "none" }}> */}
-            <Link to={{pathname: "/users/" + params.row._id, list: params.row}} style={{ textDecoration: "none" }}>
+            <Link to={`/${path}/${params.row._id}`} style={{ textDecoration: "none" }}>
+            {/* <Link to={{pathname: "/users/" + params.row._id, list: params.row}} style={{ textDecoration: "none" }}> */}
               <div className="viewButton">Xem</div>
             </Link>
             <div

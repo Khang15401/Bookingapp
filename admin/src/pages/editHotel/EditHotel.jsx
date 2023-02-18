@@ -8,18 +8,18 @@ import axios from "axios";
 import { AuthContext } from "../../context/AuthContex";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./edit.scss";
+import "./editHotel.scss";
 
-const Edit = ({}) => {
+const EditHotel = ({}) => {
   const navigate = useNavigate()
   const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
-  const [users, setUsers] = useState([]);
-  const { userId } = useParams();
-  
-  const { data, loading, error } = useFetch(`/users/${userId}`);
-  const { user } = useContext(AuthContext);
-  
+  const [hotels, setHotels] = useState([]);
+  const { hotelId } = useParams();
+ 
+
+  const { data, loading, error } = useFetch(`/hotels/${hotelId}`);
+  const { hotel } = useContext(AuthContext);
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -47,17 +47,17 @@ const Edit = ({}) => {
       //   ...info,
       //   img: url,
       // };
-      const updateUser = {
+      const updateHotel = {
         ...info,
         img: url,
       };
-      console.log(updateUser);
-
-      await axios.patch("/users/" + userId, updateUser);
-      alert("Sửa thông tin thành công!");
-      navigate("/users");
+      // console.log(updateHotel);
+       console.log(data);
+      await axios.patch("/hotels/" + hotelId, updateHotel);
+      alert("Sửa thông tin khách sạn thành công!");
+      navigate("/hotels");
     } catch (err) {
-      alert("Sửa thông tin thành công!");
+      alert("Sửa thông tin không thành công!");
       console.log(err);
     }
   };
@@ -68,7 +68,7 @@ const Edit = ({}) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Sửa User</h1>
+          <h1>Sửa Thông Tin Khách Sạn</h1>
         </div>
         <div className="bottom">
           <div className="left">
@@ -100,29 +100,29 @@ const Edit = ({}) => {
                   onChange={(e) => setFile(e.target.files[0])}
                   style={{ display: "none" }}
                 />
-                <label>Email</label>
+                <label>Tên Khách Sạn</label>
                 <input
                   onChange={handleChange}
                   // type={input.type}
-                  placeholder={data.email}
-                  id="email"
-                  name="email"
+                  placeholder={data.name}
+                  id="name"
+                  name="name"
                 />
-                <label>Tài Khoản</label>
+                <label>Khoảng Cách</label>
                 <input
                   onChange={handleChange}
                   type="text"
-                  placeholder={data.username}
-                  id="username"
-                  name="username"
+                  placeholder={data.distance}
+                  id="distance"
+                  name="distance"
                 />
-                <label>Quốc Gia</label>
+                <label>Địa Chỉ</label>
                 <input
                   onChange={handleChange}
                   type="text"
-                  placeholder={data.country}
-                  id="country"
-                  name="country"
+                  placeholder={data.address}
+                  id="address"
+                  name="address"
                 />
                 <label>Thành Phố</label>
                 <input
@@ -132,76 +132,13 @@ const Edit = ({}) => {
                   id="city"
                   name="city"
                 />
-                <label>Điện thoại</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.phone}
-                  id="phone"
-                  name="phone"
-                />
+                <label>Nổi bật</label>
+                  <p>{data.featured}</p>
+                  <select id="special" onChange={handleChange}>
+                    <option value={false}>No</option>
+                    <option value={true}>Yes</option>
+                  </select>
               </div>
-
-              {/* <div className="formInput">
-                <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label>
-                <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: "none" }}
-                />
-              </div> */}
-
-              {/* <div class="formInput">
-                <label>Ảnh đại diện</label>
-                <img class="img-update"
-                  onChange={handleChange}
-                  src={data.img}
-                  id="img"
-                />
-                <label>Email</label>
-                <input
-                  onChange={handleChange}
-                  // type={input.type}
-                  placeholder={data.email}
-                  id="email"
-                  name="email"
-                />
-                <label>Tài Khoản</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.username}
-                  id="username"
-                  name="username"
-                />
-                <label>Quốc Gia</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.country}
-                  id="country"
-                  name="country"
-                />
-                <label>Thành Phố</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.city}
-                  id="city"
-                  name="city"
-                />
-                <label>Điện thoại</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.phone}
-                  id="phone"
-                  name="phone"
-                />
-              </div> */}
 
               <button className="no-btn" disabled></button>
               <button className="no-btn" disabled></button>
@@ -214,4 +151,4 @@ const Edit = ({}) => {
   );
 };
 
-export default Edit;
+export default EditHotel;

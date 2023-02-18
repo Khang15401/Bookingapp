@@ -13,6 +13,7 @@ import { hotelColumns, roomColumns, userColumns } from "./datatablesource";
 import NewHotel from "./pages/newHotel/NewHotel";
 import NewRoom from "./pages/newRoom/NewRoom";
 import Edit from "./pages/edit/Edit";
+import EditHotel from "./pages/editHotel/EditHotel";
 
 
 function App() {
@@ -74,10 +75,10 @@ function App() {
                 }
               />
               <Route
-                path=":productId"
+                path=":hotelId"
                 element={
                   <ProtectedRoute>
-                    <Single />
+                    <EditHotel />
                   </ProtectedRoute>
                 }
               />

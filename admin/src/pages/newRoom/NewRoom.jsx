@@ -75,7 +75,7 @@ const NewRoom = () => {
                       ))}
                 </select>
               </div>
-              <button onClick={handleClick}>Gửi</button>
+              <button className="formInput1" onClick={handleClick}>Gửi</button>
             </form>
           </div>
         </div>

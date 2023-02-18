@@ -8,11 +8,11 @@ const router = express.Router();
 //CREATE
 router.post("/", verifyAdmin, createHotel);
 //UPDDATE
-router.put("/:id", verifyAdmin, updateHotel);
+router.patch("/:id", verifyAdmin, updateHotel);
 //DELETE
 router.delete("/:id", verifyAdmin, deleteHotel);
 //GET
-router.get("/find/:id", getHotel);
+router.get("/:id",verifyAdmin, getHotel);
 //GET ALL
 router.get("/", getHotels);
 router.get("/countByCity", countByCity);
