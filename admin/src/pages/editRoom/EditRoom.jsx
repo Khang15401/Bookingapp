@@ -8,18 +8,18 @@ import axios from "axios";
 import { AuthContext } from "../../context/AuthContex";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./editHotel.scss";
+import "./editRoom.scss";
 
-const EditHotel = ({}) => {
+const EditRoom = ({}) => {
   const navigate = useNavigate();
   const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
-  const [hotels, setHotels] = useState([]);
-  const { hotelId } = useParams();
-  console.log(hotelId);
+  const [rooms, setRooms] = useState([]);
+  const { roomId } = useParams();
+  // console.log(roomId);
 
-  const { data, loading, error } = useFetch(`/hotels/${hotelId}`);
-  const { hotel } = useContext(AuthContext);
+  const { data, loading, error } = useFetch(`/rooms/${roomId}`);
+  const { room } = useContext(AuthContext);
   console.log(data);
 
   const handleChange = (e) => {
@@ -40,13 +40,13 @@ const EditHotel = ({}) => {
     //       const { url } = uploadRes.data;
           
           // console.log(updateHotel);
-          const updateHotel = {
+          const updateRoom = {
             ...info,
           };
           // console.log(data);
-      await axios.patch("/hotels/" + hotelId, updateHotel);
-      alert("Sửa thông tin khách sạn thành công!");
-      navigate("/hotels");
+      await axios.patch("/rooms/" + roomId, updateRoom);
+      alert("Sửa thông tin phòng thành công!");
+      navigate("/rooms");
     } catch (err) {
       alert("Sửa thông tin không thành công!");
       console.log(err);
@@ -59,7 +59,7 @@ const EditHotel = ({}) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Sửa Thông Tin Khách Sạn</h1>
+          <h1>Sửa Thông Tin Phòng Khách Sạn</h1>
         </div>
         <div className="bottom">
           {/* <div className="left"> */}
@@ -91,52 +91,55 @@ const EditHotel = ({}) => {
                   onChange={(e) => setFile(e.target.files[0])}
                   style={{ display: "none" }}
                 /> */}
-                <label>Tên Khách Sạn</label>
+                <label>Tiêu Đề Phòng</label>
                 <input
                   onChange={handleChange}
                   // type={input.type}
-                  placeholder={data.name}
-                  id="name"
-                  name="name"
+                  placeholder={data.title}
+                  id="title"
+                  name="title"
                 />
-                <label>Khoảng Cách</label>
+                <label>Giới Thiệu</label>
                 <input
                   onChange={handleChange}
                   type="text"
-                  placeholder={data.distance}
-                  id="distance"
-                  name="distance"
+                  placeholder={data.desc}
+                  id="desc"
+                  name="desc"
                 />
-                <label>Địa Chỉ</label>
+                <label>Giá Phòng</label>
                 <input
                   onChange={handleChange}
                   type="text"
-                  placeholder={data.address}
-                  id="address"
-                  name="address"
+                  placeholder={data.price}
+                  id="price"
+                  name="price"
                 />
-                <label>Thành Phố</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.city}
-                  id="city"
-                  name="city"
-                />
+                
                 {/* <label>Nổi bật</label>
                 <p>{data.featured}</p>
                 <select id="special" onChange={handleChange}>
                   <option value={false}>No</option>
                   <option value={true}>Yes</option>
                 </select> */}
-                <label>Tiêu Đề</label>
+                <label>Số Người Tối Đa</label>
+                <input
+                  onChange={handleChange}
+                  type="number"
+                  min={1}
+                  max={15}
+                  placeholder={data.maxPeople}
+                  id="maxPeople"
+                  name="maxPeople"
+                />
+                {/* <label>Số Phòng Khách Sạn</label>
                 <input
                   onChange={handleChange}
                   type="text"
-                  placeholder={data.title}
-                  id="title"
-                  name="title"
-                />
+                  placeholder={data.roomNumbers}
+                  id="roomNumbers"
+                  name="maxPeople"
+                /> */}
               </div>
 
               <button className="no-btn" disabled></button>
@@ -151,4 +154,4 @@ const EditHotel = ({}) => {
   );
 };
 
-export default EditHotel;
+export default EditRoom;

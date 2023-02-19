@@ -51,7 +51,7 @@ const Edit = ({}) => {
         ...info,
         img: url,
       };
-      console.log(updateUser);
+      // console.log(updateUser);
 
       await axios.patch("/users/" + userId, updateUser);
       alert("Sửa thông tin thành công!");
@@ -142,67 +142,7 @@ const Edit = ({}) => {
                 />
               </div>
 
-              {/* <div className="formInput">
-                <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label>
-                <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: "none" }}
-                />
-              </div> */}
-
-              {/* <div class="formInput">
-                <label>Ảnh đại diện</label>
-                <img class="img-update"
-                  onChange={handleChange}
-                  src={data.img}
-                  id="img"
-                />
-                <label>Email</label>
-                <input
-                  onChange={handleChange}
-                  // type={input.type}
-                  placeholder={data.email}
-                  id="email"
-                  name="email"
-                />
-                <label>Tài Khoản</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.username}
-                  id="username"
-                  name="username"
-                />
-                <label>Quốc Gia</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.country}
-                  id="country"
-                  name="country"
-                />
-                <label>Thành Phố</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.city}
-                  id="city"
-                  name="city"
-                />
-                <label>Điện thoại</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.phone}
-                  id="phone"
-                  name="phone"
-                />
-              </div> */}
-
+              
               <button className="no-btn" disabled></button>
               <button className="no-btn" disabled></button>
               <button onClick={handleClick}>Cập nhật</button>

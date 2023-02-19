@@ -14,6 +14,7 @@ import NewHotel from "./pages/newHotel/NewHotel";
 import NewRoom from "./pages/newRoom/NewRoom";
 import Edit from "./pages/edit/Edit";
 import EditHotel from "./pages/editHotel/EditHotel";
+import EditRoom from "./pages/editRoom/EditRoom";
 
 
 function App() {
@@ -100,10 +101,10 @@ function App() {
                 }
               />
               <Route
-                path=":productId"
+                path=":roomId"
                 element={
                   <ProtectedRoute>
-                    <Single />
+                    <EditRoom />
                   </ProtectedRoute>
                 }
               />
