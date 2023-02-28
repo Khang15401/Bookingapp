@@ -18,6 +18,7 @@ import {format} from "date-fns"
 import {Link, useNavigate} from "react-router-dom"
 import { SearchContext } from "../../context/SearchContex";
 import { AuthContext } from "../../context/AuthContex";
+import axios from "axios";
 
 const Header = ({type}) => {
   const [destination, setDestination] = useState("")
@@ -47,12 +48,18 @@ const Header = ({type}) => {
   const {dispatch} = useContext(SearchContext);
   
   const navigate = useNavigate()
-  const handleLogout = () => {
-    window.localStorage.removeItem('user');
-    // payload: res.data;
-    navigate("/login");
-  }
-
+  // const handleLogout = async () => {
+  //   // window.localStorage.removeItem('user', null);
+  //   // payload: res.data;
+  //   try{
+  //    const res = await axios.post('/auth/logout');
+  //    localStorage.setItem('user',null);
+  //   //  dispatch({type: 'LOGOUT', payload:res.data});
+  //    navigate("/login")
+  //   } catch(err){
+  //     console.log(err);
+  //   }
+  // }
 
   const handleSearch = () => {
     dispatch({type: "NEW_SEARCH", payload:{destination, dates, options}});
@@ -89,9 +96,9 @@ const Header = ({type}) => {
               Luôn luôn giảm giá, mang lại trải nghiệm tốt nhất cho khách hàng.
             </h1>
             <p className="headerDesc">
-              Làm thành viên sớm để nhận được ưu đãi lớn từ tài khoản kiawbooking - Giảm giá tới 10%
+              Đăng ký thành viên sớm để nhận được ưu đãi lớn từ tài khoản kiawbooking - Giảm giá tới 10%
             </p>
-            {user &&  <button onClick={handleLogout} className="headerBtn">Đăng xuất</button>}
+            {/* {user &&  <button onClick={handleLogout} className="headerBtn">Đăng xuất</button>} */}
             {!user && 
             <Link to="/login">
             <button 

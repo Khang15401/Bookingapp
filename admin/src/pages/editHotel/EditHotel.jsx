@@ -123,12 +123,7 @@ const EditHotel = ({}) => {
                   id="city"
                   name="city"
                 />
-                {/* <label>Nổi bật</label>
-                <p>{data.featured}</p>
-                <select id="special" onChange={handleChange}>
-                  <option value={false}>No</option>
-                  <option value={true}>Yes</option>
-                </select> */}
+                
                 <label>Tiêu Đề</label>
                 <input
                   onChange={handleChange}
@@ -137,6 +132,21 @@ const EditHotel = ({}) => {
                   id="title"
                   name="title"
                 />
+                <label>Đánh Giá</label>
+                <input
+                  onChange={handleChange}
+                  type="number"
+                  min={0}
+                  placeholder={data.rating}
+                  id="rating"
+                  name="rating"
+                />
+                <label>Nổi bật</label>
+                <p>{data.featured}</p>
+                <select id="featured" onChange={handleChange}>
+                  <option value={false}>No</option>
+                  <option value={true}>Yes</option>
+                </select>
               </div>
 
               <button className="no-btn" disabled></button>

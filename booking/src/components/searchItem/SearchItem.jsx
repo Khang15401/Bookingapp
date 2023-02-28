@@ -22,12 +22,13 @@ const SearchItem = ({item}) => {
         </span>
      </div>
      <div className="siChiTiet">
-        {item.rating &&  <div className="siRating">
-            <span>Tuyệt hảo</span>
-            <button>{item.rating}</button>
-        </div>}
+        
         <div className="siChiTietVb">
             <span className="siGia">{item.cheapestPrice}VND</span>
+            {item.rating &&  <div className="siRating">
+                <span>  </span>
+                <button>{item.rating}</button>
+            </div>}
             <span className="siThue">Đã bao gồm thuế và phí</span>
             <Link to={`/hotels/${item._id}`}>
             <button className="siNutKTra">Xem chỗ trống</button>

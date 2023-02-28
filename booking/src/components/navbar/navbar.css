@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     
+    
 }
 
 .navContainer {
@@ -16,7 +17,8 @@
 }
 
 .logo {
-    font-weight: 500;
+    font-size: larger;
+    font-weight: 600;
 }
 
 .navButton {
@@ -25,4 +27,36 @@
     padding:5px 10px;
     cursor: pointer;
     color: #003580;
+}
+span {
+    cursor: pointer;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.options{
+    position: absolute;
+    top: 40px;
+    right: 16%;
+    padding: 17px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* width: 200px; */
+    font-weight: 300;
+}
+
+.link {
+    text-decoration: none;
+    color: gray;
+    font-weight: 300;
 }

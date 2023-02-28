@@ -103,14 +103,19 @@ const NewHotel = () => {
                 </div>
               ))}
                 <div className="formInput">
-                  <label>Nổi bật</label>
+                  <label>Đánh Giá</label>
+                  <input id="rating" onChange={handleChange} placeholder="Từ 1 - 5 "> 
+                  </input>
+                </div>
+                <div className="formInput">
+                  <label>Nổi Bật</label>
                   <select id="special" onChange={handleChange}>
                     <option value={false}>No</option>
                     <option value={true}>Yes</option>
                   </select>
                 </div>
                 <div className="selectRooms">
-                  <label>Rooms</label>
+                  <label>Loại Phòng</label>
                   <select id="rooms" multiple onChange={handleSelect}>
                     {loading ? "loading" : data && data.map(room=>(
                       <option key={room._id} value={room._id}>{room.title}</option>
