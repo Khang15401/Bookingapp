@@ -54,6 +54,7 @@ const NewHotel = () => {
       };
 
       await axios.post("/hotels", newhotel);
+      alert('Thêm thông tin khách sạn thành công!')
       navigate("/hotels");
     } catch (err) {console.log(err)}
   };

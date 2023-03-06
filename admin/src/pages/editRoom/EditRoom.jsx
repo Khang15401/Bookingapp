@@ -19,7 +19,7 @@ const EditRoom = ({}) => {
   // console.log(roomId);
 
   const { data, loading, error } = useFetch(`/rooms/${roomId}`);
-  const { room } = useContext(AuthContext);
+  // const { room } = useContext(AuthContext);
   console.log(data);
 
   const handleChange = (e) => {
@@ -28,22 +28,22 @@ const EditRoom = ({}) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    
+
     // const data = new FormData();
     // data.append("file", file);
     // data.append("upload_preset", "upload");
     try {
-    // const uploadRes = await axios.post(
-    //   "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
-    //   data
-    //   );
-    //       const { url } = uploadRes.data;
-          
-          // console.log(updateHotel);
-          const updateRoom = {
-            ...info,
-          };
-          // console.log(data);
+      // const uploadRes = await axios.post(
+      //   "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
+      //   data
+      //   );
+      //       const { url } = uploadRes.data;
+
+      // console.log(updateHotel);
+      const updateRoom = {
+        ...info,
+      };
+      // console.log(info);
       await axios.patch("/rooms/" + roomId, updateRoom);
       alert("Sửa thông tin phòng thành công!");
       navigate("/rooms");
@@ -63,7 +63,7 @@ const EditRoom = ({}) => {
         </div>
         <div className="bottom">
           {/* <div className="left"> */}
-            {/* <img
+          {/* <img
               src={
                 file
                   ? URL.createObjectURL(file)
@@ -115,7 +115,7 @@ const EditRoom = ({}) => {
                   id="price"
                   name="price"
                 />
-                
+
                 {/* <label>Nổi bật</label>
                 <p>{data.featured}</p>
                 <select id="special" onChange={handleChange}>
@@ -132,14 +132,15 @@ const EditRoom = ({}) => {
                   id="maxPeople"
                   name="maxPeople"
                 />
-                {/* <label>Số Phòng Khách Sạn</label>
+                <label>Số Phòng Khách Sạn</label>
                 <input
                   onChange={handleChange}
                   type="text"
-                  placeholder={data.roomNumbers}
-                  id="roomNumbers"
-                  name="maxPeople"
-                /> */}
+                  // placeholder={data.roomNumbers}
+                  placeholder={JSON.stringify(data.roomNumbers)}
+                  id="number"
+                  name="number"
+                />
               </div>
 
               <button className="no-btn" disabled></button>

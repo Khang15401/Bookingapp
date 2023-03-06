@@ -17,7 +17,7 @@ const router = express.Router();
 //     res.send("Chào admin")
 // })
 
-//UPDDATE
+//UPDATE
 router.patch("/:id", verifyUser, updateUser);
 //DELETE
 router.delete("/:id", verifyUser, deleteUser);

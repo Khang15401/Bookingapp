@@ -32,7 +32,7 @@ const Navbar = () => {
          {open &&<div className="options">
             <>
             <Link className="link" to='/'>Booking</Link>
-            <Link className="link" to='/login' onClick={handleLogout}>Đăng Xuất</Link>
+            <Link className="link" to='/login' onClick={handleLogout}>Đăng xuất</Link>
             </>
          </div>}
         </> 

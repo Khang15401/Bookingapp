@@ -25,6 +25,7 @@ const NewRoom = () => {
     console.log(roomNumbers)
     try {
       await axios.post(`/rooms/${hotelId}`, { ...info, roomNumbers });
+      // console.log(info, roomNumbers);
       navigate("/rooms");
     } catch (err) {
       console.log(err);
