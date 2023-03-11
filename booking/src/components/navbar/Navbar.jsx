@@ -31,7 +31,7 @@ const Navbar = () => {
           <div className="user" onClick={() => setOpen(!open)}>Hello {user.username}</div>
          {open &&<div className="options">
             <>
-            <Link className="link" to='/'>Booking</Link>
+            <Link className="link" to='/orders'>Booking</Link>
             <Link className="link" to='/login' onClick={handleLogout}>Đăng xuất</Link>
             </>
          </div>}

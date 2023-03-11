@@ -147,3 +147,30 @@ export const roomInputs = [
   },
   
 ];
+export const orderInputs = [
+  {
+    id: "title",
+    label: "Tiêu Đề",
+    type: "text",
+    placeholder: "2 bed room",
+  },
+  {
+    id: "desc",
+    label: "Giới Thiệu",
+    type: "text",
+    placeholder: "King size bed, 1 bathroom",
+  },
+  {
+    id: "price",
+    label: "Giá Phòng",
+    type: "number",
+    placeholder: "100",
+  },
+  {
+    id: "maxPeople",
+    label: "Số người tối đa",
+    type: "number",
+    placeholder: "2",
+  },
+  
+];

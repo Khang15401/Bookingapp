@@ -11,6 +11,7 @@ const Datatable = ({columns}) => {
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
   const { data, loading, error } = useFetch(`/${path}`);
+  console.log(data);
 
   useEffect(()=>{
     setList(data)
@@ -32,7 +33,6 @@ const Datatable = ({columns}) => {
         return (
           <div className="cellAction">
             <Link to={`/${path}/${params.row._id}`} style={{ textDecoration: "none" }}>
-            {/* <Link to={{pathname: "/users/" + params.row._id, list: params.row}} style={{ textDecoration: "none" }}> */}
               <div className="viewButton">Xem</div>
             </Link>
             <div

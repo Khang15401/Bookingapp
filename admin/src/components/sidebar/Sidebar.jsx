@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import ListOutlined from "@mui/icons-material/ListOutlined";
+import GradingIcon from '@mui/icons-material/Grading';
 import { AuthContext } from "../../context/AuthContex";
 
 const Sidebar = () => {
@@ -48,6 +49,12 @@ const Sidebar = () => {
             <li>
               <ListOutlined className="icon" />
               <span>Phòng</span>
+            </li>
+          </Link>
+          <Link to="/orders" style={{ textDecoration: "none" }}>
+            <li>
+              <GradingIcon className="icon" />
+              <span>Lịch Đặt Phòng</span>
             </li>
           </Link>
           

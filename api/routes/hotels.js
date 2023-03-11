@@ -7,7 +7,7 @@ const router = express.Router();
 
 //CREATE
 router.post("/", verifyAdmin, createHotel);
-//UPDDATE
+//UPDATE
 router.patch("/:id", verifyAdmin, updateHotel);
 //DELETE
 router.delete("/:id", verifyAdmin, deleteHotel);

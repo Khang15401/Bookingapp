@@ -5,6 +5,10 @@ const OrderSchema = new mongoose.Schema({
     userId: {
         type: String,
     },
+    userName: {
+        type: String,
+        // required: true
+    },
     nameHotel: {
         type: String,
         // required: true
@@ -27,6 +31,7 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         default: false,
     },
+    
 },
 {timestamps:true}
 );

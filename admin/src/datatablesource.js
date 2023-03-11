@@ -82,3 +82,37 @@ export const roomColumns = [
     width: 100,
   },
 ];
+
+export const orderColumns = [
+  { field: "_id", headerName: "ID", width: 250 },
+  {
+    field: "userName",
+    headerName: "Name",
+    width: 120,
+  },
+  {
+    field: "nameHotel",
+    headerName: "Hotel",
+    width: 200,
+  },
+  {
+    field: "city",
+    headerName: "City",
+    width: 150,
+  },
+  {
+    field: "rooms",
+    headerName: "Room",
+    width: 100,
+  },
+  {
+    field: "price",
+    headerName: "Price",
+    width: 100,
+  },
+  {
+    field: "status",
+    headerName: "Status",
+    width: 100,
+  },
+];

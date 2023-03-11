@@ -13,11 +13,10 @@ export const createOrder = async (req, res, next) => {
       nameHotel: hotel.name,
       title: hotel.title,
       city: hotel.city,
-      rooms: req.body.rooms,
       price: hotel.cheapestPrice,
+      rooms: req.body.rooms,
       userId: req.body.userId,
-      roomNumber1: req.body.roomNumber1
-      
+      userName: req.body.userName,
     });
     // console.log(newOrder);
     const saveOrder = await newOrder.save();
@@ -26,11 +25,50 @@ export const createOrder = async (req, res, next) => {
     console.log(err);
   }
 };
-
+// GET ORDER User ID
 export const getOrder = async(req, res, next)=>{
   try{
       const order = await Order.find({userId: req.params.id});
       res.status(200).json(order)
+  }catch(err){
+      next(err);
+  }
+}
+// GET ORDER BY ID
+export const getOrderId = async(req, res, next)=>{
+  try{
+      const order = await Order.findById(req.params.id);
+      res.status(200).json(order)
+  }catch(err){
+      next(err);
+  }
+}
+export const getOrders = async(req, res, next)=>{
+  try{
+      const order = await Order.find();
+      res.status(200).json(order)
+  }catch(err){
+      next(err);
+  }
+}
+
+export const updateOrder = async(req, res, next)=>{
+  try{
+      const updateOrder = await Order.findByIdAndUpdate(
+          req.params.id, 
+          { $set: req.body},
+          { new: true }
+          );
+      res.status(200).json(updateOrder);
+  }catch(err){
+      next(err);
+  }
+}
+
+export const deleteOrder = async(req, res, next)=>{
+  try{
+      await Order.findByIdAndDelete(req.params.id);
+      res.status(200).json("Order da bi xoa");
   }catch(err){
       next(err);
   }

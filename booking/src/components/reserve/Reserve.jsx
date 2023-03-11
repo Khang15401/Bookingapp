@@ -5,7 +5,7 @@ import { SearchContext } from "../../context/SearchContex";
 import useFetch from "../../hooks/useFetch";
 import "./reserve.css";
 import axios from "axios";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
@@ -13,8 +13,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
   const { dates } = useContext(SearchContext);
-  const kSan = useParams();
-  // console.log(kSan); 
+  
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
@@ -68,16 +67,16 @@ const Reserve = ({ setOpen, hotelId }) => {
         })
       );
       const user = JSON.parse(localStorage.getItem("user"));
-      
       const newOrder = {
         ...info,
         userId: user._id,
+        userName: user.username,
       };
       // console.log(newOrder);
       setOpen(false);
       await axios.post(`/orders/${hotelId}`,newOrder);
       alert("Đặt phòng thành công!");
-      // navigate("/");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -118,7 +117,6 @@ const Reserve = ({ setOpen, hotelId }) => {
                     <input type="checkbox" value={roomNumber.number} id="rooms" 
                     disabled={!isAvailable(roomNumber)}
                     onChange={handleChange}/>
-                    {/* <input type="text" id="roomNumber1" value={roomNumber.number} onChange={handleChange}></input> */}
                   </div>
                 ))}
               </div>
