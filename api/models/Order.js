@@ -29,7 +29,7 @@ const OrderSchema = new mongoose.Schema({
     },
     status:{
         type: String,
-        default: false,
+        default: "Chưa Check In",
     },
     
 },
