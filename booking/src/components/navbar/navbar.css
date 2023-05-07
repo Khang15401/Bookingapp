@@ -51,7 +51,6 @@ span {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* width: 200px; */
     font-weight: 300;
 }
 

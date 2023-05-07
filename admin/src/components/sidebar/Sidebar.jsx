@@ -65,6 +65,15 @@ const Sidebar = () => {
               {user && <span><button style={{ textDecoration: "none" }} onClick={handleLogout}>Đăng xuất</button></span>}
             </li>
           </Link>
+
+          
+
+          {/* <Link to="/login" style={{ textDecoration: "none" }}>
+            <li>
+              <ExitToAppIcon className="icon" />
+              {user && <span><button style={{ textDecoration: "none" }} onClick={handleLogout}>Profile</button></span>}
+            </li>
+          </Link> */}
         </ul>
       </div>
       <div className="bottom">

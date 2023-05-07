@@ -57,7 +57,7 @@ const Edit = ({}) => {
       alert("Sửa thông tin thành công!");
       navigate("/users");
     } catch (err) {
-      alert("Sửa thông tin thành công!");
+      alert("Sửa thông tin không thành công!");
       console.log(err);
     }
   };

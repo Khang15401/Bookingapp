@@ -136,10 +136,10 @@ const EditRoom = ({}) => {
                 <input
                   onChange={handleChange}
                   type="text"
-                  // placeholder={data.roomNumbers}
-                  placeholder={JSON.stringify(data.roomNumbers)}
-                  id="number"
-                  name="number"
+                  placeholder={data.roomNumbers}
+                  // placeholder={JSON.stringify(data.roomNumbers)}
+                  id="roomNumbers"
+                  name="roomNumbers"
                 />
               </div>
 

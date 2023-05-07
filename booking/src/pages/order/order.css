@@ -8,7 +8,8 @@
   display: flex;
   justify-content: center;
   color: #555;
-  height: 450px;
+  /* min-height: 300px; */
+  /* max-height: 1000px; */
 }
 .container {
   width: 1400px;

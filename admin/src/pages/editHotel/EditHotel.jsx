@@ -136,7 +136,8 @@ const EditHotel = ({}) => {
                 <input
                   onChange={handleChange}
                   type="number"
-                  min={0}
+                  min={1}
+                  max={5}
                   placeholder={data.rating}
                   id="rating"
                   name="rating"

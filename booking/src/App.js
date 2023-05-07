@@ -9,6 +9,7 @@ import Hotel from "./pages/hotel/Hotel";
 import List from "./pages/list/List";
 import Login from "./pages/login/Login";
 import Order from "./pages/order/Order";
+import Edit from "./pages/edit/EditProfile";
 
 // const signOut = (e) => {
 //     //e.preventDefault();
@@ -38,6 +39,7 @@ function App()  {
               <Route path="/login" element={<Login/>}/>
               <Route path="/register" element={<Register1/>}/>
               <Route path="/orders" element={<Order/>}/>
+              <Route path="/users" element={<Edit/>}/>
               
               
           </Routes>
