@@ -41,9 +41,11 @@
       width: 40%;
       border-radius: 5px;
       font-weight: 500;
-      color: crimson;
+      color: white;
       border: 1px solid rgba(220, 20, 60, 0.6);
       cursor: pointer;
+      text-align: center;
+      background-color: rgb(246, 72, 72);
 }
 .btn-finishRoom-disabled{
     color: white;
@@ -54,7 +56,7 @@
     font-weight: 500;
     border: 1px solid #003580;
     pointer-events: none;
-    opacity: 0.3;
+    opacity: 0.6;
     text-align: center;
     background-color: #003580;
 }
@@ -67,7 +69,7 @@
     font-weight: 500;
     border: 1px solid blue;
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.3;
     background-color: #003580;
     text-align: center;
 }
