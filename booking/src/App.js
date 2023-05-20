@@ -10,6 +10,8 @@ import List from "./pages/list/List";
 import Login from "./pages/login/Login";
 import Order from "./pages/order/Order";
 import Edit from "./pages/edit/EditProfile";
+import Pay from "./pages/pay/Pay";
+import Success from "./pages/success/Success";
 
 // const signOut = (e) => {
 //     //e.preventDefault();
@@ -40,6 +42,9 @@ function App()  {
               <Route path="/register" element={<Register1/>}/>
               <Route path="/orders" element={<Order/>}/>
               <Route path="/users" element={<Edit/>}/>
+              {/* <Route path="/pay/:id" element={<Pay/>}/>
+              <Route path="/success" element={<Success/>}/> */}
+
               
               
           </Routes>

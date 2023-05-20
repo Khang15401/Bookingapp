@@ -1,5 +1,5 @@
 import  express  from "express";
-import { createRoom, deleteRoom, getRoom, getRooms, updateRoom, updateRoomAvailability } from "../controllers/room.js";
+import { createRoom, deleteRoom, getRoom, getRooms, removeRoomAvailability, updateRoom, updateRoomAvailability } from "../controllers/room.js";
 import { verifyAdmin } from "../utils/verifyToken.js";
 
 const router = express.Router();
@@ -9,8 +9,9 @@ router.post("/:hotelid", verifyAdmin, createRoom);
 //UPDATE
 router.patch("/:id", verifyAdmin, updateRoom);
 router.put("/availability/:id", updateRoomAvailability);
+//UPDATE ROOM
+router.patch("/reservation/:id", removeRoomAvailability);
 //DELETE
-// router.delete("room/:id/:hotelid", verifyAdmin, deleteRoom);
 router.delete("/:id", verifyAdmin, deleteRoom);
 //GET
 router.get("/:id", getRoom);

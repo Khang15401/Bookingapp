@@ -27,10 +27,17 @@ const OrderSchema = new mongoose.Schema({
     rooms:{
         type: String,
     },
+    roomId:{
+        type: String,
+    },
     status:{
         type: String,
         default: "Chưa Nhận Phòng",
     },
+    // payment_intent: {
+    //   type: String,
+    //   required: true,
+    // },
     
 },
 {timestamps:true}

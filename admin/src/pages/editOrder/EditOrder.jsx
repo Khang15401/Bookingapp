@@ -153,6 +153,7 @@ const EditOrder = ({}) => {
                 <p>{data.status}</p>
                 <select id="status" onChange={handleChange}>
                   <option value={'Chưa Nhận Phòng'}>Chưa Nhận Phòng</option>
+                  <option value={'Đã Hủy'}>Đã Hủy</option>
                   <option value={'Hoàn Thành'}>Hoàn Thành</option>
                 </select>
               </div>

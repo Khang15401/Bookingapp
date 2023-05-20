@@ -21,20 +21,24 @@ const Hotel = () => {
   const [openModal,setOpenModal] = useState(false);
 
   const {data, loading, error, reFetch} = useFetch(`/hotels/find/${id}`);
+  // const { data1, loading1, error1 } = useFetch(`/rooms/${}`);
+  // console.log(data.rooms);
+  
   const { user } = useContext(AuthContext);
   const navigate = useNavigate()
   
   const {dates, options} = useContext(SearchContext)
-
-
+  
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   const dayDifference = (date1, date2)=>{
     const timeDiff = Math.abs(Date.parse(date2) - Date.parse(date1));
     const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
     return diffDays;
   };
-
+  
   const days = dayDifference(dates[0]?.endDate, dates[0]?.startDate);
+  // const day =  days * data.cheapestPrice * options.Phòng;
+  // console.log(day);
 
 
 const handleOpen = (i) => {

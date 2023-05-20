@@ -5,15 +5,16 @@ import { SearchContext } from "../../context/SearchContex";
 import useFetch from "../../hooks/useFetch";
 import "./reserve.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
+  const [selectedRoomNumber, setSelectedRoomNumber] = useState(null);
   const { data, loading, error } = useFetch(`/hotels/room/${hotelId}`);
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
   const { dates } = useContext(SearchContext);
-  
+
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
@@ -46,6 +47,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   const handleSelect = (e) => {
     const checked = e.target.checked;
     const value = e.target.value;
+    setSelectedRoomNumber(e.target.dataset.roomNumber);
     setSelectedRooms(
       checked
         ? [...selectedRooms, value]
@@ -63,19 +65,23 @@ const Reserve = ({ setOpen, hotelId }) => {
           const res = axios.put(`/rooms/availability/${roomId}`, {
             dates: alldates,
           });
+          localStorage.setItem("roomId", roomId);
           return res.data;
         })
       );
       const user = JSON.parse(localStorage.getItem("user"));
+      const roomId = localStorage.getItem("roomId");
       const newOrder = {
         ...info,
+        rooms: selectedRoomNumber,
+        roomId: roomId,
         userId: user._id,
         userName: user.username,
       };
-      // console.log(newOrder);
       setOpen(false);
-      await axios.post(`/orders/${hotelId}`,newOrder);
+      await axios.post(`/orders/${hotelId}`, newOrder);
       alert("Đặt phòng thành công!");
+      console.log(newOrder);
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -95,15 +101,17 @@ const Reserve = ({ setOpen, hotelId }) => {
           {data.map((item) => (
             <div className="rItem">
               <div className="rItemInfo">
-                <div className="rTitle"  id='title'>{item.title}</div>
+                <div className="rTitle">{item.title}</div>
                 <div className="rDesc">{item.desc}</div>
-                <div className="rMax"  >
+                <div className="rMax">
                   Số người tối đa: <b>{item.maxPeople}</b>
                 </div>
-                <div className="rPrice"  id="price">{item.price}</div>
+                <div className="rPrice" id="price">
+                  {item.price}
+                </div>
               </div>
               <div className="rSelectRooms">
-                {item.roomNumbers.map((roomNumber) => (
+                {/* {item.roomNumbers.map((roomNumber) => (
                   <div className="room" onChange={handleChange}>
                     <label>Ph.{roomNumber.number}</label>
                     <input
@@ -118,15 +126,29 @@ const Reserve = ({ setOpen, hotelId }) => {
                     disabled={!isAvailable(roomNumber)}
                     onChange={handleChange}/>
                   </div>
+                ))} */}
+                {item.roomNumbers.map((roomNumber) => (
+                  <div className="room" key={roomNumber._id}>
+                    <label>{roomNumber.number}</label>
+                    <input
+                      type="checkbox"
+                      value={roomNumber._id}
+                      data-room-number={roomNumber.number}
+                      // onChange={handleChange}
+                      onChange={handleSelect}
+                      disabled={!isAvailable(roomNumber)}
+                    />
+                    {/* <label>Xác nhận</label> */}
+                  </div>
                 ))}
               </div>
             </div>
           ))}
-          <button onClick={handleClick} 
-          className="rButton"
-          >
+          {/* <Link to={`/pay/${hotelId}`}> */}
+          <button onClick={handleClick} className="rButton">
             Đặt trước ngay!
           </button>
+          {/* </Link> */}
         </form>
       </div>
     </div>

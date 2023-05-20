@@ -2,23 +2,54 @@ import Order from "../models/Order.js";
 import Hotel from "../models/Hotel.js";
 import { createError } from "../utils/error.js";
 import User from "../models/User.js";
-// import mongoose from "mongoose";
+import Stripe from 'stripe';
+
+// export const intent = async (req, res,  next) => {
+//   const stripe = new Stripe(process.env.STRIPE);
+
+//   const hotel = await Hotel.findById(req.params.hotelid);
+
+
+//   const paymentIntent = stripe.paymentIntents.create({
+//     amount: req.body.cheapestPrice,
+//     currency: "usd",
+//     automatic_payment_methods: {
+//       enabled: true,
+//     },
+//     });
+
+//     const newOrder = new Order({
+//       nameHotel: hotel.name,
+//       title: hotel.title,
+//       city: hotel.city,
+//       price: hotel.cheapestPrice,   
+//       rooms: req.body.rooms,
+//       userId: req.body.userId,
+//       userName: req.body.userName,
+//       payment_intent: paymentIntent.id
+//     });
+//     await newOrder.save();
+//     res.send({
+//       clientSecret: (await paymentIntent).client_secret,
+//     });
+// }
+import mongoose from "mongoose";
 
 export const createOrder = async (req, res, next) => {
   try {
-  console.log(req);
     const hotel = await Hotel.findById(req.params.hotelid);
     // const newOrder = new Order(req.body);
     const newOrder = new Order({
       nameHotel: hotel.name,
       title: hotel.title,
       city: hotel.city,
-      price: hotel.cheapestPrice,
+      price: hotel.cheapestPrice,   
       rooms: req.body.rooms,
+      roomId: req.body.roomId,
       userId: req.body.userId,
       userName: req.body.userName,
     });
-    // console.log(newOrder);
+    console.log(newOrder.rooms);
     const saveOrder = await newOrder.save();
     res.status(200).json(saveOrder);
   } catch (err) {
@@ -60,6 +91,18 @@ export const updateOrder = async(req, res, next)=>{
           { new: true }
           );
       res.status(200).json(updateOrder);
+  }catch(err){
+      next(err);
+  }
+}
+export const cancleOrder = async(req, res, next)=>{
+  try{
+      const cancleOrder = await Order.findByIdAndUpdate(
+          req.params.id, 
+          { status: 'Đã Hủy' },
+          { new: true }
+          );
+      res.status(200).json(cancleOrder);
   }catch(err){
       next(err);
   }

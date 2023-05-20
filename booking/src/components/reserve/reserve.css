@@ -42,6 +42,7 @@
   
   .rDesc {
     font-weight: 300;
+    /* max-width: 300px; */
   }
   
   .rMax {
