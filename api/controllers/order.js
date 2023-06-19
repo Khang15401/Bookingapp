@@ -43,13 +43,12 @@ export const createOrder = async (req, res, next) => {
       nameHotel: hotel.name,
       title: hotel.title,
       city: hotel.city,
-      price: hotel.cheapestPrice,   
+      price: req.body.priceRoom,   
       rooms: req.body.rooms,
       roomId: req.body.roomId,
       userId: req.body.userId,
       userName: req.body.userName,
     });
-    console.log(newOrder.rooms);
     const saveOrder = await newOrder.save();
     res.status(200).json(saveOrder);
   } catch (err) {

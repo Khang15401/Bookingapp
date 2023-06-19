@@ -3,12 +3,12 @@ import {Link} from "react-router-dom"
 
 const SearchItem = ({item}) => {
   return (
-    <div className="searchItem">
+    <div className="searchItem" >
      <img src={item.photos[0]} 
      alt="" 
      className="siImg" 
      />
-     <div className="siDesc">
+     <div className="siDesc" >
      <h1 className="siTitle">{item.name}</h1>
         <span className="siDistance">Cách trung tâm {item.distance}km </span>
         <span className="siTaxiOp">Taxi sân bay miễn phí</span>

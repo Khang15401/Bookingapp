@@ -48,18 +48,6 @@ const Header = ({type}) => {
   const {dispatch} = useContext(SearchContext);
   
   const navigate = useNavigate()
-  // const handleLogout = async () => {
-  //   // window.localStorage.removeItem('user', null);
-  //   // payload: res.data;
-  //   try{
-  //    const res = await axios.post('/auth/logout');
-  //    localStorage.setItem('user',null);
-  //   //  dispatch({type: 'LOGOUT', payload:res.data});
-  //    navigate("/login")
-  //   } catch(err){
-  //     console.log(err);
-  //   }
-  // }
 
   const handleSearch = () => {
     dispatch({type: "NEW_SEARCH", payload:{destination, dates, options}});
@@ -154,7 +142,7 @@ const Header = ({type}) => {
                       <div className="optionCounter"> 
                         <button disabled = {options.Phòng <= 1} className="optionCounterButton" onClick={()=>handleOption("Phòng", "d")}>-</button>
                         <span className="optionCounterNumber">{options.Phòng}</span>
-                        <button className="optionCounterButton" onClick={()=>handleOption("Phòng", "i")}>+</button>
+                        <button disabled={options.Phòng >= 5} className="optionCounterButton" onClick={()=>handleOption("Phòng", "i")}>+</button>
                       </div>
                     </div>
                   </div>}
