@@ -7,38 +7,36 @@ const OrderSchema = new mongoose.Schema({
     },
     userName: {
         type: String,
-        // required: true
+        required: true
     },
     nameHotel: {
         type: String,
-        // required: true
+        required: true
     },
     title: {
         type: String,
-        // required: true,
+        required: true,
     },
     price: {
         type: Number,
-        // required: true,
+        required: true,
     },
     city:{
         type: String,
+        required: true,
     },
     rooms:{
         type: String,
+        required: true,
     },
     roomId:{
         type: String,
+        required: true,
     },
     status:{
         type: String,
         default: "Chưa Nhận Phòng",
     },
-    // payment_intent: {
-    //   type: String,
-    //   required: true,
-    // },
-    
 },
 {timestamps:true}
 );

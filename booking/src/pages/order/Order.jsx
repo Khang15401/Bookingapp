@@ -91,7 +91,7 @@ const Order = () => {
               <th>Giá</th>
               <th>Phòng</th>
               {/* <th>Tình Trạng</th> */}
-              <th>Trang Thái</th>
+              <th>Hành Động</th>
             </tr>
             {data.map((order) => (
               <tr key={order._id}>

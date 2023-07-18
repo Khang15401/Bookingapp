@@ -1,11 +1,12 @@
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { SearchContext } from "../../context/SearchContex";
 import useFetch from "../../hooks/useFetch";
 import "./reserve.css";
 import axios, { all } from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { PayPalButton } from "react-paypal-button-v2";
 
 const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
@@ -14,11 +15,25 @@ const Reserve = ({ setOpen, hotelId }) => {
   const { data, loading, error } = useFetch(`/hotels/room/${hotelId}`);
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
-  const { dates, options } = useContext(SearchContext);
-
+  const { dates, options } = useContext(SearchContext); 
+  const [showPaypalButton, setShowPaypalButton] = useState(false);
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
+
+  // useEffect(() => {
+  //   const script = document.createElement('script');
+  //   // script.type = 'text/javascript'
+  //   script.src = '/paypal-sdk.js'; // Đường dẫn tới tệp tin paypal-sdk.js  
+  //   script.async = true;
+  //   document.body.appendChild(script); 
+
+  //   return () => {
+  //     // Xóa script khi component Reserve bị hủy     
+  //     document.body.removeChild(script);
+  //   };
+  // }, []);
+  
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   const dayDifference = (date1, date2)=>{
@@ -55,9 +70,13 @@ const Reserve = ({ setOpen, hotelId }) => {
     return !isFound;
   };
 
+  const Dola  = (priceRoom * days * options.Phòng) / 23500;
+  console.log(Dola.toFixed(2));
+
   const handleSelect = (e) => {
     const checked = e.target.checked;
     const value = e.target.value;
+    setShowPaypalButton(true);
     setSelectedRoomNumber(e.target.dataset.roomNumber);
     setPriceRoom(e.target.dataset.roomPrice);
     // console.log(e.target.dataset.roomPrice);
@@ -67,15 +86,11 @@ const Reserve = ({ setOpen, hotelId }) => {
         : selectedRooms.filter((item) => item !== value)
     );
   };
-  // console.log(selectedRoomNumber);
-  // console.log(priceRoom);
-  // console.log(days * priceRoom*options.Phòng);
-  // const priceWithVAT = (priceRoom * days * options * 1.08).toFixed(0);
-  // console.log(priceWithVAT);
+  console.log(selectedRoomNumber);
+  console.log(priceRoom);
   const navigate = useNavigate();
 
   const handleClick = async (e) => {
-    e.preventDefault();
     try {
       await Promise.all(
         selectedRooms.map((roomId) => {
@@ -83,33 +98,36 @@ const Reserve = ({ setOpen, hotelId }) => {
             dates: alldates,
           });
           localStorage.setItem("roomId", roomId);
+          
           return res.data;
         })
-      );
-
-      const user = JSON.parse(localStorage.getItem("user"));
-      const roomId = localStorage.getItem("roomId");
-      // const priceWithVAT = (priceRoom * days * options * 1.08).toFixed(0);
-      // console.log(priceWithVAT);
-      const newOrder = {
-        ...info,
-        rooms: selectedRoomNumber,
-        priceRoom: priceRoom * days * options.Phòng,
-        roomId: roomId,
-        userId: user._id,
-        userName: user.username,
-      };
-      setOpen(false);
-      console.log(priceRoom);
-      await axios.post(`/orders/${hotelId}`, newOrder);
-      alert("Đặt phòng thành công!");
-      console.log(newOrder);
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  return (
+        );
+        
+        const user = JSON.parse(localStorage.getItem("user"));
+        const roomId = localStorage.getItem("roomId");
+        // const priceWithVAT = (priceRoom * days * options * 1.08).toFixed(0);
+        // console.log(priceWithVAT);
+        const newOrder = {
+          ...info,
+          rooms: selectedRoomNumber,
+          priceRoom: priceRoom * days * options.Phòng,
+          roomId: roomId,
+          userId: user._id,
+          userName: user.username,
+        };
+        console.log(priceRoom);
+        // setOpen(false);
+        await axios.post(`/orders/${hotelId}`, newOrder);
+        e.preventDefault();
+        // alert("Đặt phòng thành công!");
+        console.log(newOrder);
+        // navigate("/");
+      } catch (err) {
+        console.log(err);
+      }
+    
+    };
+    return (
     <div className="reserve">
       <div className="rContainer">
         <FontAwesomeIcon
@@ -134,22 +152,6 @@ const Reserve = ({ setOpen, hotelId }) => {
                 </div>
               </div>
               <div className="rSelectRooms">
-                {/* {item.roomNumbers.map((roomNumber) => (
-                  <div className="room" onChange={handleChange}>
-                    <label>Ph.{roomNumber.number}</label>
-                    <input
-                      type="checkbox"
-                      value={roomNumber._id}
-                      onChange={handleSelect}
-                      disabled={!isAvailable(roomNumber)}
-                      id="idRoom"
-                    />
-                    <label>Xác nhận</label>
-                    <input type="checkbox" value={roomNumber.number} id="rooms" 
-                    disabled={!isAvailable(roomNumber)}
-                    onChange={handleChange}/>
-                  </div>
-                ))} */}
                 {item.roomNumbers.map((roomNumber) => (
                   <div className="room" key={roomNumber._id}>
                     <label>{roomNumber.number}</label>
@@ -168,10 +170,31 @@ const Reserve = ({ setOpen, hotelId }) => {
             </div>
           ))}
           {/* <Link to={`/pay/${hotelId}`}> */}
-          <button onClick={handleClick} className="rButton">
-            Đặt trước ngay!
-          </button>
+            {/* <button onClick={handleClick} className="rButton">
+              Đặt trước ngay!
+            </button> */}
           {/* </Link> */}
+          {showPaypalButton && (
+
+            <PayPalButton 
+            onClick={handleClick}
+            // amount="0.01" 
+            amount={Dola.toFixed(2)}  
+            
+            // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+            onSuccess={(details, data) => {
+              alert("Transaction completed by " + details.payer.name.given_name);
+              
+              // OPTIONAL: Call your server to save the transaction
+              // return fetch(`/orders/${hotelId}`, {
+                //   method: "post",
+                //   body: JSON.stringify({
+                  //     orderID: data.orderID,
+                  //   })
+                  // });
+                }}
+              />
+          )}
         </form>
       </div>
     </div>

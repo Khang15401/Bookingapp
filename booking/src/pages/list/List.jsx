@@ -37,7 +37,7 @@ const List = () => {
       <div className="listContainer">
         <div className="listWrapper">
           <div className="listSearch">
-            <h1 className="lsTitle">Search</h1>
+            <h1 className="lsTitle">Tìm Kiếm</h1>
             <div className="lsItem">
               <label>Tên chỗ nghỉ / điểm đến:</label>
               <input placeholder={destination} type="text" />

@@ -1,11 +1,12 @@
-// import React from 'react'
+import React from 'react'
+import { PayPalButton } from 'react-paypal-button-v2'
 
-// const Success = () => {
-//   return (
-//     <div>
-//       Hello
-//     </div>
-//   )
-// }
+const Success = () => {
+  return (
+    <div>
+      <PayPalButton/>
+    </div>
+  )
+}
 
-// export default Success
+export default Success
