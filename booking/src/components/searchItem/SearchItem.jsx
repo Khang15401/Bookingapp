@@ -24,7 +24,7 @@ const SearchItem = ({item}) => {
      <div className="siChiTiet">
         
         <div className="siChiTietVb">
-            <span className="siGia">{item.cheapestPrice}VND</span>
+            <span className="siGia">{item.cheapestPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
             {item.rating &&  <div className="siRating">
                 <span>  </span>
                 <button>{item.rating}</button>

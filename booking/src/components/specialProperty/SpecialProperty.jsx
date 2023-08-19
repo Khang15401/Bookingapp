@@ -20,7 +20,7 @@ const SpecialProperty = () => {
               </Link>
                 <span className="spName">{item.name}</span>
                 <span className="spCity">{item.city}</span>
-                <span className="spGia">Bắt đầu từ {item.cheapestPrice} VND</span>
+                <span className="spGia">Giá chỉ từ {item.cheapestPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                 {item.rating &&  <div className="spTitle">
                     <button>{item.rating}</button>
                     <span>Tuyệt hảo</span>

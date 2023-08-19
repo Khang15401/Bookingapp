@@ -33,6 +33,10 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    photoRoom:{
+        type: String,
+        require: true,
+    },
     status:{
         type: String,
         default: "Chưa Nhận Phòng",

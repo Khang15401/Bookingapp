@@ -43,7 +43,7 @@ const Hotel = () => {
   const days = dayDifference(dates[0]?.endDate, dates[0]?.startDate);
   // const day =  days * data.cheapestPrice * options.Phòng;
   // console.log(day);
-
+  const VND = (days * data.cheapestPrice * options.Phòng * 1.08).toFixed(0);
   const handleOpen = (i) => {
     setSoSlider(i);
     setOpen(true);
@@ -138,7 +138,8 @@ const Hotel = () => {
                 </span>
                 <h2>
                   <b>
-                    Giá chỉ từ: {(days * data.cheapestPrice * options.Phòng * 1.08).toFixed(0)} VND
+                    {/* Giá chỉ từ: {(days * data.cheapestPrice * options.Phòng * 1.08).toFixed(0)} VND */}
+                    Giá chỉ từ: {(days * data.cheapestPrice * options.Phòng * 1.08).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                   </b>{" "}
                   ({days} đêm)
                 </h2>

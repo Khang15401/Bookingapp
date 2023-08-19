@@ -2,7 +2,6 @@ import Order from "../models/Order.js";
 import Hotel from "../models/Hotel.js";
 import { createError } from "../utils/error.js";
 import User from "../models/User.js";
-import Stripe from 'stripe';
 import mongoose from "mongoose";
 
 // export const intent = async (req, res, next) => {
@@ -50,6 +49,7 @@ export const createOrder = async (req, res, next) => {
       roomId: req.body.roomId,
       userId: req.body.userId,
       userName: req.body.userName,
+      photoRoom: req.body.photoRoom
     });
     const saveOrder = await newOrder.save();
     res.status(200).json(saveOrder);
@@ -117,3 +117,5 @@ export const deleteOrder = async(req, res, next)=>{
       next(err);
   }
 }
+
+

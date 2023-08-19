@@ -45,7 +45,7 @@ const EditProfile = () => {
       <div className="orders">
         <div className="container">
           <div className="title">
-            <h1>Thông Tin Cá Nhân</h1>
+            <h1 className="title-name">Thông Tin Cá Nhân</h1>
           </div>
           <form className="edit-form">
                 {/* <div className="div-tong"> */}

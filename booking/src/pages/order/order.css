@@ -1,41 +1,24 @@
-.div-tong{
+/* .div-tong{
   display: flex;
   flex-direction: column;
-  /* height: 800px; */
-  /* align-items: center; */
-}
-.orders {
+} */
+/* .orders {
   display: flex;
   justify-content: center;
   color: #555;
-  /* min-height: 300px; */
-  /* max-height: 1000px; */
-}
-.container {
+} */
+/* .container {
   width: 1400px;
   padding: 50px 0px;
-}
+} */
 
-.title {
+/* .title {
   display: flex;
   justify-content: space-around;
   padding-bottom: 45px;
- 
-}
-
-/* button {
-  background-color: #1dbf73;
-  color: white;
-  font-weight: 500;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
 } */
-.btn-cancleRoom{
-  /* border: red solid 1px;
-  cursor: pointer;
-  background-color: white;
-  color: red; */
+
+/* .btn-cancleRoom{
       padding: 2px 5px;
       margin-top: 10px;
       width: 40%;
@@ -46,8 +29,8 @@
       cursor: pointer;
       text-align: center;
       background-color: rgb(246, 72, 72);
-}
-.btn-finishRoom-disabled{
+} */
+/* .btn-finishRoom-disabled{
     color: white;
     padding: 2px 5px;
     margin-top: 10px;
@@ -59,8 +42,8 @@
     opacity: 0.6;
     text-align: center;
     background-color: #003580;
-}
-.btn-cancle1Room-disabled{
+} */
+/* .btn-cancle1Room-disabled{
     color: white;
     padding: 2px 5px;
     margin-top: 10px;
@@ -72,33 +55,28 @@
     opacity: 0.3;
     background-color: #003580;
     text-align: center;
-}
-table {
+} */
+/* table {
   width: 100%;
-}
-tr {
+} */
+/* tr {
   height: 50px;
-}
+} */
 
-th {
+/* th {
   text-align: left;
-}
+} */
 
-sup{
+/* sup{
   font-size: 12px;
-}
+} */
 
-a{
+/* a{
   text-decoration: none;
-}
-
-/* .fText {
-  display: flex;
-  flex-direction: column;
 } */
 
 /* CSS cho hộp thoại xác nhận */
-.confirmation-dialog {
+/* .confirmation-dialog {
   position: fixed;
   top: 0;
   left: 0;
@@ -109,31 +87,31 @@ a{
   align-items: center;
   justify-content: center;
   z-index: 9999;
-}
+} */
 
-.confirmation-content {
+/* .confirmation-content {
   background-color: #fff;
   padding: 20px;
   border-radius: 4px;
   max-width: 400px;
   text-align: center;
-}
+} */
 
-.confirmation-content h3 {
+/* .confirmation-content h3 {
   font-size: 18px;
   margin-bottom: 10px;
-}
+} */
 
-.confirmation-content p {
+/* .confirmation-content p {
   margin-bottom: 20px;
-}
+} */
 
-.confirmation-buttons {
+/* .confirmation-buttons {
   display: flex;
   justify-content: center;
-}
+} */
 
-.confirmation-buttons button {
+/* .confirmation-buttons button {
   margin: 0 10px;
   padding: 8px 16px;
   border-radius: 4px;
@@ -141,16 +119,133 @@ a{
   color: #fff;
   border: none;
   cursor: pointer;
-}
+} */
 
-.confirmation-buttons button:hover {
+/* .confirmation-buttons button:hover {
   background-color: #0056b3;
-}
+} */
 
-.confirmation-buttons button:last-child {
+/* .confirmation-buttons button:last-child {
   background-color: #dc3545;
+} */
+
+/* .confirmation-buttons button:last-child:hover {
+  background-color: #c82333;
+} */
+
+
+
+
+.WrapperContainer {
+  width: 100%;
+  background-color: #f5f5fa;
 }
 
-.confirmation-buttons button:last-child:hover {
-  background-color: #c82333;
+.WrapperListOrder{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.WrapperItemOrder{
+  display: flex;
+  align-items: center;
+  padding: 9px 16px;
+  background: #fff;
+  margin-top: 12px;
+  flex-direction: column;
+  width: 950px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 12px 12px #ccc;
+}
+.WrapperStatus{
+  /* margin-top: 10px; */
+  display:flex;
+  /* align-items: flex-start; */
+  width: 100%;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(235, 235, 240);
+  flex-direction:column;
+}
+
+.Wrapper-detail{
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.status-reservation{
+  font-size: 14;
+  font-weight: bold;
+}
+
+.WrapperFooterItem{
+  display: flex;
+  flex-direction : column;
+  gap: 10px;
+  border-top: 1px solid rgb(235, 235, 240);
+  width: 100%;
+  align-items:flex-end;
+  padding-top: 10px;
+}
+
+.title-order {
+  margin-top: 10px;
+  margin-left: 159px;
+}
+.button-order{
+  padding: 12px 8px;
+    height: 36px;
+    border-radius: 4px;
+    border: 1px solid rgb(11, 116, 229);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: rgb(11, 116, 229);
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 8px
+}
+
+.photo-Room {
+  width: 160px;
+  height: 100px;
+  object-fit: cover;
+  border: 1px solid #e1e1e1;
+  padding: 2px;
+  position: relative;
+  background-position: left;
+  border-radius: 5px;
+}
+.detail-img{
+  /* margin-right: 76%; */
+  display: flex;
+  position: relative;
+  margin-right: auto ;
+}
+
+.detail-room {
+  margin: 0px 12px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6px;
+}
+
+.number-room{
+  margin-top: 2px;
+  display: flex;
+}
+
+.price-room{
+  margin-top: 8px;
+  min-width: 540px;
+  display: flex;
+  justify-content: flex-end;
 }

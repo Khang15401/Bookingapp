@@ -12,6 +12,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [selectedRoomNumber, setSelectedRoomNumber] = useState(null);
   const [priceRoom, setPriceRoom] = useState(0);
+  const [pictureRoom, setPictureRoom] = useState("");
   const { data, loading, error } = useFetch(`/hotels/room/${hotelId}`);
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
@@ -41,7 +42,7 @@ const Reserve = ({ setOpen, hotelId }) => {
     const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
     return diffDays;
   };
-  
+
   const days = dayDifference(dates[0]?.endDate, dates[0]?.startDate);
   // console.log(days);
 
@@ -79,7 +80,9 @@ const Reserve = ({ setOpen, hotelId }) => {
     setShowPaypalButton(true);
     setSelectedRoomNumber(e.target.dataset.roomNumber);
     setPriceRoom(e.target.dataset.roomPrice);
-    // console.log(e.target.dataset.roomPrice);
+    // const photoRoom = e.target.dataset.photo;
+    // console.log(e.target.dataset.photo);
+    setPictureRoom(e.target.dataset.roomPhoto);
     setSelectedRooms(
       checked
         ? [...selectedRooms, value]
@@ -88,6 +91,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   };
   console.log(selectedRoomNumber);
   console.log(priceRoom);
+  console.log(pictureRoom);
   const navigate = useNavigate();
 
   const handleClick = async (e) => {
@@ -114,13 +118,14 @@ const Reserve = ({ setOpen, hotelId }) => {
           roomId: roomId,
           userId: user._id,
           userName: user.username,
+          photoRoom: pictureRoom,
         };
-        console.log(priceRoom);
+        // console.log(priceRoom);
         // setOpen(false);
         await axios.post(`/orders/${hotelId}`, newOrder);
+        console.log(newOrder);
         e.preventDefault();
         // alert("Đặt phòng thành công!");
-        console.log(newOrder);
         // navigate("/");
       } catch (err) {
         console.log(err);
@@ -153,6 +158,7 @@ const Reserve = ({ setOpen, hotelId }) => {
               </div>
               <div className="rSelectRooms">
                 {item.roomNumbers.map((roomNumber) => (
+                  
                   <div className="room" key={roomNumber._id}>
                     <label>{roomNumber.number}</label>
                     <input
@@ -160,9 +166,10 @@ const Reserve = ({ setOpen, hotelId }) => {
                       value={roomNumber._id}
                       data-room-number={roomNumber.number}
                       data-room-price={item.price*1.08}
+                      data-room-photo={item.photo}
                       onChange={handleSelect}
                       disabled={!isAvailable(roomNumber)}
-                    />
+                      />
                     {/* <label>Xác nhận</label> */}
                   </div>
                 ))}
