@@ -16,12 +16,15 @@ router.delete("/:id", verifyAdmin, deleteOrder);
 
 //GET
 router.get("/history/:id", getOrder);
-router.get("/:id", verifyAdmin ,getOrderId);
+router.get("/:id", getOrderId);
 // router.post("/create-payment-intent/:hotelid", intent)
 //Payment Paypal
 
 
 //GET ALL
 router.get("/", getOrders);
+
+//SEARCH ORDER
+// router.get("/search/orders/", searchOrder);
 
 export default router

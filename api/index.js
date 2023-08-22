@@ -9,6 +9,7 @@ import roomsRoute from "./routes/rooms.js"
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
+
 const app = express();
 dotenv.config()
 mongoose.set('strictQuery', true);
@@ -46,6 +47,7 @@ app.use((err, req, res, next) =>{
         stack: err.stack,
     });
 });
+
 
 app.listen(8800, ()=> {
     connect()

@@ -10,7 +10,7 @@ import List from "./pages/list/List";
 import Login from "./pages/login/Login";
 import Order from "./pages/order/Order";
 import Edit from "./pages/edit/EditProfile";
-import Success from "./pages/success/Success";
+import Detail from "./pages/detail/Detail";
 
 // const signOut = (e) => {
 //     //e.preventDefault();
@@ -41,7 +41,7 @@ function App()  {
               <Route path="/register" element={<Register1/>}/>
               <Route path="/orders" element={<Order/>}/>
               <Route path="/users" element={<Edit/>}/> 
-              <Route path="/success" element={<Success/>}/> 
+              <Route path="/orders/detail/:orderId" element={<Detail/>}/> 
           </Routes>
       </BrowserRouter>
   );

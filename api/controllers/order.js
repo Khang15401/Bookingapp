@@ -119,3 +119,36 @@ export const deleteOrder = async(req, res, next)=>{
 }
 
 
+// export const searchOrder = async (req, res, next) => {
+//   try {
+//     const orders = Order.aggregate([
+//       {
+//         $search: {
+//           index:"searchTitle",
+//           autocomplete: {
+//             "query": `${req.query._id}`,
+//             "path": "_id"
+//           }
+//         }
+//       },
+//       { $sort: { createdAt: -1} },
+//       { $limit: 5},
+//       {
+//         $project: {
+//           _id: 1,
+//           nameHotel: 1,
+//           city: 1,
+//           createdAt: 1
+//         }
+//       }
+//     ])
+
+//     if(!orders.length)
+//       return res.status(400).json({msg: 'Khong co hoa don.'})
+
+//     res.status(200).json(orders)
+
+//   } catch (error) {
+//     next(err);
+//   }
+// }

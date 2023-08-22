@@ -1,16 +1,13 @@
-import { useLocation } from "react-router-dom";
-import Footer from "../../components/footer/Footer";
-import Header from "../../components/header/Header";
+import { Link, useLocation } from "react-router-dom";
 import MailList from "../../components/mailList/MailList";
 import Navbar from "../../components/navbar/Navbar";
-import { faMoneyBillTransfer } from '@fortawesome/free-solid-svg-icons';
-import { faWallet } from '@fortawesome/free-solid-svg-icons';
-
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import useFetch from "../../hooks/useFetch";
 import "./order.css";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
@@ -18,6 +15,7 @@ const Order = () => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
+  const [search, setSearch] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [orderId, setOrderId] = useState(null);
   const [id, setID] = useState(null);
@@ -29,13 +27,17 @@ const Order = () => {
   useEffect(() => {
     setList(data);
   }, [data]);
+
+  const navigate = useNavigate();
+
   const reversedData = [...data].reverse();
-  // console.log(reversedData);
+  // console.log(reversedData);  
   const showConfirmDialog = (id,orderId) => {
     setShowConfirmation(true);
     setOrderId(orderId);
     setID(id);
   };
+  console.log(reversedData);
 
   const hideConfirmDialog = () => {
     setShowConfirmation(false);
@@ -80,15 +82,37 @@ const Order = () => {
     }
   };
 
-  
+  const handleDetailsOrder = async (orderId) => {
+    try {
+     const details = await axios.get(`/orders/${orderId}`);
+     navigate(`/orders/detail/${orderId}`);
+    // setOrderId(orderId);   
+    console.log(details);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
       <div className="WrapperContainer">
       <Navbar />
+      {/* <SearchOrder/> */}
         <div style={{height: '100%', width: '1270px', margin: '0 auto'}}>
           <h2 className="title-order">Đơn đặt phòng của tôi</h2>
+          <div className="container-search">
+            <FontAwesomeIcon className="icon-search" icon={faMagnifyingGlass}/>
+            <input  className="form-search" onChange={ (e) => setSearch(e.target.value)} placeholder="Nhập vào mã đơn đặt phòng, tên thành phố hoặc tên khách sạn..."/>
+          </div>
           <div className="WrapperListOrder">
-            {reversedData.map((order) => {
+            {reversedData.filter((order) =>{ 
+              const searchTerm = search.toLowerCase();
+              const regex = new RegExp(searchTerm, 'i');
+              return (
+                  regex.test(order._id.toLowerCase()) ||
+                  regex.test(order.nameHotel.toLowerCase()) ||
+                  regex.test(order.city.toLowerCase())
+              );
+            }).map((order) => {
               return (
                 <div className="WrapperItemOrder" key={order?._id}>
                   <div className="WrapperStatus">
@@ -110,11 +134,11 @@ const Order = () => {
                   <div className="detail-img">
                     <img className="photo-Room" src={order.photoRoom} alt="" />
                     <div className="detail-room">
-                      <span>{order.roomId}</span>
+                      <span>{order.city}</span>
                       <div className="number-room">Phòng {(order?.rooms)}</div>
                     </div>
                     <div className="price-room">
-                      <span>50.000vnd</span>
+                      <span>{(order.price/1.08).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                     </div>
                     {/* <div className="price-room">
                       <span>{(order?.rooms)}</span>
@@ -128,37 +152,54 @@ const Order = () => {
                       >{(order?.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }))}</span>
                     </div>  
                     <div style={{display: 'flex', gap: '10px'}}>
-                    <button className="button-order"
+                    {order.status !== 'Đã Hủy' &&  order.status !== 'Hoàn Thành' && (
+                      <button className="button-order"
                         // onClick={() => handleCanceOrder(order)}
+                        onClick={() => handleClick(order.roomId, order._id)}
                         size={40}
                         styleButton={{
                             height: '36px',
                             border: '1px solid #9255FD',
                             borderRadius: '4px'
                         }}
-                        textbutton={'Hủy đơn hàng'}
                         styleTextButton={{ color: '#9255FD', fontSize: '14px' }}
+                        disabled={order.status === 'Đã Hủy'}
                       >
                         Hủy Đặt Phòng
                       </button>
+                    )}
+                      {/* <div className="btn-cancleRoom" onClick={() => handleClick(order.roomId, order._id)}>Hủy đặt phòng</div> */}
+                    {/* <Link to = {`/orders/detail/${orderId}`}   style={{color:"inherit", textDecoration:"none"}}> */}
                       <button className="button-order"
-                        // onClick={() => handleDetailsOrder(order?._id)}
+                        onClick={() => handleDetailsOrder(order?._id)}
                         size={40}
                         styleButton={{
-                            height: '36px',
-                            border: '1px solid #9255FD',
-                            borderRadius: '4px'
+                          height: '36px',
+                          border: '1px solid #9255FD',
+                          borderRadius: '4px'
                         }}
-                        textbutton={'Xem chi tiết'}
                         styleTextButton={{ color: '#9255FD', fontSize: '14px' }}
-                      >
+                        >
                         Xem Chi Tiết
                       </button>
+                    {/* </Link> */}
                     </div>
                   </div>
                 </div>
               )
             })}
+            {showConfirmation && (
+            <div className="confirmation-dialog">
+              <div className="confirmation-content">
+                <h3>Xác nhận hủy đặt phòng</h3>
+                <p>Bạn có chắc chắn muốn hủy đặt phòng?</p>
+                <div className="confirmation-buttons">
+                  <button onClick={confirmCancellation}>Xác nhận</button>
+                  <button onClick={hideConfirmDialog}>Hủy</button>
+                </div>
+              </div>
+            </div>
+          )}
           </div>
         </div>
         <MailList />  

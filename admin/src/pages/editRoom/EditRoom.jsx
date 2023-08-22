@@ -25,7 +25,6 @@ const EditRoom = ({}) => {
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
-
   const handleClick = async (e) => {
     e.preventDefault();
 
@@ -133,14 +132,17 @@ const EditRoom = ({}) => {
                   name="maxPeople"
                 />
                 <label>Số Phòng Khách Sạn</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.roomNumbers}
-                  // placeholder={JSON.stringify(data.roomNumbers)}
-                  id="roomNumbers"
-                  name="roomNumbers"
-                />
+                {data && data.roomNumbers && (
+                  <input
+                    onChange={handleChange} 
+                    type="text"
+                    placeholder={data.roomNumbers
+                      .map((roomNumber) => roomNumber.number)
+                      .join(", ")}
+                    id="roomNumbers"
+                    name="roomNumbers"
+                  />
+                )}
               </div>
 
               <button className="no-btn" disabled></button>
