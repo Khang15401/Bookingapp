@@ -1,0 +1,65 @@
+.container-detailOrder {
+    display: table;
+}
+
+.detail-sumary {
+    margin: 0 !important;
+    width: 100%;
+}
+
+.wrap-detail {
+    width: 730px;
+    margin-left: 280px;
+}
+
+.reservation-status-container {
+    margin-top: 32px;
+    margin-bottom: 16px; 
+    margin-left: 0; 
+    margin-right: 0; 
+}
+
+/* .reservation-status-title */
+.reservation-status-title {
+    margin-bottom: 16px; /* Giá trị tương ứng với --bui_spacing_4x */
+}
+
+/* .reservation-status-title-status */
+.reservation-status-title-status {
+    margin-bottom: 8px; /* Giá trị tương ứng với --bui_spacing_2x */
+    height: 20px;
+}
+
+/* .detail-header */
+.detail-header {
+    color: #000; /* Màu chữ cơ bản */
+    font-weight: bold; /* Độ đậm đơn giản */
+    font-size: 18px; /* Kích thước chữ lớn */
+    line-height: 24px; /* Chiều cao dòng chữ lớn */
+    margin-bottom: 16px; /* Giá trị tương ứng với --bui_spacing_4x */
+}
+
+.link-booking-again {
+    color: #003580;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+}
+.spacing{
+    padding-left: 20px;
+    
+}
+.link-booking-again:hover {
+    color: #1a1a1a;
+    text-decoration: underline;
+}
+.icon-booking {  
+    position: relative;
+    fill: currentColor;
+    height: 32px; 
+    width: 32px; 
+    margin-right: 11px; 
+}
+
+
+

@@ -23,13 +23,13 @@ import axios from "axios";
 const Header = ({type}) => {
   const [destination, setDestination] = useState("")
   const [openDate, setOpenDate] = useState(false)
-  const [dates, setDates] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: 'selection'
-    }
-  ]);
+    const [dates, setDates] = useState([
+      {
+        startDate: new Date(),
+        endDate: new Date(),
+        key: 'selection'
+      }
+    ]);
   const [openOptions, setOpenOptions] = useState(false)
   const [options, setOptions] = useState({
     Người_Lớn: 1,

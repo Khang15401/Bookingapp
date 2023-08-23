@@ -30,8 +30,8 @@ const SearchItem = ({item}) => {
                 <button>{item.rating}</button>
             </div>}
             <span className="siThue">Đã bao gồm thuế và phí</span>
-            <Link to={`/hotels/${item._id}`}>
-            <button className="siNutKTra">Xem chỗ trống</button>
+            <Link to={`/hotels/${item._id}`} target="_blank">
+            <button className="siNutKTra" >Xem chỗ trống</button>
             </Link>
         </div>
      </div>

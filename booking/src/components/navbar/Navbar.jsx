@@ -3,11 +3,14 @@ import {Link, useNavigate} from "react-router-dom"
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContex";
 import axios from "axios";
+import { useRef } from "react";
+import { useEffect } from "react";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { user } = useContext(AuthContext);
 
   const navigate = useNavigate()
+
   const handleLogout = async () => {
     // window.localStorage.removeItem('user', null);
     // payload: res.data;
@@ -18,7 +21,7 @@ const Navbar = () => {
     //  navigate("/login")
     } catch(err){
       console.log(err);
-    }
+    } 
   }
   return (
     <div className="navbar">
@@ -28,7 +31,7 @@ const Navbar = () => {
         </Link>
         
         {user ? <>
-          <div className="user" onClick={() => setOpen(!open)}>Hello {user.username}</div>
+          <div aria-expanded   className="user" onClick={() => setOpen(!open)}>Hello {user.username}</div>
          {open &&<div className="options">
             <>
             <Link className="link" to='/users'>Thông tin</Link>
@@ -45,19 +48,7 @@ const Navbar = () => {
               <button className="navButton"> Đăng Nhập</button>
             </Link>   
         </div>)}
-         {/* <div className="user" onClick={() => setOpen(!open)}>Hello {user.username}</div>
-         {open &&<div className="options">
-            <>
-            <Link>Booking</Link>
-            <Link to='/login' onClick={handleLogout}>Logout</Link>
-            </>
-         </div>} */}
-        {/* {user ? user.username:(<div className="navItems">
-            <Link to="/login">
-            <button onClick={handleLogout} className="navButton">Đăng xuất</button>
-            </Link>
-        </div>)} */}
-      </div>
+        </div>
     </div>
   )
 }

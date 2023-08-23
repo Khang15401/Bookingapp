@@ -153,7 +153,7 @@ const Reserve = ({ setOpen, hotelId }) => {
                 </div>
                 <div className="rPrice" id="price">
                   {/* {item.price} */}
-                  {item.price*1.08}
+                  {(item.price*1.08).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                 </div>
               </div>
               <div className="rSelectRooms">
