@@ -41,15 +41,21 @@ export const createOrder = async (req, res, next) => {
     const hotel = await Hotel.findById(req.params.hotelid);
     // const newOrder = new Order(req.body);
     const newOrder = new Order({
+      hotelId: hotel._id,
       nameHotel: hotel.name,
       title: hotel.title,
       city: hotel.city,
+      address: hotel.address,
       price: req.body.priceRoom,   
       rooms: req.body.rooms,
       roomId: req.body.roomId,
       userId: req.body.userId,
       userName: req.body.userName,
-      photoRoom: req.body.photoRoom
+      photoRoom: req.body.photoRoom,
+      quantity: req.body.quantity,
+      checkIn: req.body.checkIn,
+      checkOut: req.body.checkOut,
+
     });
     const saveOrder = await newOrder.save();
     res.status(200).json(saveOrder);

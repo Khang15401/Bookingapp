@@ -7,6 +7,7 @@ import "./reserve.css";
 import axios, { all } from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { PayPalButton } from "react-paypal-button-v2";
+const { format, parseISO } = require('date-fns');
 
 const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
@@ -15,9 +16,11 @@ const Reserve = ({ setOpen, hotelId }) => {
   const [pictureRoom, setPictureRoom] = useState("");
   const { data, loading, error } = useFetch(`/hotels/room/${hotelId}`);
   const [info, setInfo] = useState({});
+  console.log(info)
   const [rooms, setRooms] = useState([]);
   const { dates, options } = useContext(SearchContext); 
   const [showPaypalButton, setShowPaypalButton] = useState(false);
+  const idHotel = useParams();
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
@@ -70,7 +73,53 @@ const Reserve = ({ setOpen, hotelId }) => {
 
     return !isFound;
   };
+  const daysOfWeek = [
+    "CN",
+    "T2",
+    "T3",
+    "T4",
+    "T5",
+    "T6",
+    "T7"
+  ];
+  
+  const monthsOfYear = [
+    "Tháng 1",
+    "Tháng 2",
+    "Tháng 3",
+    "Tháng 4",
+    "Tháng 5",
+    "Tháng 6",
+    "Tháng 7",
+    "Tháng 8",
+    "Tháng 9",
+    "Tháng 10",
+    "Tháng 11",
+    "Tháng 12"
+  ];
+  
+  // Hàm chuyển đổi ngày tháng năm sang chuỗi định dạng Tiếng Việt
+  const formatDateToVietnamese = (isoDate) => {
+    const date = new Date(isoDate);
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    const day = date.getDate();
+    const month = monthsOfYear[date.getMonth()];
+    const year = date.getFullYear();
+  
+    return `${dayOfWeek}, ${day} ${month}, ${year}`;
+  };
 
+
+  const jsonData = JSON.parse(localStorage.getItem('dates'));
+  const startDate = jsonData[0].startDate;
+  const endDate = jsonData[0].endDate;
+
+  const formattedStartDate = formatDateToVietnamese(startDate);
+  const formattedEndDate = formatDateToVietnamese(endDate);
+  
+  const jsonOptions = JSON.parse(localStorage.getItem('options'));
+  const Quantity = `${jsonOptions.Người_Lớn} người lớn - ${days} đêm, ${jsonOptions.Phòng} phòng`
+  
   const Dola  = (priceRoom * days * options.Phòng) / 23500;
   console.log(Dola.toFixed(2));
 
@@ -105,7 +154,7 @@ const Reserve = ({ setOpen, hotelId }) => {
           
           return res.data;
         })
-        );
+      );
         
         const user = JSON.parse(localStorage.getItem("user"));
         const roomId = localStorage.getItem("roomId");
@@ -119,6 +168,9 @@ const Reserve = ({ setOpen, hotelId }) => {
           userId: user._id,
           userName: user.username,
           photoRoom: pictureRoom,
+          quantity: Quantity,
+          checkIn: formattedStartDate,
+          checkOut: formattedEndDate,
         };
         // console.log(priceRoom);
         // setOpen(false);

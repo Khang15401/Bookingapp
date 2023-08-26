@@ -8,8 +8,10 @@
 }
 
 .wrap-detail {
-    width: 730px;
-    margin-left: 280px;
+    width: 790px;
+    margin-left: 260px;
+    /* width: 750px;*/
+    /* margin-left: 280px; */
 }
 
 .reservation-status-container {
@@ -19,24 +21,27 @@
     margin-right: 0; 
 }
 
-/* .reservation-status-title */
 .reservation-status-title {
-    margin-bottom: 16px; /* Giá trị tương ứng với --bui_spacing_4x */
+    margin-bottom: 16px; 
 }
 
-/* .reservation-status-title-status */
+
 .reservation-status-title-status {
-    margin-bottom: 8px; /* Giá trị tương ứng với --bui_spacing_2x */
+    margin-bottom: 8px; 
     height: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+
 }
 
-/* .detail-header */
 .detail-header {
-    color: #000; /* Màu chữ cơ bản */
-    font-weight: bold; /* Độ đậm đơn giản */
-    font-size: 18px; /* Kích thước chữ lớn */
-    line-height: 24px; /* Chiều cao dòng chữ lớn */
-    margin-bottom: 16px; /* Giá trị tương ứng với --bui_spacing_4x */
+    color: #000;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px; 
+    margin-bottom: 16px; 
 }
 
 .link-booking-again {
@@ -44,6 +49,13 @@
     font-weight: bold;
     text-decoration: none;
     font-size: 14px;
+}
+
+.link-booking {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 .spacing{
     padding-left: 20px;
@@ -59,7 +71,362 @@
     height: 32px; 
     width: 32px; 
     margin-right: 11px; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+.contaiter-info-hotel{
+    margin-top: 32px;
+    margin-bottom: 16px; 
+    margin-left: 0; 
+    margin-right: 0; 
+}
 
+.wrap-info-hotel{
+    margin-top: 32px;
+    position: relative;
+}
 
+.info-hotel{
+    color: #1a1a1a;
+    margin: 0;
+    padding-bottom: 20px;
+}
+
+.info2{
+    font-size: 25px;
+    line-height: 32px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.wrap-nameHotel{
+    color: #006ce4;
+}
+
+.nameHotel{
+    color: #006ce4;
+    text-decoration: none;
+}
+.nameHotel:hover {
+    color: #1a1a1a;
+}
+
+.picture-room {
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+    height: 120px;
+    position: absolute;
+    right: 90px
+}
+
+.photo{
+    object-fit: cover;
+}
+.setup-photo{
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.container-time-checkin{
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+.layout{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.wrap-time-checkin{
+    display: flex;
+    height: 60px;
+}
+
+.wrap-icon{
+    min-width: 32px;
+}
+.icon-size{
+    width: 20px;
+    height: 20px;
+}
+.icon-size1{
+    fill: currentcolor;
+    display: inline-block;
+}
+.icon-size-small{
+    width: 16px;
+    height: 16px;
+}
+
+.position-detail{
+    align-self: center;
+    margin-left: 8px;
+}
+.checkin-checkout-info{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.position-tg{
+    text-align: start;
+}
+.position-tg2{
+    display: inline-block;
+    position: relative;
+}
+
+/* .setup-time{
+    background: none;
+    border: none;
+    box-sizing: border-box;
+    color: inherit;
+    display: inline-flex;
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 0;
+    position: relative;
+    text-align: start;
+    text-decoration: none;
+    vertical-align: top;
+} */
+.type:first-child{
+    padding-right: 16px;
+}
+.type:last-child{
+    padding-left: 16px;
+}
+
+.checkin{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0;
+}
+
+.setup-checkin{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+
+}
+.time-checkin{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+
+}
+
+.size-hr{
+    height: 100%;
+    width: 2px;
+}
+.color-hr{
+    background: #e7e7e7;
+    border: 0;
+    margin: 0;
+}
+
+.container-detail-room{
+    margin-top: 20px;
+    margin-bottom: 16px;
+}
+
+.wrap-detail-room {
+    display: flex;
+}
+
+.room-info {
+    align-self: center;
+    margin-left: 8px;
+}
+.format {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+}
+
+.font-quantity{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.banner-info, .banner-option {
+    position: absolute;
+    right: 205px;
+    top: 65px;
+    width: 294px;
+    background: #fff;
+}
+.banner-info {
+    display: table-cell;
+    /* width: 260px; */
+    width: 327px;
+    /* background: #ebebeb; */
+}
+
+.wrap-banner-info{
+    margin-bottom: 16px;
+}
+
+.booknumber-code{
+    border-radius: 2px;
+    border: 1px solid #008009;
+    padding: 8px;
+}
+.wrap-banner-info--disabled .booknumber-code {
+    background-color: #f5f5f5;
+    border-color: #a2a2a2;
+}
+
+/* .booknumber-code-item{
+    padding-right: 8px;
+} */
+
+.booknumber-code-item:first-child {
+    margin-bottom: 8px;
+}
+.booknumber-font{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.booknumber-font2{
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-left: 6px;
+    margin-right: 5px;
+}
+
+.slide-bar-service-container{
+    border: 1px solid #d9d9d9;
+}
+
+.wrap-info-service{
+    display: table-cell;
+    width: 370px;
+}
+.size-info-service{
+    padding: 12px 15px 0;
+}
+.Title-1{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    margin-bottom: 12px;
+}
+.Title-2{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.layout-title{
+    line-height: 1.4;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+}
+.button-cancle-room-container{
+    margin-top: 12px;
+}
+.rap-button-cwancle{
+    margin-top: 12px;
+}
+
+.button-cancle-room{
+    cursor: pointer;
+    display: block;
+    background: none;
+    border: none;
+    box-sizing: border-box;
+    color: inherit;
+    display: inline-flex;
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 0;
+    position: relative;
+    text-align: start;
+    
+}
+
+.title-cancle-room:hover, .icon-cancle:hover {
+    color: #1a1a1a;
+    text-decoration-color: #1a1a1a;
+}
+
+.title-cancle-room{
+    margin-left: 8px;
+    color: #006ce4;
+    text-decoration: underline;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.change-time-book{
+    padding: 12px 15px;
+}
+
+.info-contact-container{
+    margin-top: 24px;
+    margin-bottom: 15px;
+}
+
+.Hr-contact{
+    margin-right: 14px;
+    height: 1px;
+    background-color: #d9d9d9;
+}
+
+.title-contact{
+    margin-top: 16px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 28px;
+}
+
+.tele-contact{
+    font-weight: 500px;
+    color: #474747;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.wrap-link-chat-with{
+    margin-top: 4px;
+    color: #474747;
+}
+
+.link-chat-with{
+    color: #006ce4;
+    font-weight: bold;
+    text-decoration: underline;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.wrap-link-chat-with1{
+    margin-top: 8px;
+    color: #474747;
+}
+
+.trick-info{
+    color: #474747;
+    margin-top: 10px !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 400;
+}
