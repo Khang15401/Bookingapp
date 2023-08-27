@@ -12,6 +12,12 @@ import {
   faCopy,
   faCircleXmark,
   faCalendarDays,
+  faBanSmoking,
+  faRulerCombined,
+  faSnowflake,
+  faShower,
+  faTv,
+  faGlassCheers,
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import Header from '../../components/header/Header';
@@ -184,6 +190,94 @@ const Detail = () => {
                     Mẹo: Bạn có thể thay đổi đặt phòng này bất kỳ lúc nào
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div id='container-detailroom' className='container-details-room'>
+              <header className='header-title-room' id='details-room'>Chi tiết phòng</header>
+              <div className='section section-detail'>
+                <div className='room'>
+                  <h3>Phòng Superior Giường Đôi</h3>
+                  <p className='room-introduction conf-font'>{data.title}</p>
+                  <table className='conf-table'>
+                    <tbody>
+                      <tr>
+                        <th scope='row' className='conf-table-content'>
+                          <h5 className='conf-font'>Tên khách</h5>
+                        </th>
+                        <td>
+                          <p> </p>
+                          <div>
+                            <div className='space-block'>
+                              <span>
+                                <span className='conf-font'>{data.userName}</span>
+                              </span>
+                              <span> </span>
+                            </div>
+                          </div>
+                          <p> </p>
+                          <p></p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope='row' className='conf-table-content'>
+                          <h5 className='conf-font'>Tùy chọn ưa thích</h5>
+                        </th>
+                        <td>
+                          <div className='ctc-options'>
+                            <div className='ctc-options-item'>
+                              <span >
+                                <FontAwesomeIcon className='icon-smoking' icon={faBanSmoking}/>
+                                Phòng không hút thuốc
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th className='conf-table-content1 conf-font'>Phòng đã đặt bao gồm</th>
+                        <td>
+                          <div className='device-room-area conf-font'>
+                            <span>
+                              <FontAwesomeIcon className='icon-details'  icon={faRulerCombined}/>
+                              17 m²
+                            </span>
+                          </div>
+                          <div className='device-room-area conf-font'>
+                            <span>
+                              <FontAwesomeIcon className='icon-details' icon={faSnowflake}/>
+                              Điều hòa không khí
+                            </span>
+                          </div>
+                          <div className='device-room-area conf-font'>
+                            <span>
+                              <FontAwesomeIcon className='icon-details' icon={faShower}/>
+                              Phòng tắm trong phòng
+                            </span>
+                          </div>
+                          <div className='device-room-area conf-font'>
+                            <span>
+                              <FontAwesomeIcon className='icon-details' icon={faTv}/>
+                              TV màn hình phẳng
+                            </span>
+                          </div>
+                          <div className='device-room-area conf-font'>
+                            <span>
+                              <FontAwesomeIcon className='icon-details' icon={faGlassCheers}/>
+                              Minibar
+                            </span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th className='conf-table-content conf-font' scope='row'>Sức chứa tối đa</th>
+                        <td className='conf-font'>
+                          <p>{data.quantity}</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table className='conf-table'></table>
                 </div>
               </div>
             </div>
