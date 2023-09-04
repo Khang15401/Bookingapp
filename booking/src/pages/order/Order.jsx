@@ -117,15 +117,15 @@ const Order = () => {
                 <div className="WrapperItemOrder" key={order?._id}>
                   <div className="WrapperStatus">
                     <div className="Wrapper-detail">
-                      <span style={{fontSize: '14px', fontWeight: 'bold'}}>Mã đơn phòng: {order._id}</span>
+                      <span className="conf-font1" style={{fontWeight: 'bold'}}>Mã đơn phòng: {order._id}</span>
                       <div>
-                        <span className="status-reservation">Trạng Thái | </span> 
+                        <span className="status-reservation">Trạng thái | </span> 
                         <span style={{fontSize: '18px', fontWeight: 'bold', color: '#003580'}}> {`${order.status}`}</span>
                       </div>
                     </div>
                     <div>
-                      <span style={{color: 'rgb(255, 66, 78)'}}>Tên Khách sạn: </span>
-                      <span style={{color: 'rgb(90, 32, 193)', fontWeight: 'bold'}}>{`${order.nameHotel}`}</span>
+                      <span className="conf-font1">Tên khách sạn: </span>
+                      <span style={{color: 'rgb(0, 53, 128)', fontWeight: 'bold'}}>{`${order.nameHotel}`}</span>
                     </div>
                     <div>
                       {/* <span style={{color: 'rgb(90, 32, 193)', fontWeight: 'bold'}}>{`${order.status}`}</span> */}
@@ -135,9 +135,9 @@ const Order = () => {
                     <img className="photo-Room" src={order.photoRoom} alt="" />
                     <div className="detail-room">
                       <span>{order.city}</span>
-                      <div className="number-room">Phòng {(order?.rooms)}</div>
+                      <div className="number-room conf-font1">Phòng {(order?.rooms)}</div>
                     </div>
-                    <div className="price-room">
+                    <div className="price-room conf-font1">
                       <span>{(order.price/1.08).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                     </div>
                     {/* <div className="price-room">
@@ -191,11 +191,11 @@ const Order = () => {
             {showConfirmation && (
             <div className="confirmation-dialog">
               <div className="confirmation-content">
-                <h3>Xác nhận hủy đặt phòng</h3>
-                <p>Bạn có chắc chắn muốn hủy đặt phòng?</p>
+                <h3 className="conf-font1">Xác nhận hủy đặt phòng</h3>
+                <p className="conf-font1">Bạn có chắc chắn muốn hủy đặt phòng?</p>
                 <div className="confirmation-buttons">
-                  <button onClick={confirmCancellation}>Xác nhận</button>
-                  <button onClick={hideConfirmDialog}>Hủy</button>
+                  <button className="conf-font1" onClick={confirmCancellation}>Xác nhận</button>
+                  <button className="conf-font1" onClick={hideConfirmDialog}>Hủy</button>
                 </div>
               </div>
             </div>

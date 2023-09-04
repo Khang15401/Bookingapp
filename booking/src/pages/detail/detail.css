@@ -5,6 +5,8 @@
 .detail-sumary {
     margin: 0 !important;
     width: 100%;
+    /* height: 3000px; */
+    height: max-content;
 }
 
 .wrap-detail {
@@ -74,7 +76,7 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.contaiter-info-hotel{
+.container-info-hotel{
     margin-top: 32px;
     margin-bottom: 16px; 
     margin-left: 0; 
@@ -265,6 +267,7 @@
     background: #fff;
 }
 .banner-info {
+    /* position: sticky; */
     display: table-cell;
     /* width: 327px; */
     width: 325px;
@@ -417,6 +420,11 @@
     font-weight: 700;
 }
 
+.link-chat-with:hover {
+    color: #1a1a1a;
+    text-decoration-color: #1a1a1a;
+}
+
 .wrap-link-chat-with1{
     margin-top: 8px;
     color: #474747;
@@ -522,6 +530,7 @@
 .icon-smoking{
     width: 21px;
     height: 17px;
+    padding-right: 7px;
 }
 
 .device-room-area{
@@ -536,4 +545,94 @@
 } */
 .icon-details{
     padding-right: 7px ;
+}
+
+.room__meal-rows{
+    display: table;
+    position: relative;
+    width: 100%;
+}
+
+.room__meal-row {
+    display: table-cell;
+}
+
+.room__meal-cell{
+    display: table-cell;
+     vertical-align: inherit;
+}
+
+.room-policy-children{
+    margin-bottom: 0.3em;
+}
+
+.children-policy-container{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.mr-policy-children {
+    margin-bottom: 8px;
+}
+
+.position{
+    padding-bottom: 85px;
+}
+
+.price-final-container{
+    margin-bottom: 50px;
+}
+
+.wrap-price-final{
+    border: 1px solid #ebf3ff;
+    padding: 16px;
+    border-radius: 0;
+}
+
+.table-price-final{
+    width: 100%;
+}
+
+.table-price-final td {
+    text-align: right;
+}
+
+.conf-price-room{
+    font-size: 20px;
+    line-height: 28px;
+    color: #003b95;
+}
+.conf-price-room-note {
+    font-size: 14px;
+    line-height: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.conf-table-content2{
+    font-size: 14px;
+    line-height: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: auto;
+    text-align: left;
+}
+
+.conf-font2 {
+    font-size: 20px;
+    line-height: 28px;
+    color: #003b95;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.fillter {
+    background-color:  #fafcff;
+}
+
+.wrap-info-payment{
+    padding-top: 0;
+}
+
+.header-info-payment{
+    font-size: 15px;
 }

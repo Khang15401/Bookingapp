@@ -59,7 +59,7 @@ const EditOrder = ({}) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Sửa Thông Tin Đơn Hàng</h1>
+          <h1>Sửa thông tin đơn hàng</h1>
         </div>
         <div className="bottom">
           {/* <div className="left"> */}
@@ -91,7 +91,7 @@ const EditOrder = ({}) => {
                   onChange={(e) => setFile(e.target.files[0])}
                   style={{ display: "none" }}
                 /> */}
-                <label>Tên Khách Sạn</label>
+                <label>Tên khách sạn</label>
                 <input
                   // type={input.type}
                   placeholder={data.nameHotel}
@@ -99,7 +99,7 @@ const EditOrder = ({}) => {
                   name="name"
                   disabled
                 />
-                <label>Tên Khách Hàng</label>
+                <label>Tên khách hàng</label>
                 <input
                   // type={input.type}
                   placeholder={data.userName}
@@ -149,12 +149,12 @@ const EditOrder = ({}) => {
                   id="rating"
                   name="rating"
                 /> */}
-                <label>Tình Trạng</label>
+                <label>Tình trạng</label>
                 <p>{data.status}</p>
                 <select id="status" onChange={handleChange}>
-                  <option value={'Chưa Nhận Phòng'}>Chưa Nhận Phòng</option>
-                  <option value={'Đã Hủy'}>Đã Hủy</option>
-                  <option value={'Hoàn Thành'}>Hoàn Thành</option>
+                  <option value={'Chưa nhận phòng'}>Chưa nhận phòng</option>
+                  <option value={'Đã hủy'}>Đã hủy</option>
+                  <option value={'Hoàn thành'}>Hoàn thành</option>
                 </select>
               </div>
 

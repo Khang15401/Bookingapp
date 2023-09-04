@@ -106,7 +106,7 @@ export const cancleOrder = async(req, res, next)=>{
   try{
       const cancleOrder = await Order.findByIdAndUpdate(
           req.params.id, 
-          { status: 'Đã Hủy' },
+          { status: 'Đã hủy' },
           { new: true }
           );
       res.status(200).json(cancleOrder);
