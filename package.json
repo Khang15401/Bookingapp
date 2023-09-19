@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-paypal-button-v2": "^2.6.3"
+    "react-paypal-button-v2": "^2.6.3",
+    "socket.io-client": "^4.7.2"
   }
 }

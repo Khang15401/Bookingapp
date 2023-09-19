@@ -28,22 +28,22 @@ const EditHotel = ({}) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    
+
     // const data = new FormData();
     // data.append("file", file);
     // data.append("upload_preset", "upload");
     try {
-    // const uploadRes = await axios.post(
-    //   "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
-    //   data
-    //   );
-    //       const { url } = uploadRes.data;
-          
-          // console.log(updateHotel);
-          const updateHotel = {
-            ...info,
-          };
-          // console.log(data);
+      // const uploadRes = await axios.post(
+      //   "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
+      //   data
+      //   );
+      //       const { url } = uploadRes.data;
+
+      // console.log(updateHotel);
+      const updateHotel = {
+        ...info,
+      };
+      // console.log(data);
       await axios.patch("/hotels/" + hotelId, updateHotel);
       alert("Sửa thông tin khách sạn thành công!");
       navigate("/hotels");
@@ -63,7 +63,7 @@ const EditHotel = ({}) => {
         </div>
         <div className="bottom">
           {/* <div className="left"> */}
-            {/* <img
+          {/* <img
               src={
                 file
                   ? URL.createObjectURL(file)
@@ -123,7 +123,7 @@ const EditHotel = ({}) => {
                   id="city"
                   name="city"
                 />
-                
+
                 <label>Tiêu Đề</label>
                 <input
                   onChange={handleChange}

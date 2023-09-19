@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, Navigate, useLocation, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
+import { format } from "date-fns";
+import { DateRange } from "react-date-range";
 import "./detail.css";
 import {
   faSearch,
@@ -20,20 +22,83 @@ import {
   faTv,
   faGlassCheers,
   faChild,
+  faGears,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../../components/header/Header";
 import axios from "axios";
+import { SearchContext, SearchContext1 } from "../../context/SearchContex";
+import useFetch1 from "../../hooks/useFetch1";
+import Reserve from "../../components/reserve/Reserve";
 const Detail = () => {
   const { orderId } = useParams();
-  console.log(orderId);
+  // console.log(orderId);
   const location = useLocation();
   const path = location.pathname.split("/")[1];
-  console.log(path)
   const { data, loading, error, reFetch } = useFetch(`/orders/${orderId}`);
+  const hotelID = data.hotelId;
+  const { data1, loading1, error1, reFetch1 } = useFetch1(
+    `/hotels/room/${hotelID}`
+  );
   const [showConfirmation, setShowConfirmation] = useState(false);
+  // const [changeTime, setChangeTime] = useState(false);
   const [orderID, setOrderID] = useState(null);
   const [id, setID] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+  // const { dates, options } = useContext(SearchContext);
+  const [selectedRooms, setSelectedRooms] = useState([]);
+  const [selectedRoomNumber, setSelectedRoomNumber] = useState(null);
+  const [priceRoom, setPriceRoom] = useState(0);
+  const [pictureRoom, setPictureRoom] = useState("");
+  const [open, setOpen] = useState(false);
+  const [confirmTime, setConfirmTime] = useState(false);
+  const [openValueRoom, setOpenValueRoom] = useState(false);
+
+  // const [dates, setDates] = useState(location.state.dates);
+  const [openDate, setOpenDate] = useState(false);
+  const [changeTime, setChangeTime] = useState(false);
+
+  const [dates, setDates] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+  // localStorage.setItem(dates)
+  // localStorage.setItem("dates", dates);
+  const handleChangeTime = async () => {
+    await localStorage.setItem("dates", JSON.stringify(dates));
+    console.log(dates);
+  };
+
+  const handleChangeValueRoom = async (e) => {
+    e.preventDefault();
+    await localStorage.setItem("dates", JSON.stringify(dates));
+    console.log(dates);
+    await setOpenValueRoom(true);
+    setOpenDate(false);
+    
+  };
+  // console.log(JSON.stringify(dates))
+  // localStorage.setItem("dates", JSON.stringify(dates));
+  const hideChangeTime = async (e) => {
+    e.preventDefault();
+    await setChangeTime(false);
+    setConfirmTime(false);
+    setOpen(false);
+    setOpenValueRoom(false);
+  };
+
+  // const {dispatch} = useContext(SearchContext1);
+
+  // const handleSearch = () => {
+  //   dispatch({type: "NEW_SEARCH", payload:{ dates}});
+  //   window.location.reload();
+  // }
+  // const [destination1, setDestination1] = useState("");
+  // const [options, setOptions] = useState(location.state.options);
+  // const [options, setOptions] = useState([]);
   // console.log(hotelId);
 
   // const handleClick = async () => {
@@ -49,7 +114,7 @@ const Detail = () => {
   //   }
   // }
 
-  const showConfirmDialog = (id,orderId) => {
+  const showConfirmDialog = (id, orderId) => {
     setShowConfirmation(true);
     setOrderID(orderId);
     setID(id);
@@ -61,13 +126,12 @@ const Detail = () => {
     setID(null);
   };
 
-
   const handleClick = (id, orderID) => {
-      if (data.status === "Hoàn thành" || data.status === "Đã hủy"){
-        return;
-      }
+    if (data.status === "Hoàn thành" || data.status === "Đã hủy") {
+      return;
+    }
     // Hiển thị hộp thoại xác nhận trước khi hủy đặt phòng
-    showConfirmDialog(id ,orderID);
+    showConfirmDialog(id, orderID);
   };
 
   const confirmCancellation = async () => {
@@ -90,6 +154,157 @@ const Detail = () => {
         .replace("₫", "VND");
     } else {
       return "0 VND";
+    }
+  }
+
+  const handleChageNumberRoom = () => {
+    setOpen(true);
+    setOpenModal(true);
+  };
+
+  const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+  const dayDifference = (date1, date2) => {
+    const timeDiff = Math.abs(Date.parse(date2) - Date.parse(date1));
+    const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
+    return diffDays;
+  };
+
+  const days = dayDifference(dates[0]?.endDate, dates[0]?.startDate);
+  console.log(days);
+
+  const getDatesInRange = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const date = new Date(start.getTime());
+
+    const dates = [];
+
+    while (date <= end) {
+      dates.push(new Date(date).getTime());
+      date.setDate(date.getDate() + 1);
+    }
+
+    return dates;
+  };
+  const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
+  console.log(alldates);
+
+  const isAvailable = (roomNumber) => {
+    const isFound = roomNumber.unavailableDates.some((date) =>
+      alldates.includes(new Date(date).getTime())
+    );
+
+    return !isFound;
+  };
+
+  const daysOfWeek = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
+
+  const monthsOfYear = [
+    "Tháng 1",
+    "Tháng 2",
+    "Tháng 3",
+    "Tháng 4",
+    "Tháng 5",
+    "Tháng 6",
+    "Tháng 7",
+    "Tháng 8",
+    "Tháng 9",
+    "Tháng 10",
+    "Tháng 11",
+    "Tháng 12",
+  ];
+
+  // Hàm chuyển đổi ngày tháng năm sang chuỗi định dạng Tiếng Việt
+  const formatDateToVietnamese = (isoDate) => {
+    const date = new Date(isoDate);
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    const day = date.getDate();
+    const month = monthsOfYear[date.getMonth()];
+    const year = date.getFullYear();
+
+    return `${dayOfWeek}, ${day} ${month}, ${year}`;
+  };
+
+  const jsonData = JSON.parse(localStorage.getItem("dates"));
+  const startDate = jsonData[0].startDate;
+  const endDate = jsonData[0].endDate;
+
+  const formattedStartDate = formatDateToVietnamese(startDate);
+  const formattedEndDate = formatDateToVietnamese(endDate);
+
+  const jsonOptions = JSON.parse(localStorage.getItem("options"));
+  const Quantity = `${jsonOptions.Người_Lớn} người lớn - ${days} đêm, ${jsonOptions.Phòng} phòng`;
+
+  // const Dola  = (priceRoom * days * options.Phòng) / 23500;
+  // console.log(Dola.toFixed(2));
+
+  const handleSelect = (e) => {
+    const checked = e.target.checked;
+    const value = e.target.value;
+    console.log(value);
+    setConfirmTime(true);
+    setSelectedRoomNumber(e.target.dataset.roomNumber);
+    setPriceRoom(e.target.dataset.roomPrice);
+    setPictureRoom(e.target.dataset.roomPhoto);
+    setSelectedRooms(
+      checked
+        ? [...selectedRooms, value]
+        : selectedRooms.filter((item) => item !== value)
+    );
+  };
+  console.log(selectedRoomNumber);
+  console.log(priceRoom);
+  console.log(pictureRoom);
+
+  const IdRoom = data.roomId;
+  console.log(IdRoom);
+
+  const handleClick1 = async (e) => {
+    e.preventDefault();
+    try {
+      // localStorage.setItem("dates", JSON.stringify(dates));
+      await axios.patch(`/rooms/reservation/${IdRoom}`);
+      await Promise.all(
+        selectedRooms.map((roomId) => {
+          const res = axios.put(`/rooms/availability/${roomId}`, {
+            dates: alldates,
+          });
+          localStorage.setItem("roomId", roomId);
+
+          return res.data;
+        })
+      );
+
+      const roomId = localStorage.getItem("roomId");
+      const options = localStorage.getItem("options");
+
+      const updateOrder = {
+        rooms: selectedRoomNumber,
+        roomId: roomId,
+        price: priceRoom * days * jsonOptions.Phòng,
+        photoRoom: pictureRoom,
+        quantity: Quantity,
+        checkIn: formattedStartDate,
+        checkOut: formattedEndDate,
+      };
+      // console.log(data);
+      await axios.patch("/orders/" + orderId, updateOrder);
+      console.log(updateOrder);
+      setOpenValueRoom(false);
+      alert("Hoàn thành chỉnh sửa đơn đặt phòng!");
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleClick2 = async (e) => {
+    e.preventDefault();
+    try {
+      
+    } catch (error) {
+      
     }
   }
 
@@ -213,7 +428,7 @@ const Detail = () => {
               </header>
               <div className="section section-detail">
                 <div className="room">
-                  <h3>Phòng Superior Giường Đôi</h3>
+                  <h3>{data.titleRoom}</h3>
                   <p className="room-introduction conf-font">{data.title}</p>
                   <table className="conf-table">
                     <tbody>
@@ -312,7 +527,7 @@ const Detail = () => {
                           className="conf-table-content conf-font"
                           scope="row"
                         >
-                          Sức chứa tối đa
+                          Chi tiết lựa chọn
                         </th>
                         <td className="conf-font">
                           <p>{data.quantity}</p>
@@ -492,29 +707,52 @@ const Detail = () => {
                     </div>
                     <div className="button-cancle-room-container">
                       <div className="wrap-button-cancle">
-                        {data.status !== 'Hoàn Thành' && data.status !== 'Đã Hủy' && (
-                          <button onClick={() => handleClick(data.roomId, data._id)} type="button" className="button-cancle-room">
-                          <span className="icon-cancle">
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                          </span>
-                          <span className="title-cancle-room">
-                            Tiến hành hủy đặt phòng
-                          </span>
-                        </button>
-                        )}
+                        {data.status !== "Hoàn thành" &&
+                          data.status !== "Đã hủy" && (
+                            <button
+                              onClick={() => handleClick(data.roomId, data._id)}
+                              type="button"
+                              className="button-cancle-room"
+                            >
+                              <span className="icon-cancle">
+                                <FontAwesomeIcon icon={faCircleXmark} />
+                              </span>
+                              <span className="title-cancle-room">
+                                Tiến hành hủy đặt phòng
+                              </span>
+                            </button>
+                          )}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="change-time-book">
-              {data.status !== 'Hoàn Thành' && data.status !== 'Đã Hủy' && (
-                <button type="button" className="button-cancle-room">
-                  <span className="icon-cancle">
-                    <FontAwesomeIcon icon={faCalendarDays} />
-                  </span>
-                  <span className="title-cancle-room">Thay đổi ngày tháng</span>
-                </button>
+                {data.status !== "Hoàn thành" && data.status !== "Đã hủy" && (
+                  <button
+                    type="button"
+                    className="button-cancle-room"
+                    onClick={() => setChangeTime(!changeTime)}
+                  >
+                    <span className="icon-cancle">
+                      <FontAwesomeIcon icon={faCalendarDays} />
+                    </span>
+                    <span className="title-cancle-room">
+                      Thay đổi ngày tháng
+                    </span>
+                  </button>
+                )}
+                {data.status !== "Hoàn thành" && data.status !== "Đã hủy" && (
+                  <button
+                    type="button"
+                    className="button-cancle-room change-number-room"
+                    onClick={handleChageNumberRoom}
+                  >
+                    <span className="icon-cancle">
+                      <FontAwesomeIcon icon={faGears} />
+                    </span>
+                    <span className="title-cancle-room">Thay đổi phòng</span>
+                  </button>
                 )}
                 <div className="info-contact-container">
                   <div className="Hr-contact"></div>
@@ -537,19 +775,161 @@ const Detail = () => {
               </div>
             </div>
           </div>
+
+          {changeTime && (
+            <div className="listWrapper1">
+              <div className="listSearch1">
+                {/* <h1 className="lsTitle">Tìm Kiếm</h1> */}
+                <div className="lsItem1">
+                  <FontAwesomeIcon
+                  icon={faCircleXmark}
+                  className="rClose"
+                  onClick={hideChangeTime}
+                />
+                  <label className="conf-font">Chọn ngày thay đổi</label>
+                  <span
+                    className="conf-font"
+                    onClick={() => setOpenDate(!openDate)}
+                  >{`${format(dates[0].startDate, "dd/MM/yyyy")} đến ${format(
+                    dates[0].endDate,
+                    "dd/MM/yyyy"
+                  )}`}</span>
+                  {openDate && (
+                    <DateRange
+                      onChange={(item) => setDates([item.selection])}
+                      minDate={new Date()}
+                      ranges={dates}
+                    />
+                  )}
+                </div>
+                <button
+                  className="conf-font change-time"
+                  onClick={handleChangeTime}
+                >
+                  Thay đổi
+                </button>
+              </div>
+            </div>
+          )}
+          {/* <Header/>  */}
           {showConfirmation && (
             <div className="confirmation-dialog">
               <div className="confirmation-content">
                 <h3 className="conf-font">Xác nhận hủy đặt phòng</h3>
-                <p className="conf-font">Bạn có chắc chắn muốn hủy đặt phòng?</p>
+                <p className="conf-font">
+                  Bạn có chắc chắn muốn hủy đặt phòng?
+                </p>
                 <div className="confirmation-buttons">
-                  <button className="conf-font" onClick={confirmCancellation}>Xác nhận</button>
-                  <button className="conf-font" onClick={hideConfirmDialog}>Hủy</button>
+                  <button className="conf-font" onClick={confirmCancellation}>
+                    Xác nhận
+                  </button>
+                  <button className="conf-font" onClick={hideConfirmDialog}>
+                    Hủy
+                  </button>
                 </div>
               </div>
             </div>
           )}
           <Footer />
+
+          {/* {openModal && <Reserve setOpen={setOpenModal} hotelId={hotelID} />} */}
+          {open && (
+            <div className="reserve1">
+              <div className="rContainer1">
+                <FontAwesomeIcon
+                  icon={faCircleXmark}
+                  className="rClose"
+                  // onClick={() => setOpen(false)}
+                  onClick={hideChangeTime}
+                />
+                <span className="conf-font">Lựa chọn phòng của bạn:</span>
+
+                <form>
+                  {/* {confirmTime && ( */}
+                  <div className="rItem">
+                    <div className="listSearch2">
+                      {/* <h1 className="lsTitle">Tìm Kiếm</h1> */}
+                      <div className="lsItem1">
+                        <label className="conf-font bold">
+                          Xác nhận lại thời gian ở
+                        </label>
+                        <span
+                          className="conf-font"
+                          onClick={() => setOpenDate(!openDate)}
+                        >{`${format(
+                          dates[0].startDate,
+                          "dd/MM/yyyy"
+                        )} đến ${format(
+                          dates[0].endDate,
+                          "dd/MM/yyyy"
+                        )}`}</span>
+                        {openDate && (
+                          <DateRange
+                            onChange={(item) => setDates([item.selection])}
+                            minDate={new Date()}
+                            ranges={dates}
+                          />
+                        )}
+                      </div>
+                      <button
+                        className="conf-font change-time"
+                        // onClick={handleChangeTime}
+                        onClick={handleChangeValueRoom}
+                      >
+                        Tiếp tục
+                      </button>
+                    </div>
+                  </div>
+                  {/* )} */}
+                  {openValueRoom && (
+                  <div>
+                    {data1.map((item) => (
+                      <div className="rItem" key={item._id}>
+                        <div className="rItemInfo">
+                          <div className="rTitle conf-font">{item.title}</div>
+                          <div className="rDesc">{item.desc}</div>
+                          <div className="rMax conf-font">
+                            Số người tối đa: <b>{item.maxPeople}</b>
+                          </div>
+                          <div className="rPrice conf-font" id="price">
+                            {/* {item.price} */}
+                            {(item.price * 1.08).toLocaleString("vi-VN", {
+                              style: "currency",
+                              currency: "VND",
+                            })}
+                          </div>
+                        </div>
+                        <div className="rSelectRooms">
+                          {item.roomNumbers.map((roomNumber) => (
+                            <div className="room" key={roomNumber._id}>
+                              <label>{roomNumber.number}</label>
+                              <input
+                                type="checkbox"
+                                value={roomNumber._id}
+                                data-room-number={roomNumber.number}
+                                data-room-price={item.price * 1.08}
+                                data-room-photo={item.photo}
+                                onChange={handleSelect}
+                                disabled={!isAvailable(roomNumber)}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                    <button
+                      className="conf-font change-time"
+                      // onClick={handleChangeTime}
+                      onClick={handleClick1}
+                    >
+                      Thay đổi
+                    </button>
+                  </div>
+                  )}
+                </form>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

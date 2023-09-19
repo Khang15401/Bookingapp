@@ -46,17 +46,19 @@ export const createOrder = async (req, res, next) => {
       title: hotel.title,
       city: hotel.city,
       address: hotel.address,
-      price: req.body.priceRoom,   
+      price: req.body.priceRoom,
       rooms: req.body.rooms,
       roomId: req.body.roomId,
       userId: req.body.userId,
       userName: req.body.userName,
       photoRoom: req.body.photoRoom,
+      titleRoom: req.body.titleRoom,
       quantity: req.body.quantity,
       checkIn: req.body.checkIn,
       checkOut: req.body.checkOut,
 
     });
+    // console.log({...req.body})
     const saveOrder = await newOrder.save();
     res.status(200).json(saveOrder);
   } catch (err) {
@@ -123,38 +125,3 @@ export const deleteOrder = async(req, res, next)=>{
       next(err);
   }
 }
-
-
-// export const searchOrder = async (req, res, next) => {
-//   try {
-//     const orders = Order.aggregate([
-//       {
-//         $search: {
-//           index:"searchTitle",
-//           autocomplete: {
-//             "query": `${req.query._id}`,
-//             "path": "_id"
-//           }
-//         }
-//       },
-//       { $sort: { createdAt: -1} },
-//       { $limit: 5},
-//       {
-//         $project: {
-//           _id: 1,
-//           nameHotel: 1,
-//           city: 1,
-//           createdAt: 1
-//         }
-//       }
-//     ])
-
-//     if(!orders.length)
-//       return res.status(400).json({msg: 'Khong co hoa don.'})
-
-//     res.status(200).json(orders)
-
-//   } catch (error) {
-//     next(err);
-//   }
-// }

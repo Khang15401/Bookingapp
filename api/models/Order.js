@@ -43,6 +43,10 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
+    titleRoom: {
+        type: String,
+        require: true,
+    },
     quantity:{
         type: String,
         require: true,

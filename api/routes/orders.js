@@ -9,7 +9,7 @@ const router = express.Router();
 //CREATE
 router.post("/:hotelid", createOrder);
 //UPDATE
-router.patch("/:id", verifyAdmin, updateOrder);
+router.patch("/:id", updateOrder);
 router.patch("/cancle/:id", cancleOrder)
 //DELETE
 router.delete("/:id", verifyAdmin, deleteOrder);

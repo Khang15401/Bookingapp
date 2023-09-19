@@ -14,11 +14,14 @@ const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRoomNumber, setSelectedRoomNumber] = useState(null);
   const [priceRoom, setPriceRoom] = useState(0);
   const [pictureRoom, setPictureRoom] = useState("");
+  const [nameRoom, setNameRoom] = useState("");
   const { data, loading, error } = useFetch(`/hotels/room/${hotelId}`);
+  console.log(data);
   const [info, setInfo] = useState({});
   console.log(info)
   const [rooms, setRooms] = useState([]);
   const { dates, options } = useContext(SearchContext); 
+  console.log(dates);
   const [showPaypalButton, setShowPaypalButton] = useState(false);
   const idHotel = useParams();
   const handleChange = (e) => {
@@ -47,7 +50,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   };
 
   const days = dayDifference(dates[0]?.endDate, dates[0]?.startDate);
-  // console.log(days);
+  console.log(days);
 
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -65,6 +68,7 @@ const Reserve = ({ setOpen, hotelId }) => {
     return dates;
   };
   const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
+  console.log(alldates);
 
   const isAvailable = (roomNumber) => {
     const isFound = roomNumber.unavailableDates.some((date) =>
@@ -126,21 +130,23 @@ const Reserve = ({ setOpen, hotelId }) => {
   const handleSelect = (e) => {
     const checked = e.target.checked;
     const value = e.target.value;
+    console.log({value});
     setShowPaypalButton(true);
     setSelectedRoomNumber(e.target.dataset.roomNumber);
     setPriceRoom(e.target.dataset.roomPrice);
-    // const photoRoom = e.target.dataset.photo;
-    // console.log(e.target.dataset.photo);
     setPictureRoom(e.target.dataset.roomPhoto);
+    setNameRoom(e.target.dataset.roomName);
     setSelectedRooms(
       checked
         ? [...selectedRooms, value]
         : selectedRooms.filter((item) => item !== value)
     );
   };
-  console.log(selectedRoomNumber);
-  console.log(priceRoom);
+
+  // console.log(selectedRoomNumber);
+  // console.log(priceRoom);
   console.log(pictureRoom);
+  // console.log(nameRoom);
   const navigate = useNavigate();
 
   const handleClick = async (e) => {
@@ -168,6 +174,7 @@ const Reserve = ({ setOpen, hotelId }) => {
           userId: user._id,
           userName: user.username,
           photoRoom: pictureRoom,
+          titleRoom: nameRoom,
           quantity: Quantity,
           checkIn: formattedStartDate,
           checkOut: formattedEndDate,
@@ -182,7 +189,6 @@ const Reserve = ({ setOpen, hotelId }) => {
       } catch (err) {
         console.log(err);
       }
-    
     };
     return (
     <div className="reserve">
@@ -219,6 +225,7 @@ const Reserve = ({ setOpen, hotelId }) => {
                       data-room-number={roomNumber.number}
                       data-room-price={item.price*1.08}
                       data-room-photo={item.photo}
+                      data-room-name={item.title}
                       onChange={handleSelect}
                       disabled={!isAvailable(roomNumber)}
                       />
@@ -228,11 +235,6 @@ const Reserve = ({ setOpen, hotelId }) => {
               </div>
             </div>
           ))}
-          {/* <Link to={`/pay/${hotelId}`}> */}
-            {/* <button onClick={handleClick} className="rButton">
-              Đặt trước ngay!
-            </button> */}
-          {/* </Link> */}
           {showPaypalButton && (
 
             <PayPalButton 

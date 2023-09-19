@@ -152,7 +152,7 @@ const Order = () => {
                       >{(order?.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }))}</span>
                     </div>  
                     <div style={{display: 'flex', gap: '10px'}}>
-                    {order.status !== 'Đã Hủy' &&  order.status !== 'Hoàn Thành' && (
+                    {order.status !== 'Đã hủy' &&  order.status !== 'Hoàn thành' && (
                       <button className="button-order"
                         // onClick={() => handleCanceOrder(order)}
                         onClick={() => handleClick(order.roomId, order._id)}
