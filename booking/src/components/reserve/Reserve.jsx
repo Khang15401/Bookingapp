@@ -136,6 +136,7 @@ const Reserve = ({ setOpen, hotelId }) => {
     setPriceRoom(e.target.dataset.roomPrice);
     setPictureRoom(e.target.dataset.roomPhoto);
     setNameRoom(e.target.dataset.roomName);
+    // setPriceBasic(e.target.dataset.)
     setSelectedRooms(
       checked
         ? [...selectedRooms, value]
@@ -144,7 +145,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   };
 
   // console.log(selectedRoomNumber);
-  // console.log(priceRoom);
+  console.log(priceRoom);
   console.log(pictureRoom);
   // console.log(nameRoom);
   const navigate = useNavigate();
@@ -170,6 +171,7 @@ const Reserve = ({ setOpen, hotelId }) => {
           ...info,
           rooms: selectedRoomNumber,
           priceRoom: priceRoom * days * options.Phòng,
+          priceBasic: priceRoom,
           roomId: roomId,
           userId: user._id,
           userName: user.username,
@@ -226,6 +228,7 @@ const Reserve = ({ setOpen, hotelId }) => {
                       data-room-price={item.price*1.08}
                       data-room-photo={item.photo}
                       data-room-name={item.title}
+                      // data-room-basicprice={item.}
                       onChange={handleSelect}
                       disabled={!isAvailable(roomNumber)}
                       />

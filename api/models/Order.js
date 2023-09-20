@@ -27,6 +27,10 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    priceBasic: {
+        type: Number,
+        required: true,
+    },
     city:{
         type: String,
         required: true,

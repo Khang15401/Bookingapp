@@ -90,29 +90,6 @@ const Detail = () => {
     setOpenValueRoom(false);
   };
 
-  // const {dispatch} = useContext(SearchContext1);
-
-  // const handleSearch = () => {
-  //   dispatch({type: "NEW_SEARCH", payload:{ dates}});
-  //   window.location.reload();
-  // }
-  // const [destination1, setDestination1] = useState("");
-  // const [options, setOptions] = useState(location.state.options);
-  // const [options, setOptions] = useState([]);
-  // console.log(hotelId);
-
-  // const handleClick = async () => {
-  //   const hotelId = data.hotelId;
-  //   try {
-  //   //  const location = await axios.get(`/hotels/${hotelId}`);
-  //   //  Navigate(`/hotels/${hotelId}`);
-  //   return <Navigate to={`/hotels/${hotelId}`} />;
-  //   // setOrderId(orderId);
-  //   // console.log(location);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
 
   const showConfirmDialog = (id, orderId) => {
     setShowConfirmation(true);
@@ -253,12 +230,11 @@ const Detail = () => {
         : selectedRooms.filter((item) => item !== value)
     );
   };
-  console.log(selectedRoomNumber);
-  console.log(priceRoom);
-  console.log(pictureRoom);
+  // console.log(selectedRoomNumber);
+  // console.log(priceRoom);
+  // console.log(pictureRoom);
 
   const IdRoom = data.roomId;
-  console.log(IdRoom);
 
   const handleClick1 = async (e) => {
     e.preventDefault();
@@ -277,12 +253,12 @@ const Detail = () => {
       );
 
       const roomId = localStorage.getItem("roomId");
-      const options = localStorage.getItem("options");
 
       const updateOrder = {
         rooms: selectedRoomNumber,
         roomId: roomId,
         price: priceRoom * days * jsonOptions.Phòng,
+        priceBasic: priceRoom,
         photoRoom: pictureRoom,
         quantity: Quantity,
         checkIn: formattedStartDate,
@@ -298,13 +274,44 @@ const Detail = () => {
       console.log(err);
     }
   };
-
+  // Thay doi ngay gio phong khach san
+  const PriceBasic = data.priceBasic;
+  // console.log(PriceBasic);
   const handleClick2 = async (e) => {
     e.preventDefault();
+    await localStorage.setItem("dates", JSON.stringify(dates));
     try {
-      
+      // await Promise.all(
+      //   selectedRooms.map((roomId) => {
+      //     const res = axios.put(`/rooms/availability/${roomId}`, {
+      //       dates: alldates,
+      //     });
+      //     localStorage.setItem("roomId", roomId);
+
+      //     return res.data;
+      //   })
+      // );
+      const res = axios.put(`/rooms/availability/${IdRoom}`, {
+        dates: alldates,
+      });
+
+      const updateOrder = {
+        roomId: IdRoom,
+        price: PriceBasic * days * jsonOptions.Phòng,
+        quantity: Quantity,
+        checkIn: formattedStartDate,
+        checkOut: formattedEndDate,
+      };
+      // console.log(data);
+      await axios.patch("/orders/" + orderId, updateOrder);
+      console.log(updateOrder);
+      setOpenValueRoom(false);
+      alert("Hoàn thành chỉnh ngày ở phòng!");
+      window.location.reload();
+      return res.data
     } catch (error) {
-      
+      alert("Hoàn thành thay đổi ngày ở!");
+      console.log(error)
     }
   }
 
@@ -327,7 +334,7 @@ const Detail = () => {
                   : "Đơn đặt đã được hủy"}
               </header>
             </div>
-            <a className="link-booking-again" href="#">
+            <a className="link-booking-again" href={`/hotels/${data.hotelId}`}>
               <span className="icon-booking">
                 <FontAwesomeIcon className="icon-size-small" icon={faHotel} />
               </span>
@@ -804,7 +811,8 @@ const Detail = () => {
                 </div>
                 <button
                   className="conf-font change-time"
-                  onClick={handleChangeTime}
+                  // onClick={handleChangeTime}
+                  onClick={handleClick2}
                 >
                   Thay đổi
                 </button>

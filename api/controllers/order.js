@@ -47,6 +47,7 @@ export const createOrder = async (req, res, next) => {
       city: hotel.city,
       address: hotel.address,
       price: req.body.priceRoom,
+      priceBasic: req.body.priceBasic,
       rooms: req.body.rooms,
       roomId: req.body.roomId,
       userId: req.body.userId,
