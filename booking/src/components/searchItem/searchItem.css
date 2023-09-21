@@ -25,6 +25,7 @@
 .siTitle{
     font-size: 20px;
     color: #0072c4;
+    cursor: pointer;
 }
 
 .siDistance{

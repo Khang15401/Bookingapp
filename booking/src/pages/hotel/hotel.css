@@ -152,3 +152,58 @@
     color: lightgray;
     cursor: pointer;
 }
+
+.headerSearch1 {
+    height: 30px;
+    background-color: white;
+    border: 3px solid #febb02;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px 0px;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 10px;
+    /* position: absolute; */
+    bottom: -25px;
+    width: 100%;
+    max-width: 1024px;
+  }
+.date1 {
+    position: absolute;
+    top: 220px;
+    z-index: 2;
+    left: 653px;
+}  
+.options1{
+    z-index: 2;
+    position: absolute;
+    top: 213px;
+    right: 22%;
+    padding: 17px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-weight: 300;
+}
+
+.headerSearchItem1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 20px;
+  }
+
+.notify{
+    font-size: 14px;
+    font-weight: 500;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.headerIcon1{ 
+    color: black;
+}

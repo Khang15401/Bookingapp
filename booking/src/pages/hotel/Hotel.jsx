@@ -3,19 +3,25 @@ import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faBed,
+  faCalendarDays,
   faCircleArrowLeft,
   faCircleArrowRight,
   faCircleXmark,
+  faHandPointRight,
   faLocationDot,
+  faPerson,
 } from "@fortawesome/free-solid-svg-icons";
 import MailList from "../../components/mailList/MailList";
 import Footer from "../../components/footer/Footer";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useLocation, useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContex";
 import { AuthContext } from "../../context/AuthContex";
 import Reserve from "../../components/reserve/Reserve";
+import { format } from "date-fns";
+import { DateRange } from "react-date-range";
 
 const Hotel = () => {
   const location = useLocation();
@@ -32,6 +38,79 @@ const Hotel = () => {
   const navigate = useNavigate();
 
   const { dates, options } = useContext(SearchContext);
+  // MOI
+  const [openDate, setOpenDate] = useState(false);
+  const [selectedDates, setSelectedDates] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+
+  const [openOptions, setOpenOptions] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState({
+    Người_Lớn: 1,
+    Trẻ_Em: 0,
+    Phòng: 1,
+  });
+  // console.log(selectedDates);
+  // console.log(selectedOptions);
+
+  const handleOption = (ten, hoatdong) => {
+    setSelectedOptions((prev) => {
+      return {
+        ...prev,
+        [ten]:
+          hoatdong === "i"
+            ? selectedOptions[ten] + 1
+            : selectedOptions[ten] - 1,
+      };
+    });
+  };
+
+  //CHECK xem co phai dc open tu trang DETAIL khong ?
+  const urlParams = new URLSearchParams(window.location.search);
+  const fromDetail = urlParams.get("fromDetail");
+  console.log(fromDetail);
+
+  const handleRebookRoom = async () => {
+    window.location.reload();
+    try {
+      await localStorage.setItem("dates", JSON.stringify(selectedDates));
+      await localStorage.setItem("options", JSON.stringify(selectedOptions));
+    } catch (error) {}
+  };
+
+  // const [dayNew, setDayNew] = useState(0);
+  // const [price, setPrice] = useState(0);
+
+  // Sử dụng useEffect để tính toán days khi selectedDates thay đổi
+  // useEffect(() => {
+  //   // Tính toán số ngày giữa startDate và endDate
+  //   const startDate = selectedDates[0].startDate;
+  //   const endDate = selectedDates[0].endDate;
+  //   const timeDifference = endDate.getTime() - startDate.getTime();
+  //   const daysDifference = timeDifference / (1000 * 3600 * 24); // Chuyển đổi milliseconds thành ngày
+
+  //   // Cập nhật giá trị mới của days
+  //   setDayNew(daysDifference);
+  // }, [selectedDates]);
+
+  // // Sử dụng useEffect để tính toán price khi days và selectedOptions thay đổi
+  // useEffect(() => {
+  //   // Tính toán giá dựa trên days và selectedOptions
+  //   const calculatedPrice =
+  //     dayNew *
+  //     data.cheapestPrice *
+  //     selectedOptions.Phòng *
+  //     1.08;
+
+  //   // Cập nhật giá trị mới của price
+  //   setPrice(calculatedPrice);
+  // }, [dayNew, selectedOptions]);
+  // console.log(dayNew);
+  // console.log(price);
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   const dayDifference = (date1, date2) => {
@@ -73,12 +152,125 @@ const Hotel = () => {
     <div>
       <Navbar />
       <Header type="list" />
+      {fromDetail && (
+        <div className="headerSearch1">
+          <div className="headerSearchItem1">
+            <FontAwesomeIcon icon={faHandPointRight} className="headerIcon1" />
+            {/* <input
+              type="text"
+              placeholder="Mời bạn lựa chọn thời gian nghỉ và thêm các lựa chọn phòng"
+              className="headerSearchInput"
+              
+            /> */}
+            <p className="notify">Mời bạn thêm thời gian nghỉ và các lựa chọn phòng</p>
+          </div>
+          <div className="headerSearchItem1">
+            <FontAwesomeIcon className="headerIcon" icon={faCalendarDays} />
+            <span
+              onClick={() => setOpenDate(!openDate)}
+              className="headerSearchText"
+            >{`${format(selectedDates[0].startDate, "dd/MM/yyyy")} 
+                đến ${format(selectedDates[0].endDate, "dd/MM/yyyy")}`}</span>
+            {openDate && (
+              <DateRange
+                editableDateInputs={true}
+                onChange={(item) => setSelectedDates([item.selection])}
+                moveRangeOnFirstSelection={false}
+                ranges={selectedDates}
+                className="date1"
+                minDate={new Date()}
+              />
+            )}
+          </div>
+          <div className="headerSearchItem1">
+            <FontAwesomeIcon className="headerIcon" icon={faPerson} />
+            <span
+              onClick={() => setOpenOptions(!openOptions)}
+              className="headerSearchText"
+            >{`${selectedOptions.Người_Lớn} Người Lớn . ${selectedOptions.Trẻ_Em} Trẻ Em . ${selectedOptions.Phòng} Phòng `}</span>
+            {openOptions && (
+              <div className="options1">
+                <div className="optionItem">
+                  <span className="optionText">Người Lớn</span>
+                  <div className="optionCounter">
+                    <button
+                      disabled={selectedOptions.Người_Lớn <= 1}
+                      className="optionCounterButton"
+                      onClick={() => handleOption("Người_Lớn", "d")}
+                    >
+                      -
+                    </button>
+                    <span className="optionCounterNumber">
+                      {selectedOptions.Người_Lớn}
+                    </span>
+                    <button
+                      className="optionCounterButton"
+                      onClick={() => handleOption("Người_Lớn", "i")}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div className="optionItem">
+                  <span className="optionText">Trẻ Em</span>
+                  <div className="optionCounter">
+                    <button
+                      disabled={selectedOptions.Trẻ_Em <= 0}
+                      className="optionCounterButton"
+                      onClick={() => handleOption("Trẻ_Em", "d")}
+                    >
+                      -
+                    </button>
+                    <span className="optionCounterNumber">
+                      {selectedOptions.Trẻ_Em}
+                    </span>
+                    <button
+                      className="optionCounterButton"
+                      onClick={() => handleOption("Trẻ_Em", "i")}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div className="optionItem">
+                  <span className="optionText">Phòng</span>
+                  <div className="optionCounter">
+                    <button
+                      disabled={selectedOptions.Phòng <= 1}
+                      className="optionCounterButton"
+                      onClick={() => handleOption("Phòng", "d")}
+                    >
+                      -
+                    </button>
+                    <span className="optionCounterNumber">
+                      {selectedOptions.Phòng}
+                    </span>
+                    <button
+                      disabled={selectedOptions.Phòng >= 5}
+                      className="optionCounterButton"
+                      onClick={() => handleOption("Phòng", "i")}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="headerSearchItem">
+            <button className="headerBtn" onClick={handleRebookRoom}>
+              Áp Dụng
+            </button>
+          </div>
+        </div>
+      )}
+
       {loading ? (
         "loading"
       ) : (
         <div className="hotelContainer">
           {open && (
-            <div className="slider" >
+            <div className="slider">
               <FontAwesomeIcon
                 className="dong"
                 icon={faCircleXmark}
@@ -99,7 +291,8 @@ const Hotel = () => {
               />
             </div>
           )}
-          <div className="hotelWrapper" >
+
+          <div className="hotelWrapper">
             <button onClick={handleClick} className="datNgay">
               Đặt trước hoặc đặt ngay!
             </button>
@@ -138,8 +331,16 @@ const Hotel = () => {
                 </span>
                 <h2>
                   <b>
-                    {/* Giá chỉ từ: {(days * data.cheapestPrice * options.Phòng * 1.08).toFixed(0)} VND */}
-                    Giá chỉ từ: {(days * data.cheapestPrice * options.Phòng * 1.08).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                    Giá chỉ từ:{" "}
+                    {(
+                      days *
+                      data.cheapestPrice *
+                      options.Phòng *
+                      1.08
+                    ).toLocaleString("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    })}
                   </b>{" "}
                   ({days} đêm)
                 </h2>

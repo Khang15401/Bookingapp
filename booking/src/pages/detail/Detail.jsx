@@ -334,13 +334,15 @@ const Detail = () => {
                   : "Đơn đặt đã được hủy"}
               </header>
             </div>
-            <a className="link-booking-again" href={`/hotels/${data.hotelId}`}>
+            {(data.status === "Hoàn thành" || data.status === 'Đã hủy') && (
+              <a className="link-booking-again" href={`/hotels/${data.hotelId}?fromDetail=true`}>
               <span className="icon-booking">
                 <FontAwesomeIcon className="icon-size-small" icon={faHotel} />
               </span>
               <span className="link-booking">Đặt lại</span>
             </a>
-            <a className="link-booking-again spacing" href="#">
+            )}
+            <a className="link-booking-again spacing" href="/">
               <span className="icon-booking">
                 <FontAwesomeIcon className="icon-size-small" icon={faSearch} />
               </span>
@@ -691,9 +693,9 @@ const Detail = () => {
                 <div className="booknumber-code-item booknumber-font">
                   Mã đặt phòng:
                   <span className="booknumber-font2">{data._id}</span>
-                  <span>
+                  {/* <span>
                     <FontAwesomeIcon icon={faCopy} />
-                  </span>
+                  </span> */}
                 </div>
                 <div className="booknumber-code-item booknumber-font">
                   Mã phòng khách sạn:
