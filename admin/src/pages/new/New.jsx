@@ -35,6 +35,7 @@ const New = ({ inputs, title }) => {
 
       await axios.post("/auth/register", newUser);
       alert("Thêm người dùng thành công!")
+      console.log(newUser);
       navigate("/users");
     } catch (err) {
       alert("Thêm người dùng thất bại!")

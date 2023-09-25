@@ -43,7 +43,7 @@ const handleClick = async (e) => {
     <div>
       {/* <Link to="/" style={{ textDecoration: "none" }}> */}
           <div className="container-logo">
-            <span className="logo1">kiawadmin</span>
+            <span className="logo1">Kiawadmin</span>
           </div>
         {/* </Link> */}
       <div className="login">

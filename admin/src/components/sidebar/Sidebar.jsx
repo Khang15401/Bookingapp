@@ -1,5 +1,6 @@
 import "./sidebar.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import FormatListNumbered from "@mui/icons-material/FormatListNumbered";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -26,7 +27,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">kiawadmin</span>
+          <span className="logo">Kiawadmin</span>
         </Link>
       </div>
       <hr />
@@ -36,13 +37,13 @@ const Sidebar = () => {
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
-              <span>Users</span>
+              <span>Người dùng</span>
             </li>
           </Link>
           <Link to="/hotels" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
-              <span>Khách Sạn</span>
+              <span>Khách sạn</span>
             </li>
           </Link>
           <Link to="/rooms" style={{ textDecoration: "none" }}>
@@ -54,7 +55,13 @@ const Sidebar = () => {
           <Link to="/orders" style={{ textDecoration: "none" }}>
             <li>
               <GradingIcon className="icon" />
-              <span>Lịch Đặt Phòng</span>
+              <span>Lịch đặt phòng</span>
+            </li>
+          </Link>
+          <Link to="/services" style={{ textDecoration: "none" }}>
+            <li>
+              <FormatListNumbered className="icon" />
+              <span>Dịch vụ khách sạn</span>
             </li>
           </Link>
           

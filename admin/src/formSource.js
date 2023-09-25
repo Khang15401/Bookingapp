@@ -174,3 +174,25 @@ export const orderInputs = [
   },
   
 ];
+
+export const serviceInputs = [
+  {
+    id: "servicename",
+    label: "Tên dịch vụ",
+    type: "text",
+    placeholder: "Ăn buffet sáng",
+  },
+  {
+    id: "serviceprice",
+    label: "Giá dịch vụ",
+    type: "number",
+    placeholder: "100000",
+  },
+  {
+    id: "introduction",
+    label: "Giới thiệu",
+    type: "text",
+    placeholder: "Ăn sáng buffet tại khách sạn",
+  },
+  
+];

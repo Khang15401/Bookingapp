@@ -116,3 +116,22 @@ export const orderColumns = [
     width: 100,
   },
 ];
+
+export const serviceColumns = [
+  { field: "_id", headerName: "ID", width: 250 },
+  {
+    field: "servicename",
+    headerName: "Name",
+    width: 220,
+  },
+  {
+    field: "introduction",
+    headerName: "introdution",
+    width: 400,
+  },
+  {
+    field: "serviceprice",
+    headerName: "Price",
+    width: 100,
+  },
+];

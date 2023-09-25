@@ -342,12 +342,14 @@ const Detail = () => {
               <span className="link-booking">Đặt lại</span>
             </a>
             )}
+            {(data.status === "Hoàn thành" || data.status === 'Đã hủy') && (
             <a className="link-booking-again spacing" href="/">
               <span className="icon-booking">
                 <FontAwesomeIcon className="icon-size-small" icon={faSearch} />
               </span>
               <span className="link-booking">Tìm kiếm nơi ở khác</span>
             </a>
+            )}
           </div>
           <div className="container-info-hotel">
             <div className="wrap-info-hotel">

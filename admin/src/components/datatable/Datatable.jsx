@@ -1,21 +1,21 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows, hotelColumns} from "../../datatablesource";
+import { userColumns, userRows, hotelColumns } from "../../datatablesource";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import useFetch from "../../hooks/useFetch"
+import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 
-const Datatable = ({columns}) => {
+const Datatable = ({ columns }) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
   const { data, loading, error } = useFetch(`/${path}`);
   console.log(data);
 
-  useEffect(()=>{
-    setList(data)
-  },[data])
+  useEffect(() => {
+    setList(data);
+  }, [data]);
 
   const handleDelete = async (id) => {
     try {
@@ -32,7 +32,10 @@ const Datatable = ({columns}) => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to={`/${path}/${params.row._id}`} style={{ textDecoration: "none" }}>
+            <Link
+              to={`/${path}/${params.row._id}`}
+              style={{ textDecoration: "none" }}
+            >
               <div className="viewButton">Xem</div>
             </Link>
             <div
@@ -50,9 +53,11 @@ const Datatable = ({columns}) => {
     <div className="datatable">
       <div className="datatableTitle">
         {path}
-        <Link to={`/${path}/new`} className="link">
-          Thêm mới
-        </Link>
+        {path !== "orders" && (
+          <Link to={`/${path}/new`} className="link">
+            Thêm mới
+          </Link>
+        )}
       </div>
       <DataGrid
         className="datagrid"
@@ -61,13 +66,10 @@ const Datatable = ({columns}) => {
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
-        getRowId={rows => rows._id}
+        getRowId={(rows) => rows._id}
       />
     </div>
   );
 };
 
 export default Datatable;
-
-
-

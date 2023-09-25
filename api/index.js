@@ -6,6 +6,7 @@ import usersRoute from "./routes/users.js"
 import hotelsRoute from "./routes/hotels.js"
 import ordersRoute from "./routes/orders.js"
 import roomsRoute from "./routes/rooms.js"
+import servicesRoute from "./routes/services.js"
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -36,6 +37,7 @@ app.use("/api/users", usersRoute);
 app.use("/api/hotels", hotelsRoute);
 app.use("/api/rooms", roomsRoute);
 app.use("/api/orders", ordersRoute);
+app.use("/api/services", servicesRoute);
 
 app.use((err, req, res, next) =>{
     const errorStatus = err.status || 500;

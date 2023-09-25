@@ -75,22 +75,6 @@ const EditOrder = ({}) => {
           <div className="right">
             <form>
               <div class="formInput">
-                {/* <label>Ảnh Khách Sạn</label>
-                <div
-                  class="img-update"
-                  onChange={handleChange}
-                  src={data.photos}
-                  id="photos"
-                ></div> */}
-                {/* <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label> */}
-                {/* <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: "none" }}
-                /> */}
                 <label>Tên khách sạn</label>
                 <input
                   // type={input.type}
@@ -107,48 +91,33 @@ const EditOrder = ({}) => {
                   name="name"
                   disabled
                 />
-                {/* <label>Khoảng Cách</label>
+                <label>Giá tiền</label>
                 <input
                   onChange={handleChange}
                   type="text"
-                  placeholder={data.distance}
+                  placeholder={data.price}
                   id="distance"
                   name="distance"
                 />
-                <label>Địa Chỉ</label>
+                <label>Check In</label>
                 <input
                   onChange={handleChange}
                   type="text"
-                  placeholder={data.address}
-                  id="address"
-                  name="address"
-                />
-                <label>Thành Phố</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.city}
-                  id="city"
-                  name="city"
-                />
-                
-                <label>Tiêu Đề</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.title}
+                  placeholder={data.checkIn}
                   id="title"
                   name="title"
+                  disabled
                 />
-                <label>Đánh Giá</label>
+                <label>Check Out</label>
                 <input
                   onChange={handleChange}
-                  type="number"
-                  min={0}
-                  placeholder={data.rating}
-                  id="rating"
-                  name="rating"
-                /> */}
+                  type="text"
+                  placeholder={data.checkOut}
+                  id="title"
+                  name="title"
+                  disabled
+                />
+                
                 <label>Tình trạng</label>
                 <p>{data.status}</p>
                 <select id="status" onChange={handleChange}>
