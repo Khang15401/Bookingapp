@@ -1,5 +1,6 @@
 import Order from "../models/Order.js";
 import Hotel from "../models/Hotel.js";
+import Service from "../models/Service.js"
 import { createError } from "../utils/error.js";
 import User from "../models/User.js";
 import mongoose from "mongoose";
@@ -92,5 +93,19 @@ export const deleteOrder = async(req, res, next)=>{
       res.status(200).json("Order da bi xoa");
   }catch(err){
       next(err);
+  }
+}
+
+export const getOrderServices = async(req, res, next) => {
+  try{
+      const order = await Order.findById(req.params.id)
+      const list  = await Promise.all(
+          order.services.map(service=>{
+              return Service.findById(service);
+          })
+      );
+      res.status(200).json(list)
+  }catch(err){
+      next(err)
   }
 }

@@ -138,7 +138,7 @@ const Order = () => {
                       <div className="number-room conf-font1">Phòng {(order?.rooms)}</div>
                     </div>
                     <div className="price-room conf-font1">
-                      <span>{(order.price/1.08).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                      <span>{(order.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
                     </div>
                     {/* <div className="price-room">
                       <span>{(order?.rooms)}</span>

@@ -30,6 +30,7 @@ import axios from "axios";
 import { SearchContext, SearchContext1 } from "../../context/SearchContex";
 import useFetch1 from "../../hooks/useFetch1";
 import Reserve from "../../components/reserve/Reserve";
+import useFetch2 from "../../hooks/useFetch2";
 const Detail = () => {
   const { orderId } = useParams();
   // console.log(orderId);
@@ -40,6 +41,11 @@ const Detail = () => {
   const { data1, loading1, error1, reFetch1 } = useFetch1(
     `/hotels/room/${hotelID}`
   );
+  const { data2, loading2, error2, reFetch2 } = useFetch2(
+    `/orders/service/${orderId}`
+  );
+  console.log(data2);
+
   const [showConfirmation, setShowConfirmation] = useState(false);
   // const [changeTime, setChangeTime] = useState(false);
   const [orderID, setOrderID] = useState(null);
@@ -78,7 +84,6 @@ const Detail = () => {
     console.log(dates);
     await setOpenValueRoom(true);
     setOpenDate(false);
-    
   };
   // console.log(JSON.stringify(dates))
   // localStorage.setItem("dates", JSON.stringify(dates));
@@ -89,7 +94,6 @@ const Detail = () => {
     setOpen(false);
     setOpenValueRoom(false);
   };
-
 
   const showConfirmDialog = (id, orderId) => {
     setShowConfirmation(true);
@@ -281,16 +285,6 @@ const Detail = () => {
     e.preventDefault();
     await localStorage.setItem("dates", JSON.stringify(dates));
     try {
-      // await Promise.all(
-      //   selectedRooms.map((roomId) => {
-      //     const res = axios.put(`/rooms/availability/${roomId}`, {
-      //       dates: alldates,
-      //     });
-      //     localStorage.setItem("roomId", roomId);
-
-      //     return res.data;
-      //   })
-      // );
       const res = axios.put(`/rooms/availability/${IdRoom}`, {
         dates: alldates,
       });
@@ -308,12 +302,12 @@ const Detail = () => {
       setOpenValueRoom(false);
       alert("Hoàn thành chỉnh ngày ở phòng!");
       window.location.reload();
-      return res.data
+      return res.data;
     } catch (error) {
       alert("Hoàn thành thay đổi ngày ở!");
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <div>
@@ -334,21 +328,27 @@ const Detail = () => {
                   : "Đơn đặt đã được hủy"}
               </header>
             </div>
-            {(data.status === "Hoàn thành" || data.status === 'Đã hủy') && (
-              <a className="link-booking-again" href={`/hotels/${data.hotelId}?fromDetail=true`}>
-              <span className="icon-booking">
-                <FontAwesomeIcon className="icon-size-small" icon={faHotel} />
-              </span>
-              <span className="link-booking">Đặt lại</span>
-            </a>
+            {(data.status === "Hoàn thành" || data.status === "Đã hủy") && (
+              <a
+                className="link-booking-again"
+                href={`/hotels/${data.hotelId}?fromDetail=true`}
+              >
+                <span className="icon-booking">
+                  <FontAwesomeIcon className="icon-size-small" icon={faHotel} />
+                </span>
+                <span className="link-booking">Đặt lại</span>
+              </a>
             )}
-            {(data.status === "Hoàn thành" || data.status === 'Đã hủy') && (
-            <a className="link-booking-again spacing" href="/">
-              <span className="icon-booking">
-                <FontAwesomeIcon className="icon-size-small" icon={faSearch} />
-              </span>
-              <span className="link-booking">Tìm kiếm nơi ở khác</span>
-            </a>
+            {(data.status === "Hoàn thành" || data.status === "Đã hủy") && (
+              <a className="link-booking-again spacing" href="/">
+                <span className="icon-booking">
+                  <FontAwesomeIcon
+                    className="icon-size-small"
+                    icon={faSearch}
+                  />
+                </span>
+                <span className="link-booking">Tìm kiếm nơi ở khác</span>
+              </a>
             )}
           </div>
           <div className="container-info-hotel">
@@ -615,7 +615,7 @@ const Detail = () => {
                           <div className="room__meal-rows">
                             <div className="room__meal-row">
                               <div className="room__meal-cell conf-font">
-                                Giá phòng đã bao gồm 8% thuế GTGT.
+                                Giá phòng chưa bao gồm 8% thuế GTGT.
                               </div>
                             </div>
                           </div>
@@ -633,8 +633,15 @@ const Detail = () => {
                           <div className="conf-table-content2" scope="row">
                             {data.quantity}
                           </div>
+                          {/* <td className="conf-font">
+                            {formatCurrency((data.price - data.priceService)/1.08)}
+                          </td> */}
                           <td className="conf-font">
-                            {formatCurrency(data.price / 1.08)}
+                            {data.priceService
+                              ? formatCurrency(
+                                  (data.price / 1.08 - data.priceService)
+                                )
+                              : formatCurrency(data.price)}
                           </td>
                         </tr>
                         <tr>
@@ -645,6 +652,26 @@ const Detail = () => {
                             {formatCurrency(data.price - data.price / 1.08)}
                           </td>
                         </tr>
+                        {data2.map((service, index) => (
+                          <tr key={index}>
+                            <div className="conf-table-content2" scope="row">
+                              - {service.servicename}
+                            </div>
+                            <td className="conf-font td-service">
+                              {formatCurrency(service.serviceprice)}
+                            </td>
+                          </tr>
+                        ))}
+                        {/* {data2.map((service) => {
+                          <tr>
+                          <div className="conf-table-content2" scope="row">
+                            {service.servicename}
+                          </div>
+                          <td className="conf-font">
+                            {formatCurrency(service.serviceprice)}
+                          </td>
+                        </tr>
+                        })} */}
                       </tbody>
                     </table>
                   </div>
@@ -793,10 +820,10 @@ const Detail = () => {
                 {/* <h1 className="lsTitle">Tìm Kiếm</h1> */}
                 <div className="lsItem1">
                   <FontAwesomeIcon
-                  icon={faCircleXmark}
-                  className="rClose"
-                  onClick={hideChangeTime}
-                />
+                    icon={faCircleXmark}
+                    className="rClose"
+                    onClick={hideChangeTime}
+                  />
                   <label className="conf-font">Chọn ngày thay đổi</label>
                   <span
                     className="conf-font"
@@ -894,49 +921,49 @@ const Detail = () => {
                   </div>
                   {/* )} */}
                   {openValueRoom && (
-                  <div>
-                    {data1.map((item) => (
-                      <div className="rItem" key={item._id}>
-                        <div className="rItemInfo">
-                          <div className="rTitle conf-font">{item.title}</div>
-                          <div className="rDesc">{item.desc}</div>
-                          <div className="rMax conf-font">
-                            Số người tối đa: <b>{item.maxPeople}</b>
-                          </div>
-                          <div className="rPrice conf-font" id="price">
-                            {/* {item.price} */}
-                            {(item.price * 1.08).toLocaleString("vi-VN", {
-                              style: "currency",
-                              currency: "VND",
-                            })}
-                          </div>
-                        </div>
-                        <div className="rSelectRooms">
-                          {item.roomNumbers.map((roomNumber) => (
-                            <div className="room" key={roomNumber._id}>
-                              <label>{roomNumber.number}</label>
-                              <input
-                                type="checkbox"
-                                value={roomNumber._id}
-                                data-room-number={roomNumber.number}
-                                data-room-price={item.price * 1.08}
-                                data-room-photo={item.photo}
-                                onChange={handleSelect}
-                                disabled={!isAvailable(roomNumber)}
-                              />
+                    <div>
+                      {data1.map((item) => (
+                        <div className="rItem" key={item._id}>
+                          <div className="rItemInfo">
+                            <div className="rTitle conf-font">{item.title}</div>
+                            <div className="rDesc">{item.desc}</div>
+                            <div className="rMax conf-font">
+                              Số người tối đa: <b>{item.maxPeople}</b>
                             </div>
-                          ))}
+                            <div className="rPrice conf-font" id="price">
+                              {/* {item.price} */}
+                              {item.price.toLocaleString("vi-VN", {
+                                style: "currency",
+                                currency: "VND",
+                              })}
+                            </div>
+                          </div>
+                          <div className="rSelectRooms">
+                            {item.roomNumbers.map((roomNumber) => (
+                              <div className="room" key={roomNumber._id}>
+                                <label>{roomNumber.number}</label>
+                                <input
+                                  type="checkbox"
+                                  value={roomNumber._id}
+                                  data-room-number={roomNumber.number}
+                                  data-room-price={item.price}
+                                  data-room-photo={item.photo}
+                                  onChange={handleSelect}
+                                  disabled={!isAvailable(roomNumber)}
+                                />
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                    <button
-                      className="conf-font change-time"
-                      // onClick={handleChangeTime}
-                      onClick={handleClick1}
-                    >
-                      Thay đổi
-                    </button>
-                  </div>
+                      ))}
+                      <button
+                        className="conf-font change-time"
+                        // onClick={handleChangeTime}
+                        onClick={handleClick1}
+                      >
+                        Thay đổi
+                      </button>
+                    </div>
                   )}
                 </form>
               </div>

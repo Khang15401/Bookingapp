@@ -55,6 +55,12 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
+    services:{
+        type: [String]
+    },
+    priceService: {
+        type: Number,
+    },
     status:{
         type: String,
         default: "Chưa nhận phòng",

@@ -141,6 +141,10 @@ const NewService = () => {
                   />
                 </div>
               ))}
+              <button className="no-btn" disabled></button>
+              <button className="no-btn" disabled></button>
+              <button className="no-btn" disabled></button>
+
               <button className="formInput1" onClick={handleClick}>Thêm</button>
             </form>
           </div>

@@ -9,6 +9,7 @@ import { AuthContext } from "../../context/AuthContex";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./editOrder.scss";
+import useFetch1 from "../../hooks/useFetch1";
 
 const EditOrder = ({}) => {
   const navigate = useNavigate();
@@ -17,34 +18,48 @@ const EditOrder = ({}) => {
   const [orders, setOrders] = useState([]);
   const { orderId } = useParams();
   // console.log(orderId);
+  const [services, setServices] = useState([]);
+  const [priceService, setPriceService] = useState();
+  console.log(services);
+  console.log(priceService);
 
   const { data, loading, error } = useFetch(`/orders/${orderId}`);
+  const priceOrder = data.price;
+  console.log(priceOrder);
+  const {data1, loading1, error1 } = useFetch1(`/services`)
   const { order } = useContext(AuthContext);
-  console.log(data);
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
+  const handleSelect = e =>{
+    const value = Array.from(e.target.selectedOptions, (option) => option.value);
+    const selectedOptions = Array.from(e.target.selectedOptions, (option) => ({
+      // price: option.getAttribute('data-price'),
+      price: parseFloat(option.getAttribute('data-price'))
+    }));
+
+    const totalPrice = selectedOptions.reduce((sum, service) => sum + service.price, 0);
+    // setTotalPrice(totalPrice);
+    setServices(value)
+    setPriceService(totalPrice)
+  };
+
+  // Dieu chinh lai gia tien và cách tính thuế GTGT của toàn bộ dịch vụ 
+
   const handleClick = async (e) => {
-    e.preventDefault();
-    
-    // const data = new FormData();
-    // data.append("file", file);
-    // data.append("upload_preset", "upload");
+    e.preventDefault();   
     try {
-    // const uploadRes = await axios.post(
-    //   "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
-    //   data
-    //   );
-    //       const { url } = uploadRes.data;
-          
-          // console.log(updateHotel);
           const updateOrder = {
             ...info,
+            services,
+            price: (priceOrder + priceService) * 1.08,
+            priceService: priceService,
+
           };
-          // console.log(data);
       await axios.patch("/orders/" + orderId, updateOrder);
+      console.log(updateOrder);    
       alert("Sửa thông tin đơn hàng thành công!");
       navigate("/orders");
     } catch (err) {
@@ -117,6 +132,14 @@ const EditOrder = ({}) => {
                   name="title"
                   disabled
                 />
+              <div className="selectRooms">
+                <label>Loại dịch vụ</label>
+                <select id="rooms" multiple onChange={handleSelect}>
+                  {loading ? "loading" : data1 && data1.map(service=>(
+                    <option key={service._id} data-price={service.serviceprice} value={service._id}>{service.servicename}</option>
+                  ))}
+                </select>
+              </div>
                 
                 <label>Tình trạng</label>
                 <p>{data.status}</p>

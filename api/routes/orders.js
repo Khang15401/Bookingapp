@@ -1,6 +1,6 @@
 import  express  from "express";
 // import {deleteOrder, getOrder, getOrderId, getOrders, updateOrder, intent} from "../controllers/order.js";
-import {deleteOrder, getOrder, getOrderId, getOrders, updateOrder, cancleOrder, createOrder} from "../controllers/order.js";
+import {deleteOrder, getOrder, getOrderId, getOrders, updateOrder, cancleOrder, createOrder, getOrderServices} from "../controllers/order.js";
 import Hotel from "../models/Hotel.js";
 import { verifyAdmin } from "../utils/verifyToken.js";
 
@@ -17,6 +17,8 @@ router.delete("/:id", verifyAdmin, deleteOrder);
 //GET
 router.get("/history/:id", getOrder);
 router.get("/:id", getOrderId);
+
+router.get("/service/:id", getOrderServices)
 // router.post("/create-payment-intent/:hotelid", intent)
 //Payment Paypal
 

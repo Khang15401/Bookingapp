@@ -122,7 +122,7 @@ const Hotel = () => {
   const days = dayDifference(dates[0]?.endDate, dates[0]?.startDate);
   // const day =  days * data.cheapestPrice * options.Phòng;
   // console.log(day);
-  const VND = (days * data.cheapestPrice * options.Phòng * 1.08).toFixed(0);
+  const VND = (days * data.cheapestPrice * options.Phòng).toFixed(0);
   const handleOpen = (i) => {
     setSoSlider(i);
     setOpen(true);
@@ -335,8 +335,7 @@ const Hotel = () => {
                     {(
                       days *
                       data.cheapestPrice *
-                      options.Phòng *
-                      1.08
+                      options.Phòng
                     ).toLocaleString("vi-VN", {
                       style: "currency",
                       currency: "VND",

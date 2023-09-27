@@ -213,7 +213,7 @@ const Reserve = ({ setOpen, hotelId }) => {
                 </div>
                 <div className="rPrice" id="price">
                   {/* {item.price} */}
-                  {(item.price*1.08).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                  {(item.price).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                 </div>
               </div>
               <div className="rSelectRooms">
@@ -225,7 +225,7 @@ const Reserve = ({ setOpen, hotelId }) => {
                       type="checkbox"
                       value={roomNumber._id}
                       data-room-number={roomNumber.number}
-                      data-room-price={item.price*1.08}
+                      data-room-price={item.price}
                       data-room-photo={item.photo}
                       data-room-name={item.title}
                       // data-room-basicprice={item.}
