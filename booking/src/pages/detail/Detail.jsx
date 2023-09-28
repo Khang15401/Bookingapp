@@ -639,7 +639,7 @@ const Detail = () => {
                           <td className="conf-font">
                             {data.priceService
                               ? formatCurrency(
-                                  (data.price / 1.08 - data.priceService)
+                                  data.price / 1.08 - data.priceService
                                 )
                               : formatCurrency(data.price)}
                           </td>
@@ -648,8 +648,13 @@ const Detail = () => {
                           <div className="conf-table-content2" scope="row">
                             8 % Thuế GTGT
                           </div>
-                          <td className="conf-font">
+                          {/* <td className="conf-font">
                             {formatCurrency(data.price - data.price / 1.08)}
+                          </td> */}
+                          <td className="conf-font">
+                            {data.priceService
+                              ? formatCurrency(data.price - data.price / 1.08)
+                              : formatCurrency(data.price * 1.08 - data.price)}
                           </td>
                         </tr>
                         {data2.map((service, index) => (
@@ -691,7 +696,10 @@ const Detail = () => {
                             </div>
                           </div>
                           <td className="conf-font2">
-                            {formatCurrency(data.price)}
+                            {/* {formatCurrency(data.price)} */}
+                            {data.priceService
+                              ? formatCurrency(data.price)
+                              : formatCurrency(data.price * 1.08)}
                           </td>
                         </tr>
                       </tbody>

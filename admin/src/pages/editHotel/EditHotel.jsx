@@ -12,7 +12,7 @@ import "./editHotel.scss";
 
 const EditHotel = ({}) => {
   const navigate = useNavigate();
-  const [file, setFile] = useState("");
+  const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
   const [hotels, setHotels] = useState([]);
   const { hotelId } = useParams();
@@ -28,20 +28,24 @@ const EditHotel = ({}) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-
-    // const data = new FormData();
-    // data.append("file", file);
-    // data.append("upload_preset", "upload");
     try {
-      // const uploadRes = await axios.post(
-      //   "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
-      //   data
-      //   );
-      //       const { url } = uploadRes.data;
+      const list = await Promise.all(
+        Object.values(files).map(async (file) => {
+          const data = new FormData();
+          data.append("file", file);
+          data.append("upload_preset", "upload");
+          const uploadRes = await axios.post(
+            "https://api.cloudinary.com/v1_1/Kiawdev/image/upload",
+            data
+          );
 
-      // console.log(updateHotel);
+          const { url } = uploadRes.data;
+          return url;
+        })
+      );
       const updateHotel = {
         ...info,
+        photos: list,
       };
       // console.log(data);
       await axios.patch("/hotels/" + hotelId, updateHotel);
@@ -62,35 +66,27 @@ const EditHotel = ({}) => {
           <h1>Sửa Thông Tin Khách Sạn</h1>
         </div>
         <div className="bottom">
-          {/* <div className="left"> */}
-          {/* <img
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
-            /> */}
-          {/* </div> */}
-          <div className="right">
-            <form>
-              <div class="formInput">
-                {/* <label>Ảnh Khách Sạn</label>
-                <div
-                  class="img-update"
-                  onChange={handleChange}
-                  src={data.photos}
-                  id="photos"
-                ></div> */}
-                {/* <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label> */}
-                {/* <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: "none" }}
-                /> */}
+          <div className="left1">
+            <div>Ảnh khách sạn</div>
+            {data.photos?.map((photo, i) => (
+              // <div className="hotelImgWrapper" key={photo.id}>
+              <img src={photo} alt="" />
+              // </div>
+            ))}
+          </div>
+          <div className="right1">
+            <form style={{width: "100%"}}>
+              <div class="formInput" style={{width: "80%"}}>
+              <label htmlFor="file">
+                Image: <DriveFolderUploadOutlinedIcon className="icon" />
+              </label>
+              <input
+                type="file"
+                id="file"
+                multiple
+                onChange={(e) => setFiles(e.target.files)}
+                style={{ display: "none" }}
+              />
                 <label>Tên Khách Sạn</label>
                 <input
                   onChange={handleChange}
@@ -148,13 +144,32 @@ const EditHotel = ({}) => {
                   <option value={false}>No</option>
                   <option value={true}>Yes</option>
                 </select>
+                <button className="no-btn" disabled></button>
+                <button onClick={handleClick}>Cập nhật</button>
               </div>
-
-              <button className="no-btn" disabled></button>
-              <button className="no-btn" disabled></button>
-              <button className="no-btn" disabled></button>
-              <button onClick={handleClick}>Cập nhật</button>
             </form>
+            <div className="formInput" style={{flex: 1}}>
+            {/* <div>Ảnh vừa được tải lên</div> */}
+            {/* {Array.from(files).map((file, index) => (
+              <img
+                key={index}
+                src={URL.createObjectURL(file)}
+                alt={`Image ${index}`}
+                className="image-preview"
+              />
+            ))} */}
+            <div className="left1">
+            <div>Ảnh thay thế</div>
+            {Array.from(files).map((file, index) => (
+              <img
+                key={index}
+                src={URL.createObjectURL(file)}
+                alt={`Image ${index}`}
+                className="image-preview"
+              />
+            ))}
+          </div>
+            </div>
           </div>
         </div>
       </div>

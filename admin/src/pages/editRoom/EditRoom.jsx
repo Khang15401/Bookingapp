@@ -13,6 +13,7 @@ import "./editRoom.scss";
 const EditRoom = ({}) => {
   const navigate = useNavigate();
   const [file, setFile] = useState("");
+  console.log(file.name);
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
   const { roomId } = useParams();
@@ -28,19 +29,21 @@ const EditRoom = ({}) => {
   const handleClick = async (e) => {
     e.preventDefault();
 
-    // const data = new FormData();
-    // data.append("file", file);
-    // data.append("upload_preset", "upload");
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "upload");
     try {
-      // const uploadRes = await axios.post(
-      //   "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
-      //   data
-      //   );
-      //       const { url } = uploadRes.data;
+      const uploadRes = await axios.post(
+        "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
+        data
+      );
+      const { url } = uploadRes.data;
+      console.log(url);
 
       // console.log(updateHotel);
       const updateRoom = {
         ...info,
+        photo: url,
       };
       // console.log(info);
       await axios.patch("/rooms/" + roomId, updateRoom);
@@ -61,8 +64,8 @@ const EditRoom = ({}) => {
           <h1>Sửa Thông Tin Phòng Khách Sạn</h1>
         </div>
         <div className="bottom">
-          {/* <div className="left"> */}
-          {/* <img
+          <div className="left2">
+            {/* <img
               src={
                 file
                   ? URL.createObjectURL(file)
@@ -70,26 +73,40 @@ const EditRoom = ({}) => {
               }
               alt=""
             /> */}
-          {/* </div> */}
-          <div className="right">
-            <form>
-              <div class="formInput">
-                {/* <label>Ảnh Khách Sạn</label>
-                <div
+            <div class="formInput2">
+              <label>Ảnh phòng</label>
+              <div>
+                <img
                   class="img-update"
                   onChange={handleChange}
-                  src={data.photos}
-                  id="photos"
-                ></div> */}
-                {/* <label htmlFor="file">
+                  src={data.photo}
+                  id="img"
+                  />
+                  <div>Ảnh thay thế</div>
+                <img
+                  src={
+                    file
+                      ? URL.createObjectURL(file)
+                      : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                  }
+                  alt=""
+                />
+                
+              </div>
+              <label htmlFor="file">
                   Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label> */}
-                {/* <input
+                </label>
+                <input
                   type="file"
                   id="file"
                   onChange={(e) => setFile(e.target.files[0])}
                   style={{ display: "none" }}
-                /> */}
+                />
+            </div>
+          </div>
+          <div className="right">
+            <form>
+              <div class="formInput">
                 <label>Tiêu Đề Phòng</label>
                 <input
                   onChange={handleChange}
@@ -114,13 +131,6 @@ const EditRoom = ({}) => {
                   id="price"
                   name="price"
                 />
-
-                {/* <label>Nổi bật</label>
-                <p>{data.featured}</p>
-                <select id="special" onChange={handleChange}>
-                  <option value={false}>No</option>
-                  <option value={true}>Yes</option>
-                </select> */}
                 <label>Số Người Tối Đa</label>
                 <input
                   onChange={handleChange}
@@ -134,7 +144,7 @@ const EditRoom = ({}) => {
                 <label>Số Phòng Khách Sạn</label>
                 {data && data.roomNumbers && (
                   <input
-                    onChange={handleChange} 
+                    onChange={handleChange}
                     type="text"
                     placeholder={data.roomNumbers
                       .map((roomNumber) => roomNumber.number)
@@ -143,12 +153,13 @@ const EditRoom = ({}) => {
                     name="roomNumbers"
                   />
                 )}
+                <button onClick={handleClick}>Cập nhật</button>
               </div>
 
+              {/* <button className="no-btn" disabled></button>
               <button className="no-btn" disabled></button>
-              <button className="no-btn" disabled></button>
-              <button className="no-btn" disabled></button>
-              <button onClick={handleClick}>Cập nhật</button>
+              <button className="no-btn" disabled></button> */}
+              {/* <button onClick={handleClick}>Cập nhật</button> */}
             </form>
           </div>
         </div>

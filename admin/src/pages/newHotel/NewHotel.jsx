@@ -11,7 +11,8 @@ import { Link, useNavigate } from "react-router-dom";
 const NewHotel = () => {
   const navigate = useNavigate()
 
-  const [files, setFiles] = useState("");
+  const [files, setFiles] = useState([]);
+  console.log(files)
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
 
@@ -68,15 +69,32 @@ const NewHotel = () => {
           <h1>Thêm Khách Sạn Mới</h1>
         </div>
         <div className="bottom">
-          <div className="left">
+          <div className="left2">
+          <div>Ảnh vừa được tải lên</div>
+          {Array.from(files).map((file, index) => (
             <img
-              src={
-                files
-                  ? URL.createObjectURL(files[0])
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
+              key={index} 
+              src={URL.createObjectURL(file)}
+              alt={`Image ${index}`}
+              className="image-preview"
             />
+          // </div>x
+        ))}
+
+{/* {files && files.length > 0 ? (
+  files.map((file, index) => (
+    <img
+      key={index}
+      src={URL.createObjectURL(file)}
+      alt={`Image ${index + 1}`}
+    />
+  ))
+) : (
+  <img
+    src="https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+    alt=""
+  />
+)} */}
           </div>
           <div className="right">
             <form>

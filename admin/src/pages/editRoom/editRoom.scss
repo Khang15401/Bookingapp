@@ -18,15 +18,16 @@
         font-size: 20px;
       }
 
-      .left{
+      .left2{
         flex: 1;
-        text-align: center;
+        text-align: left;
 
         img {
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
+          width: 190px;
+          height: 140px;
           object-fit: cover;
+          padding-right: 10px;
+          padding-bottom: 10px;
         }
       }
 
@@ -40,14 +41,15 @@
           gap: 30px;
           justify-content: space-between;
 
-          .formInput {
+          .formInput2 {
             width: 40%;
+            margin-top: 10px;
 
             label {
               display: flex;
               align-items: center;
               gap: 10px;
-
+              
               .icon {
                 cursor: pointer;
               }
@@ -61,10 +63,14 @@
             }
           }
 
+          // img {
+          //   height: 120px;
+          //   width: 120px;
+          //   border-radius: 50%;
+          // }
           img {
-            height: 120px;
-            width: 120px;
-            border-radius: 50%;
+            height: 190px;
+            width: 140px;
           }
           .no-btn {
             background-color: transparent;
