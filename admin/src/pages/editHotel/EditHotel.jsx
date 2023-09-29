@@ -28,8 +28,11 @@ const EditHotel = ({}) => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+
     try {
-      const list = await Promise.all(
+    let list = info.photos;
+    if (files) {
+      list = await Promise.all(
         Object.values(files).map(async (file) => {
           const data = new FormData();
           data.append("file", file);
@@ -43,6 +46,7 @@ const EditHotel = ({}) => {
           return url;
         })
       );
+    }
       const updateHotel = {
         ...info,
         photos: list,

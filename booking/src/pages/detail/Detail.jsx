@@ -644,6 +644,16 @@ const Detail = () => {
                               : formatCurrency(data.price)}
                           </td>
                         </tr>
+                        {data2.map((service, index) => (
+                          <tr key={index}>
+                            <div className="conf-table-content2" scope="row">
+                              - {service.servicename}
+                            </div>
+                            <td className="conf-font td-service">
+                              {formatCurrency(service.serviceprice)}
+                            </td>
+                          </tr>
+                        ))}
                         <tr>
                           <div className="conf-table-content2" scope="row">
                             8 % Thuế GTGT
@@ -657,16 +667,6 @@ const Detail = () => {
                               : formatCurrency(data.price * 1.08 - data.price)}
                           </td>
                         </tr>
-                        {data2.map((service, index) => (
-                          <tr key={index}>
-                            <div className="conf-table-content2" scope="row">
-                              - {service.servicename}
-                            </div>
-                            <td className="conf-font td-service">
-                              {formatCurrency(service.serviceprice)}
-                            </td>
-                          </tr>
-                        ))}
                         {/* {data2.map((service) => {
                           <tr>
                           <div className="conf-table-content2" scope="row">

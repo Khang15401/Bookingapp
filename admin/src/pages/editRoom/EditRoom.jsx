@@ -13,7 +13,6 @@ import "./editRoom.scss";
 const EditRoom = ({}) => {
   const navigate = useNavigate();
   const [file, setFile] = useState("");
-  console.log(file.name);
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
   const { roomId } = useParams();
@@ -26,24 +25,119 @@ const EditRoom = ({}) => {
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
+
+  // const roomNumbers = rooms.split(",").map((room) => ({ number: room }));
+  // console.log(roomNumbers);
+
+  // const handleClick = async (e) => {
+  //   e.preventDefault();
+  //   let newPhoto = info.photo; // Giữ nguyên ảnh cũ
+  //   let roomNumbers = info.roomNumbers;
+
+  //   if (rooms) {
+  //     const roomNumbers = rooms.split(",").map((room) => ({ number: room }));
+  //     console.log(roomNumbers)
+  //   }
+  //   try {
+  //     if (file) {
+  //       // Nếu có tải lên ảnh mới, thực hiện upload và cập nhật ảnh
+  //       const data = new FormData();
+  //       data.append("file", file);
+  //       data.append("upload_preset", "upload");
+
+  //       const uploadRes = await axios.post(
+  //         "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
+  //         data
+  //       );
+  //       const { url } = uploadRes.data;
+  //       newPhoto = url;
+  //     }
+  //     // console.log(updateHotel);
+  //     const updateRoom = {
+  //       ...info,
+  //       photo: newPhoto,
+  //       roomNumbers: roomNumbers,
+  //     };
+  //     // console.log(info);
+  //     await axios.patch("/rooms/" + roomId, updateRoom);
+  //     alert("Sửa thông tin phòng thành công!");
+  //     navigate("/rooms");
+  //   } catch (err) {
+  //     alert("Sửa thông tin không thành công!");
+  //     console.log(err);
+  //   }
+  // };
+
+  // const handleClick = async (e) => {
+  //   e.preventDefault();
+  //   let newPhoto = info.photo; // Giữ nguyên ảnh cũ
+  //   let roomNumbers = info.roomNumbers;
+  
+  //   if (rooms) {
+  //     roomNumbers = rooms.split(",").map((room) => ({ number: room }));
+  //     console.log(roomNumbers);
+  //   }
+    
+  //   try {
+  //     if (file) {
+  //       // Nếu có tải lên ảnh mới, thực hiện upload và cập nhật ảnh
+  //       const data = new FormData();
+  //       data.append("file", file);
+  //       data.append("upload_preset", "upload");
+  
+  //       const uploadRes = await axios.post(
+  //         "https://api.cloudinary.com/v1/kiawdev/image/upload",
+  //         data
+  //       );
+  //       const { url } = uploadRes.data;
+  //       newPhoto = url;
+  //     }
+  //     // console.log(updateHotel);
+  //     const updateRoom = {
+  //       ...info,
+  //       photo: newPhoto,
+  //       roomNumbers: roomNumbers,
+  //     };
+  //     // console.log(info);
+  //     await axios.patch("/rooms/" + roomId, updateRoom);
+  //     alert("Sửa thông tin phòng thành công!");
+  //     navigate("/rooms");
+  //   } catch (err) {
+  //     alert("Sửa thông tin không thành công!");
+  //     console.log(err);
+  //   }
+  // };
+
   const handleClick = async (e) => {
     e.preventDefault();
-
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "upload");
+    let newPhoto = info.photo; // Giữ nguyên ảnh cũ
+    let roomNumbers = info.roomNumbers;
+  
+    // Kiểm tra kiểu dữ liệu của rooms
+    if (typeof rooms === 'string' && rooms.trim() !== '') {
+      roomNumbers = rooms.split(",").map((room) => ({ number: room }));
+      console.log(roomNumbers);
+    }
+    
     try {
-      const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
-        data
-      );
-      const { url } = uploadRes.data;
-      console.log(url);
-
+      if (file) {
+        // Nếu có tải lên ảnh mới, thực hiện upload và cập nhật ảnh
+        const data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", "upload");
+  
+        const uploadRes = await axios.post(
+          "https://api.cloudinary.com/v1/kiawdev/image/upload",
+          data
+        );
+        const { url } = uploadRes.data;
+        newPhoto = url;
+      }
       // console.log(updateHotel);
       const updateRoom = {
         ...info,
-        photo: url,
+        photo: newPhoto,
+        roomNumbers: roomNumbers,
       };
       // console.log(info);
       await axios.patch("/rooms/" + roomId, updateRoom);
@@ -54,6 +148,7 @@ const EditRoom = ({}) => {
       console.log(err);
     }
   };
+  
 
   return (
     <div className="new">
@@ -65,14 +160,6 @@ const EditRoom = ({}) => {
         </div>
         <div className="bottom">
           <div className="left2">
-            {/* <img
-              src={
-                file
-                  ? URL.createObjectURL(file)
-                  : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-              }
-              alt=""
-            /> */}
             <div class="formInput2">
               <label>Ảnh phòng</label>
               <div>
@@ -81,8 +168,8 @@ const EditRoom = ({}) => {
                   onChange={handleChange}
                   src={data.photo}
                   id="img"
-                  />
-                  <div>Ảnh thay thế</div>
+                />
+                <div>Ảnh thay thế</div>
                 <img
                   src={
                     file
@@ -91,17 +178,16 @@ const EditRoom = ({}) => {
                   }
                   alt=""
                 />
-                
               </div>
               <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label>
-                <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: "none" }}
-                />
+                Image: <DriveFolderUploadOutlinedIcon className="icon" />
+              </label>
+              <input
+                type="file"
+                id="file"
+                onChange={(e) => setFile(e.target.files[0])}
+                style={{ display: "none" }}
+              />
             </div>
           </div>
           <div className="right">
@@ -141,10 +227,10 @@ const EditRoom = ({}) => {
                   id="maxPeople"
                   name="maxPeople"
                 />
-                <label>Số Phòng Khách Sạn</label>
+                <label>Mã Phòng Khách Sạn</label>
                 {data && data.roomNumbers && (
                   <input
-                    onChange={handleChange}
+                    onChange={(e) => setRooms(e.target.value)}
                     type="text"
                     placeholder={data.roomNumbers
                       .map((roomNumber) => roomNumber.number)
