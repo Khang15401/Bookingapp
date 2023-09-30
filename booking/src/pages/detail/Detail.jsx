@@ -23,6 +23,8 @@ import {
   faGlassCheers,
   faChild,
   faGears,
+  faComment,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../../components/header/Header";
@@ -169,7 +171,6 @@ const Detail = () => {
     return dates;
   };
   const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
-  console.log(alldates);
 
   const isAvailable = (roomNumber) => {
     const isFound = roomNumber.unavailableDates.some((date) =>
@@ -280,6 +281,15 @@ const Detail = () => {
   };
   // Thay doi ngay gio phong khach san
   const PriceBasic = data.priceBasic;
+
+  // Lay ngay gio hien tai
+  const currentDateTime = new Date();
+  const options = { year: "numeric", month: "2-digit", day: "2-digit" }; // Sử dụng '2-digit' cho tháng và ngày
+  const formattedDateTime = new Intl.DateTimeFormat("en-CA", options).format(
+    currentDateTime
+  );
+  console.log(formattedDateTime);
+
   // console.log(PriceBasic);
   const handleClick2 = async (e) => {
     e.preventDefault();
@@ -591,7 +601,6 @@ const Detail = () => {
                             </p>
                             <div></div>
                           </div>
-                          {/* <h3 style={{fontWeight: "600"}} className='policy-children'>Chính sách nôi (cũi) và giường phụ</h3> */}
                           <div
                             style={{ fontWeight: "600" }}
                             className="policy-children conf-font mr-policy-children"
@@ -633,9 +642,6 @@ const Detail = () => {
                           <div className="conf-table-content2" scope="row">
                             {data.quantity}
                           </div>
-                          {/* <td className="conf-font">
-                            {formatCurrency((data.price - data.priceService)/1.08)}
-                          </td> */}
                           <td className="conf-font">
                             {data.priceService
                               ? formatCurrency(
@@ -658,25 +664,12 @@ const Detail = () => {
                           <div className="conf-table-content2" scope="row">
                             8 % Thuế GTGT
                           </div>
-                          {/* <td className="conf-font">
-                            {formatCurrency(data.price - data.price / 1.08)}
-                          </td> */}
                           <td className="conf-font">
                             {data.priceService
                               ? formatCurrency(data.price - data.price / 1.08)
                               : formatCurrency(data.price * 1.08 - data.price)}
                           </td>
                         </tr>
-                        {/* {data2.map((service) => {
-                          <tr>
-                          <div className="conf-table-content2" scope="row">
-                            {service.servicename}
-                          </div>
-                          <td className="conf-font">
-                            {formatCurrency(service.serviceprice)}
-                          </td>
-                        </tr>
-                        })} */}
                       </tbody>
                     </table>
                   </div>
@@ -800,6 +793,16 @@ const Detail = () => {
                     <span className="title-cancle-room">Thay đổi phòng</span>
                   </button>
                 )}
+                <button
+                  type="button"
+                  className="button-cancle-room change-number-room"
+                  onClick={handleChageNumberRoom}
+                >
+                  <span className="icon-cancle">
+                    <FontAwesomeIcon icon={faStar} />
+                  </span>
+                  <span className="title-cancle-room">Đánh giá chỗ ở</span>
+                </button>
                 <div className="info-contact-container">
                   <div className="Hr-contact"></div>
                   <div className="title-contact">Liên hệ chỗ nghỉ</div>

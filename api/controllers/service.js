@@ -15,15 +15,6 @@ export const createService = async(req, res, next)=>{
       next(err);
   }
 }
-// GET ORDER User ID
-// export const getService = async(req, res, next)=>{
-//   try{
-//       const service = await Service.find({userId: req.params.id});
-//       res.status(200).json(service)
-//   }catch(err){
-//       next(err);
-//   }
-// }
 // GET ORDER BY ID
 export const getService = async(req, res, next)=>{
   try{
