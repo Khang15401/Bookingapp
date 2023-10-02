@@ -25,6 +25,7 @@ import {
   faGears,
   faComment,
   faStar,
+  faCircleCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../../components/header/Header";
@@ -46,7 +47,8 @@ const Detail = () => {
   const { data2, loading2, error2, reFetch2 } = useFetch2(
     `/orders/service/${orderId}`
   );
-  console.log(data2);
+
+  const imgRoom = data.photoRoom;
 
   const [showConfirmation, setShowConfirmation] = useState(false);
   // const [changeTime, setChangeTime] = useState(false);
@@ -61,7 +63,33 @@ const Detail = () => {
   const [open, setOpen] = useState(false);
   const [confirmTime, setConfirmTime] = useState(false);
   const [openValueRoom, setOpenValueRoom] = useState(false);
-
+  const [openPageReview, setOpenPageReview] = useState(false);
+  const [isRadioSelected, setIsRadioSelected] = useState(false);
+  const [isCheckBoxSelected, setIsCheckBoxSelected] = useState(false);
+  const [checkboxes, setCheckboxes] = useState({
+    soloTravel: false,
+    withFriends: false,
+    withFamily: false,
+    withColleagues: false,
+  });
+  const handleCheckboxChange = (e) => {
+    setIsCheckBoxSelected(true)
+    const { name, checked } = e.target;
+    if (name === "soloTravel") {
+      // Nếu chọn "Một mình", tắt "Một mình" và cập nhật trạng thái của checkbox tương ứng
+      setCheckboxes({
+        soloTravel: checked,
+        [name]: checked,
+      });
+    } else {
+      // Cập nhật trạng thái của checkbox tương ứng và tắt "Một mình"
+      setCheckboxes({
+        ...checkboxes,
+        [name]: checked,
+        soloTravel: false,
+      });
+    }
+  };
   // const [dates, setDates] = useState(location.state.dates);
   const [openDate, setOpenDate] = useState(false);
   const [changeTime, setChangeTime] = useState(false);
@@ -143,6 +171,10 @@ const Detail = () => {
   const handleChageNumberRoom = () => {
     setOpen(true);
     setOpenModal(true);
+  };
+  const handleReview = (e) => {
+    e.preventDefault();
+    setOpenPageReview(true);
   };
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -319,6 +351,9 @@ const Detail = () => {
     }
   };
 
+  const handleRadioChange = () => {
+    setIsRadioSelected(true);
+  };
   return (
     <div>
       <Navbar />
@@ -793,16 +828,19 @@ const Detail = () => {
                     <span className="title-cancle-room">Thay đổi phòng</span>
                   </button>
                 )}
-                <button
-                  type="button"
-                  className="button-cancle-room change-number-room"
-                  onClick={handleChageNumberRoom}
-                >
-                  <span className="icon-cancle">
-                    <FontAwesomeIcon icon={faStar} />
-                  </span>
-                  <span className="title-cancle-room">Đánh giá chỗ ở</span>
-                </button>
+                {data.status !== "Chưa nhận phòng" &&
+                  data.status !== "Đã hủy" && (
+                    <button
+                      type="button"
+                      className="button-cancle-room change-number-room"
+                      onClick={handleReview}
+                    >
+                      <span className="icon-cancle">
+                        <FontAwesomeIcon icon={faStar} />
+                      </span>
+                      <span className="title-cancle-room">Đánh giá chỗ ở</span>
+                    </button>
+                  )}
                 <div className="info-contact-container">
                   <div className="Hr-contact"></div>
                   <div className="title-contact">Liên hệ chỗ nghỉ</div>
@@ -881,6 +919,142 @@ const Detail = () => {
             </div>
           )}
           <Footer />
+
+          {openPageReview && (
+            <div className="container-review">
+              <div className="form1" action="">
+                <div id="myHeader">
+                  <img className="img-room" src={data.photoRoom} alt="" />
+                  <div className="img-text">
+                    Đánh giá {data.nameHotel}
+                    <FontAwesomeIcon
+                      icon={faCircleXmark}
+                      className="rClose1"
+                      onClick={() => setOpenPageReview(!openPageReview)}
+                    />
+                  </div>
+                  <span className="img-text1">
+                    {data.checkIn} - {data.checkOut}
+                  </span>
+                </div>
+                <div className="container-elemment">
+                  <form action="">
+                    <ol className="rf_question">
+                      <li data-section="1">
+                        <h2 className="h2-question">
+                          1.Đây là chuyến đi công tác?
+                        </h2>
+                        <div>
+                          <fieldset className="fieldset1">
+                            {/* <fieldset> */}
+                            <div className="group-radio" role="group">
+                              <div
+                                className="container-radio"
+                                role="radiogroup"
+                              >
+                                <lable className="lable-question1">
+                                  <input
+                                    type="radio"
+                                    name="trip-purpose"
+                                    onChange={handleRadioChange}
+                                  />
+                                  <span className="text-radio1"> Không</span>
+                                </lable>
+                                <lable className="lable-question2">
+                                  <input
+                                    type="radio"
+                                    name="trip-purpose"
+                                    onChange={handleRadioChange}
+                                  />
+                                  <span className="text-radio">Đúng</span>
+                                </lable>
+                              </div>
+                            </div>
+                            {/* </fieldset> */}
+                            {isRadioSelected && (
+                              <div className="status-tks">
+                                <span className="circle-check">
+                                  <FontAwesomeIcon
+                                    className="icon-circle-check"
+                                    icon={faCircleCheck}
+                                  />
+                                </span>
+                                <div className="conf-font">
+                                  <p>Cảm ơn bạn đã trả lời</p>
+                                </div>
+                              </div>
+                            )}
+                          </fieldset>
+                          <fieldset className="fieldset1">
+                            <legend>
+                              <h2 className="h2-question">
+                                Bạn đi du lịch với ai?
+                              </h2>
+                            </legend>
+                            <div className="container-label" role="group">
+                              <label className="label-staywith">
+                                <input
+                                  className="input-staywith"
+                                  type="checkbox"
+                                  name="soloTravel"
+                                  onChange={handleCheckboxChange}
+                                  checked={checkboxes.soloTravel}
+                                />
+                                <span>Một mình</span>
+                              </label>
+                              <label className="label-staywith">
+                                <input
+                                  className="input-staywith"
+                                  type="checkbox"
+                                  name="withFriends"
+                                  onChange={handleCheckboxChange}
+                                  checked={checkboxes.withFriends}
+                                />
+                                <span>Bạn bè</span>
+                              </label>
+                              <label className="label-staywith">
+                                <input
+                                  className="input-staywith"
+                                  type="checkbox"
+                                  name="withFamily"
+                                  onChange={handleCheckboxChange}
+                                  checked={checkboxes.withFamily}
+                                />
+                                <span>Gia đình</span>
+                              </label>
+                              <label className="label-staywith">
+                                <input
+                                  className="input-staywith"
+                                  type="checkbox"
+                                  name="withColleagues"
+                                  onChange={handleCheckboxChange}
+                                  checked={checkboxes.withColleagues}
+                                />
+                                <span>Đồng nghiệp</span>
+                              </label>
+                            </div>
+                          </fieldset>
+                          {isCheckBoxSelected && (
+                              <div className="status-tks">
+                                <span className="circle-check">
+                                  <FontAwesomeIcon className="icon-circle-check" icon={faCircleCheck} />
+                                </span>
+                                <div className="conf-font">
+                                  <p>Cảm ơn bạn đã trả lời</p>
+                                </div>
+                              </div>
+                            )}
+                          {/* <fieldset></fieldset>
+                          <fieldset></fieldset> */}
+                        </div>
+                      </li>
+                    </ol>
+                  </form>
+                </div>
+                <button type="submit">Gửi đánh giá</button>
+              </div>
+            </div>
+          )}
 
           {/* {openModal && <Reserve setOpen={setOpenModal} hotelId={hotelID} />} */}
           {open && (
