@@ -821,7 +821,9 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   width: 98.93vw;
-  height: 1471.97px;
+  /* height: 1471.97px; */
+  /* height: 1652.97px; */
+  height: 1664.97px;
   background-color: rgba(0, 0, 0, 0.418);
   position: absolute;
   top: 50px;
@@ -855,18 +857,25 @@
 
 input[type="radio"],
 input[type="checkbox"] {
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 button[type="submit"] {
   display: block;
-  width: 100%;
+  width: 99%;
+  height: 48px;
   padding: 10px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.text-button{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 button[type="submit"]:hover {
@@ -884,7 +893,7 @@ select {
 input[type="checkbox"] + label,
 input[type="radio"] + label {
   display: inline-block;
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 
 .img-room {
@@ -923,94 +932,126 @@ input[type="radio"] + label {
 }
 
 .rf_question {
-    margin: 0;
-    padding: 0;
-    counter-reset: li;
-    list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: li;
+  list-style: none;
 }
 
-.h2-question{
-    font-size: 20px;
-    line-height: 28px;
-    font-weight: 700;
-    top: 0;
-    margin: 0 0 -5px;
-    padding: 0 10px 7px 0;
-    /* padding-left: 7px;
+.h2-question {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  top: 0;
+  margin: 0 0 -5px;
+  padding: 0 10px 7px 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  /* padding-left: 7px;
     padding-bottom: 5px; */
 }
 
+.h21-question {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  top: 0;
+  margin: 25px 0 -5px;
+  padding: 0 10px 7px 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  /* padding-left: 7px;
+  padding-bottom: 5px; */
+}
+
+.h3-question {
+  font-size: 16px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin-bottom: 8px;
+}
+
 .fieldset1 {
-    border: none;
-    padding: 15px 0 0 0;
+  border: none;
+  padding: 15px 0 0 0;
 }
 .group-radio {
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
 }
 
-.container-radio{
- display: flex;
- flex-direction: column;
-}
-
-.fieldset1 > fieldset {
-    border: none;
-}
-.text-radio {
-    font-size: 15px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: #1a1a1a;
-    padding: 0 0 0 10px;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-}
-.text-radio1 {
-    font-size: 15px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: #1a1a1a;
-    padding: 0 0 0 10px;
-    margin-bottom: 10px;
-}
-.lable-question2,
-.lable-question1{
-     display: flex;
-     padding-bottom: 5px;
-}
-
-.lable-question1  input {
-    width: 18px;
-    height: 18px;
-    margin: 0;
-}
-
-.lable-question2  input {
-    width: 18px;
-    height: 18px;
-    margin: 0;
-}
-
-.rClose1{
-    position: absolute;
-    top: -259px;
-    right: -482px;
-    cursor: pointer;
-}
-.container-label{
+.container-radio {
   display: flex;
   flex-direction: column;
 }
 
-.status-tks{
+.fieldset1 > fieldset {
+  border: none;
+}
+.text-radio {
+  font-size: 15px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #1a1a1a;
+  padding: 0 0 0 10px;
+  padding-bottom: 10px;
+  /* margin-bottom: 10px; */
+}
+.text-radio1 {
+  font-size: 15px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #1a1a1a;
+  padding: 0 0 0 10px;
+  margin-bottom: 10px;
+}
+.lable-question2,
+.lable-question3,
+.lable-question1 {
   display: flex;
-  border: 1px solid #97e59c!important;
+  padding-bottom: 5px;
+}
+
+.lable-question1 input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.lable-question2 input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.lable-question3 input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.rClose1 {
+  position: absolute;
+  top: -259px;
+  right: -482px;
+  cursor: pointer;
+}
+.container-label {
+  display: flex;
+  flex-direction: column;
+}
+
+.status-tks {
+  display: flex;
+  border: 1px solid #97e59c !important;
   padding: 16px;
   border-radius: 5px;
   background-color: #def7e8;
+  margin-bottom: 30px;
 }
 
-.circle-check{
+.circle-check {
   fill: #008234;
   color: #008234;
   margin-right: 10px;
@@ -1021,12 +1062,390 @@ input[type="radio"] + label {
   height: 21px;
 }
 
-.input-staywith{
+.input-staywith {
   width: 20px;
   height: 20px;
 }
 
-.label-staywith{
+.label-staywith {
   display: flex;
   margin-bottom: 20px;
+}
+
+.label-staywith span {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.separation {
+  width: 749px;
+  height: 10px;
+  background-color: rgba(186, 172, 172, 0.5);
+  position: absolute;
+  left: 385px;
+}
+.separation3 {
+  width: 749px;
+  height: 10px;
+  background-color: rgba(186, 172, 172, 0.5);
+  position: absolute;
+  left: 385px;
+  margin-top: 10px;
+}
+
+.point-range-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  /* font-size: 0; */
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.point-range-number {
+  display: flex;
+  -webkit-box-flex: 1;
+  /* font-size: 0; */
+  -webkit-box-pack: justify;
+  /* justify-content: space-between; */
+  text-align: center;
+  line-height: 0;
+  padding: 0;
+  margin: 40px 0 32px 0;
+  position: relative;
+  width: 100%;
+}
+
+.point-range-number-input {
+  height: 0 !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  width: 0 !important;
+  z-index: -1 !important;
+  left: 0 !important;
+}
+
+.point-range-number-label:first-of-type {
+  width: 10% !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  border: solid 1px #bdbdbd !important;
+  border-right-width: 0 !important;
+  height: 42px !important;
+  line-height: 42px !important;
+  border-radius: 4px 0 0 4px !important;
+  cursor: pointer;
+}
+
+.point-range-number-label {
+  width: 10% !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  border: solid 1px #bdbdbd !important;
+  border-right-width: 0 !important;
+  height: 42px !important;
+  line-height: 42px !important;
+  border-radius: 4px 0 0 4px !important;
+  cursor: pointer;
+}
+
+.point-range-number-label:last-of-type {
+  width: 10% !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border-radius: 0 4px 4px 0 !important;
+  border: solid 1px #bdbdbd !important;
+  border-right-width: 1px !important;
+  height: 42px !important;
+  line-height: 42px !important;
+  border-radius: -1px 0 0 4px !important;
+  cursor: pointer;
+}
+
+/* .point-range-number-input:checked + .point-range-number-label:focus {
+  background-color: #0071c2 !important;
+
+} */
+
+.point-range-number-input:checked + .point-range-number-label {
+  background-color: #0071c2;
+  color: #fff !important;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  /* display: block; */
+}
+
+.point-range-number-input:checked + .point-range-number-label > .hover-point {
+  display: block;
+}
+
+.hover-point {
+  background-color: #0071c2;
+  border-radius: 6px;
+  color: #fff;
+  display: none;
+  font-size: 14px;
+  font-weight: 700;
+  left: 50%;
+  line-height: 1.4;
+  padding: 4px 8px;
+  position: absolute;
+  text-align: center;
+  top: -14px;
+  -webkit-transform: translate(-50%, -100%);
+  -ms-transform: translate(-50%, -100%);
+  transform: translate(-50%, -100%);
+  white-space: nowrap;
+  cursor: default;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.tranform-hover-the-first {
+  left: -4px;
+  -webkit-transform: translate(0, -100%);
+  -ms-transform: translate(0, -100%);
+  transform: translate(0, -100%);
+}
+
+.tranform-hover-the-last {
+  left: 654px;
+  /* right: 8px; */
+  -webkit-transform: translate(0, -100%);
+  -ms-transform: translate(0, -100%);
+  transform: translate(0, -100%);
+  /* transform: translateX(0%); */
+}
+.tranform-hover2 {
+  left: 82px;
+  -webkit-transform: translate(0, -100%);
+  -ms-transform: translate(0, -100%);
+  transform: translate(0, -100%);
+}
+
+.tranform-hover3 {
+  left: 157px;
+  -webkit-transform: translate(0, -100%);
+  -ms-transform: translate(0, -100%);
+  transform: translate(0, -100%);
+}
+
+.tranform-hover4 {
+  left: 214px;
+  -webkit-transform: translate(0, -100%);
+  -ms-transform: translate(0, -100%);
+  transform: translate(0, -100%);
+}
+
+.tranform-hover5 {
+  left: 291px;
+  -webkit-transform: translate(0, -100%);
+  -ms-transform: translate(0, -100%);
+  transform: translate(0, -100%);
+}
+
+.tranform-hover6 {
+  left: 367px;
+  -webkit-transform: translate(0, -100%);
+  -ms-transform: translate(0, -100%);
+  transform: translate(0, -100%);
+}
+
+.tranform-hover7 {
+  left: 447px;
+  -webkit-transform: translate(0, -100%);
+  -ms-transform: translate(0, -100%);
+  transform: translate(0, -100%);
+}
+
+.tranform-hover8 {
+  left: 514px;
+  -webkit-transform: translate(0, -100%);
+  -ms-transform: translate(0, -100%);
+  transform: translate(0, -100%);
+}
+.tranform-hover9 {
+  left: 569px;
+  -webkit-transform: translate(0, -100%);
+  -ms-transform: translate(0, -100%);
+  transform: translate(0, -100%);
+}
+
+.tranform-hover-the-first:after {
+  -webkit-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  transform: translateX(0%);
+  left: 8px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #0071c2;
+  content: "";
+  display: block;
+  height: 0;
+  position: absolute;
+  width: 0;
+  left: 24%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.tranform-hover-the-last:after {
+  transform: translateX(0%);
+  left: 8px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #0071c2;
+  content: "";
+  display: block;
+  height: 0;
+  position: absolute;
+  width: 0;
+  left: 71%;
+  transform: translateX(-50%);
+}
+/* } */
+.tranform-hover9:after,
+.tranform-hover8:after,
+.tranform-hover7:after,
+.tranform-hover6:after,
+.tranform-hover5:after,
+.tranform-hover4:after,
+.tranform-hover3:after,
+.tranform-hover2:after {
+  -webkit-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  transform: translateX(0%);
+  left: 8px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #0071c2;
+  content: "";
+  display: block;
+  height: 0;
+  position: absolute;
+  width: 0;
+  left: 45%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.hover-point {
+  display: none;
+}
+
+.point-range-number-label {
+  width: 10% !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  border: solid 1px #bdbdbd !important;
+  border-right-width: 0 !important;
+  height: 42px !important;
+  line-height: 42px !important;
+  color: #737373 !important;
+}
+
+.point-range-number-label:hover {
+  background-color: #ececec;
+}
+
+.point-range-number-label:hover .hover-point {
+  display: block;
+}
+
+.point-range-number-label:checked .hover-point {
+  display: block;
+}
+
+.title-range-point-text {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  color: #6b6b6b;
+  font-weight: 500;
+  margin-top: -16px;
+  margin-bottom: 52px;
+}
+
+.title-range-point-text > span:first-child {
+  float: left;
+  padding: 0 4px;
+}
+
+.title-range-point-text > span:last-child {
+  float: right;
+  padding: 0 4px;
+}
+
+.about-like-dislike {
+  position: relative;
+  /* padding: 0 0 26px;
+  margin: 0 0 16px; */
+}
+
+.h22-question {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  top: 0;
+  margin: 25px 0 10px;
+  padding: 0 10px 7px 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.review-content-positive{
+   padding: 8px;
+   margin-top: 16px;
+}
+.review-content-negative {
+  padding-left: 8px;
+  /* padding-top: 20px; */
+  margin-top: 16px;
+  /* padding-top: 20px !important; */
+}
+.rv-icon {
+  display: inline-block;
+  margin-right: 1em;
+  vertical-align: middle;
+  margin-left: -7px;
+}
+
+.icon-rv{
+  color: #adedbd;
+}
+
+.icon-rv1{
+  color: #dd6b2d;
+}
+
+.rv-label{
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+}
+.review-content-negative > .textarea_negative,
+.review-content-positive > .textarea_positive {
+  resize: none;
+  margin-bottom: 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.textarea_positive{
+  padding-top: 10px;
+  padding-left: 10px;
+  border-radius: 5px;
+  margin-top: 16px!important;
+}
+
+.textarea_negative{
+  padding-top: 10px;
+  padding-left: 10px;
+  border-radius: 5px;
+  margin-top: 16px!important;
 }

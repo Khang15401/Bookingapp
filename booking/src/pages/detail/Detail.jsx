@@ -23,9 +23,14 @@ import {
   faGlassCheers,
   faChild,
   faGears,
-  faComment,
   faStar,
   faCircleCheck,
+  faFaceAngry,
+  faFaceFrown,
+  faFaceMeh,
+  faFaceGrinWide,
+  faFaceSmileBeam,
+  faFaceLaughWink,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../../components/header/Header";
@@ -65,7 +70,32 @@ const Detail = () => {
   const [openValueRoom, setOpenValueRoom] = useState(false);
   const [openPageReview, setOpenPageReview] = useState(false);
   const [isRadioSelected, setIsRadioSelected] = useState(false);
+  const [isRadioSelected2, setIsRadioSelected2] = useState(false);
   const [isCheckBoxSelected, setIsCheckBoxSelected] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleRadioSelected = (e) => {
+    const newValue = e.target.value;
+    setSelectedValue(newValue);
+  };
+
+  // const handleLabelClick = (radioId) => {
+  //   // Tìm radio input tương ứng
+  //   const radioInput = document.getElementById(radioId);
+
+  //   if (radioInput) {
+  //     // Đảm bảo rằng radio input không bị vô hiệu hóa
+  //     if (!radioInput.disabled) {
+  //       // Đặt thuộc tính checked của radio input thành true
+  //       radioInput.checked = true;
+
+  //       // Kích hoạt sự kiện change trên radio input để cập nhật CSS hoặc thực hiện các xử lý khác
+  //       radioInput.dispatchEvent(new Event("change"));
+  //     }
+  //   }
+  // };
+
+  console.log(selectedValue);
   const [checkboxes, setCheckboxes] = useState({
     soloTravel: false,
     withFriends: false,
@@ -73,7 +103,7 @@ const Detail = () => {
     withColleagues: false,
   });
   const handleCheckboxChange = (e) => {
-    setIsCheckBoxSelected(true)
+    setIsCheckBoxSelected(true);
     const { name, checked } = e.target;
     if (name === "soloTravel") {
       // Nếu chọn "Một mình", tắt "Một mình" và cập nhật trạng thái của checkbox tương ứng
@@ -185,7 +215,7 @@ const Detail = () => {
   };
 
   const days = dayDifference(dates[0]?.endDate, dates[0]?.startDate);
-  console.log(days);
+  // console.log(days);
 
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -353,6 +383,9 @@ const Detail = () => {
 
   const handleRadioChange = () => {
     setIsRadioSelected(true);
+  };
+  const handleRadioChange2 = () => {
+    setIsRadioSelected2(true);
   };
   return (
     <div>
@@ -942,7 +975,7 @@ const Detail = () => {
                     <ol className="rf_question">
                       <li data-section="1">
                         <h2 className="h2-question">
-                          1.Đây là chuyến đi công tác?
+                          1. Đây là chuyến đi công tác?
                         </h2>
                         <div>
                           <fieldset className="fieldset1">
@@ -952,22 +985,22 @@ const Detail = () => {
                                 className="container-radio"
                                 role="radiogroup"
                               >
-                                <lable className="lable-question1">
+                                <label className="lable-question1">
                                   <input
                                     type="radio"
                                     name="trip-purpose"
                                     onChange={handleRadioChange}
                                   />
                                   <span className="text-radio1"> Không</span>
-                                </lable>
-                                <lable className="lable-question2">
+                                </label>
+                                <label className="lable-question2">
                                   <input
                                     type="radio"
                                     name="trip-purpose"
                                     onChange={handleRadioChange}
                                   />
                                   <span className="text-radio">Đúng</span>
-                                </lable>
+                                </label>
                               </div>
                             </div>
                             {/* </fieldset> */}
@@ -979,8 +1012,10 @@ const Detail = () => {
                                     icon={faCircleCheck}
                                   />
                                 </span>
-                                <div className="conf-font">
-                                  <p>Cảm ơn bạn đã trả lời</p>
+                                <div>
+                                  <p className="conf-font">
+                                    Cảm ơn bạn đã trả lời
+                                  </p>
                                 </div>
                               </div>
                             )}
@@ -1034,24 +1069,421 @@ const Detail = () => {
                               </label>
                             </div>
                           </fieldset>
+
                           {isCheckBoxSelected && (
+                            <div className="status-tks">
+                              <span className="circle-check">
+                                <FontAwesomeIcon
+                                  className="icon-circle-check"
+                                  icon={faCircleCheck}
+                                />
+                              </span>
+                              <div>
+                                <p className="conf-font">
+                                  Cảm ơn bạn đã trả lời
+                                </p>
+                              </div>
+                            </div>
+                          )}
+
+                          <h2 className="h2-question">
+                            Chỗ nghỉ có đáp ứng mong đợi của bạn?
+                          </h2>
+                          <fieldset className="fieldset1">
+                            {/* <fieldset> */}
+                            <div className="group-radio" role="group">
+                              <div
+                                className="container-radio"
+                                role="radiogroup"
+                              >
+                                <label className="lable-question1">
+                                  <input
+                                    type="radio"
+                                    name="trip satisfaction"
+                                    onChange={handleRadioChange2}
+                                  />
+                                  <span className="text-radio1"> Không</span>
+                                </label>
+                                <label className="lable-question1">
+                                  <input
+                                    type="radio"
+                                    name="trip satisfaction"
+                                    onChange={handleRadioChange2}
+                                  />
+                                  <span className="text-radio">Có</span>
+                                </label>
+                                <label className="lable-question3">
+                                  <input
+                                    type="radio"
+                                    name="trip satisfaction"
+                                    onChange={handleRadioChange2}
+                                  />
+                                  <span className="text-radio">
+                                    Vượt ngoài mong đợi của tôi
+                                  </span>
+                                </label>
+                              </div>
+                            </div>
+                            {/* </fieldset> */}
+                            {isRadioSelected2 && (
                               <div className="status-tks">
                                 <span className="circle-check">
-                                  <FontAwesomeIcon className="icon-circle-check" icon={faCircleCheck} />
+                                  <FontAwesomeIcon
+                                    className="icon-circle-check"
+                                    icon={faCircleCheck}
+                                  />
                                 </span>
-                                <div className="conf-font">
-                                  <p>Cảm ơn bạn đã trả lời</p>
+                                <div>
+                                  <p className="conf-font">
+                                    Cảm ơn bạn đã trả lời
+                                  </p>
                                 </div>
                               </div>
                             )}
-                          {/* <fieldset></fieldset>
-                          <fieldset></fieldset> */}
+                          </fieldset>
                         </div>
                       </li>
+                      <div className="separation"></div>
+                      <li data-section="2">
+                        <h2 className="h21-question">
+                          2. Đánh giá chỗ nghỉ này?
+                        </h2>
+                        <fieldset className="fieldset1">
+                          <h3 className="h3-question">
+                            Kỳ nghỉ của bạn ở {data.nameHotel} thế nào?
+                          </h3>
+                          <div className="point-range-container">
+                            <div className="point-range-number">
+                              <input
+                                name="point-trip"
+                                type="radio"
+                                id="point-hotel-1"
+                                aria-label="Cực kì tệ"
+                                className="point-range-number-input"
+                                onChange={handleRadioSelected}
+                                label="1"
+                                value="1"
+                              />
+                              <label
+                                className="point-range-number-label"
+                                // onClick={handleLabelClick}
+
+                                htmlFor="point-hotel-1"
+                              >
+                                <span aria-hidden="true">1</span>
+                                <span className="hover-point tranform-hover-the-first">
+                                  <FontAwesomeIcon
+                                    style={{ height: "21px" }}
+                                    icon={faFaceAngry}
+                                  />{" "}
+                                  1
+                                  <br />
+                                  Cực kì tệ
+                                </span>
+                              </label>
+                              <input
+                                name="point-trip"
+                                type="radio"
+                                aria-label="Rất tệ"
+                                id="point-hotel-2"
+                                className="point-range-number-input"
+                                onChange={handleRadioSelected}
+                                value="2"
+                                label="2"
+                              />
+                              <label
+                                className="point-range-number-label"
+                                // onClick={handleLabelClick}
+                                htmlFor="point-hotel-2"
+                              >
+                                <span aria-hidden="true">2</span>
+                                <span className="hover-point tranform-hover2">
+                                  <FontAwesomeIcon
+                                    style={{ height: "21px" }}
+                                    icon={faFaceAngry}
+                                  />{" "}
+                                  2
+                                  <br />
+                                  Rất tệ
+                                </span>
+                              </label>
+                              <input
+                                name="point-trip"
+                                type="radio"
+                                aria-label="Kém"
+                                id="point-hotel-3"
+                                className="point-range-number-input"
+                                onChange={handleRadioSelected}
+                                value="3"
+                                label="3"
+                              />
+                              <label
+                                className="point-range-number-label"
+                                // onClick={handleLabelClick}
+                                htmlFor="point-hotel-3"
+                              >
+                                <span aria-hidden="true">3</span>
+                                <span className="hover-point tranform-hover3">
+                                  <FontAwesomeIcon
+                                    style={{ height: "21px" }}
+                                    icon={faFaceFrown}
+                                  />{" "}
+                                  3
+                                  <br />
+                                  Kém
+                                </span>
+                              </label>
+                              <input
+                                name="point-trip"
+                                type="radio"
+                                aria-label="Thất vọng"
+                                id="point-hotel-4"
+                                className="point-range-number-input"
+                                onChange={handleRadioSelected}
+                                value="4"
+                                label="4"
+                              />
+                              <label
+                                className="point-range-number-label"
+                                // onClick={handleLabelClick}
+                                htmlFor="point-hotel-4"
+                              >
+                                <span aria-hidden="true">4</span>
+                                <span className="hover-point tranform-hover4">
+                                  <FontAwesomeIcon
+                                    style={{ height: "21px" }}
+                                    icon={faFaceFrown}
+                                  />{" "}
+                                  4
+                                  <br />
+                                  Thất vọng
+                                </span>
+                              </label>
+                              <input
+                                name="point-trip"
+                                type="radio"
+                                aria-label="Tàm tạm"
+                                id="point-hotel-5"
+                                className="point-range-number-input"
+                                onChange={handleRadioSelected}
+                                value="5"
+                                label="5"
+                              />
+                              <label
+                                className="point-range-number-label"
+                                // onClick={handleLabelClick}
+                                htmlFor="point-hotel-5"
+                              >
+                                <span aria-hidden="true">5</span>
+                                <span className="hover-point tranform-hover5">
+                                  <FontAwesomeIcon
+                                    style={{ height: "21px" }}
+                                    icon={faFaceMeh}
+                                  />{" "}
+                                  5
+                                  <br />
+                                  Tàm tạm
+                                </span>
+                              </label>
+                              <input
+                                name="point-trip"
+                                type="radio"
+                                aria-label="Dễ chịu"
+                                id="point-hotel-6"
+                                className="point-range-number-input"
+                                onChange={handleRadioSelected}
+                                value="6"
+                                label="6"
+                              />
+                              <label
+                                className="point-range-number-label"
+                                // onClick={handleLabelClick}
+                                htmlFor="point-hotel-6"
+                              >
+                                <span aria-hidden="true">6</span>
+                                <span className="hover-point tranform-hover6">
+                                  <FontAwesomeIcon
+                                    style={{ height: "21px" }}
+                                    icon={faFaceMeh}
+                                  />{" "}
+                                  6
+                                  <br />
+                                  Dễ chịu
+                                </span>
+                              </label>
+                              <input
+                                name="point-trip"
+                                type="radio"
+                                aria-label="Tốt"
+                                id="point-hotel-7"
+                                className="point-range-number-input"
+                                onChange={handleRadioSelected}
+                                value="7"
+                                label="7"
+                              />
+                              <label
+                                className="point-range-number-label"
+                                // onClick={handleLabelClick}
+                                htmlFor="point-hotel-7"
+                              >
+                                <span aria-hidden="true">7</span>
+                                <span className="hover-point tranform-hover7">
+                                  <FontAwesomeIcon
+                                    style={{ height: "21px" }}
+                                    icon={faFaceGrinWide}
+                                  />{" "}
+                                  7
+                                  <br />
+                                  Tốt
+                                </span>
+                              </label>
+                              <input
+                                name="point-trip"
+                                type="radio"
+                                aria-label="Rất tốt"
+                                id="point-hotel-8"
+                                className="point-range-number-input"
+                                onChange={handleRadioSelected}
+                                value="8"
+                                label="8"
+                              />
+                              <label
+                                className="point-range-number-label"
+                                // onClick={handleLabelClick}
+                                htmlFor="point-hotel-8"
+                              >
+                                <span aria-hidden="true">8</span>
+                                <span className="hover-point tranform-hover8">
+                                  <FontAwesomeIcon
+                                    style={{ height: "21px" }}
+                                    icon={faFaceGrinWide}
+                                  />{" "}
+                                  8
+                                  <br />
+                                  Rất tốt
+                                </span>
+                              </label>
+                              <input
+                                name="point-trip"
+                                type="radio"
+                                aria-label="Tuyệt hảo"
+                                id="point-hotel-9"
+                                className="point-range-number-input"
+                                onChange={handleRadioSelected}
+                                value="9"
+                                label="9"
+                              />
+                              <label
+                                className="point-range-number-label"
+                                // onClick={handleLabelClick}
+                                htmlFor="point-hotel-9"
+                              >
+                                <span aria-hidden="true">9</span>
+                                <span className="hover-point tranform-hover9">
+                                  <FontAwesomeIcon
+                                    style={{ height: "21px" }}
+                                    icon={faFaceSmileBeam}
+                                  />{" "}
+                                  9
+                                  <br />
+                                  Tuyệt hảo
+                                </span>
+                              </label>
+                              <input
+                                name="point-trip"
+                                type="radio"
+                                aria-label="Xuất sắc"
+                                id="point-hotel-10"
+                                className="point-range-number-input"
+                                onChange={handleRadioSelected}
+                                value="10"
+                                label="10"
+                              />
+                              <label
+                                className="point-range-number-label"
+                                // onClick={handleLabelClick}
+                                htmlFor="point-hotel-10"
+                              >
+                                <span aria-hidden="true">10</span>
+                                <span className="hover-point tranform-hover-the-last">
+                                  <FontAwesomeIcon
+                                    style={{ height: "21px" }}
+                                    icon={faFaceSmileBeam}
+                                  />{" "}
+                                  10
+                                  <br />
+                                  Xuất sắc
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                          <div className="title-range-point-text">
+                            <span className="conf-font span1">Cực kì tệ</span>
+                            <span className="conf-font span2">Xuất sắc</span>
+                          </div>
+                        </fieldset>
+                      </li>
+                      <div className="separation"></div>
+                      <li data-section="3" className="about-like-dislike">
+                        <h2 className="h22-question">
+                          3. Bạn có thể cho chúng tôi biết thêm chút ít không?
+                        </h2>
+                        <fieldset className="fieldset1">
+                          <label className="review-content-positive">
+                            <span className="rv-icon">
+                              <FontAwesomeIcon
+                                className="icon-rv"
+                                style={{ height: "26px", width: "26px" }}
+                                icon={faFaceSmileBeam}
+                              />
+                            </span>
+                            <span className="rv-label">Bạn thích điều gì?</span>
+                            <textarea
+                              className="textarea_positive"
+                              style={{
+                                overflow: "hidden visible",
+                                overflowWrap: "break-word",
+                                height: "111.6px",
+                              }}
+                              name="hotel_positive"
+                              id=""
+                              cols="106"
+                              rows="9"
+                              placeholder="Bạn nghĩ gì về bữa sáng? Địa điểm thì sao?"
+                            ></textarea>
+                          </label>
+                          <label className="review-content-negative">
+                            <span className="rv-icon">
+                              <FontAwesomeIcon
+                                className="icon-rv1"
+                                style={{ height: "26px", width: "26px" }}
+                                icon={faFaceFrown}
+                              />
+                            </span>
+                            <span className="rv-label">Bạn không thích điều gì?</span>
+                            <textarea
+                              className="textarea_negative"
+                              style={{
+                                overflow: "hidden visible",
+                                overflowWrap: "break-word",
+                                height: "111.6px",
+                              }}
+                              name="hotel_negative"
+                              id=""
+                              cols="106"
+                              rows="9"
+                              placeholder="Điều gì có thể cải thiện tốt hơn?"
+                            ></textarea>
+                          </label>
+                          <button type="submit">
+                            <span className="text-button">Hoàn tất</span>
+                          </button>
+                        </fieldset>
+                      </li>
+                      <div className="separation3"></div>
                     </ol>
                   </form>
                 </div>
-                <button type="submit">Gửi đánh giá</button>
               </div>
             </div>
           )}

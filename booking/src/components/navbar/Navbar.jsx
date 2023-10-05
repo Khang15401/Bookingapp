@@ -42,10 +42,10 @@ const Navbar = () => {
         </> 
         : (<div className="navItems">
             <Link to="/register">
-              <button className="navButton">Đăng Ký</button>
+              <button className="navButton">Đăng ký</button>
             </Link>
             <Link to="/login">
-              <button className="navButton"> Đăng Nhập</button>
+              <button className="navButton"> Đăng nhập</button>
             </Link>   
         </div>)}
         </div>

@@ -7,7 +7,7 @@ const MailList = () => {
       <span className="mailDesc">Hãy đăng ký và chúng tôi sẽ gửi những ưu đãi tốt nhất cho bạn</span>
       <div className="mailInputContainer">
         <input type="text" placeholder="Địa chỉ email của bạn" />
-        <button>Đăng Ký</button>
+        <button>Đăng ký</button>
       </div>
     </div>
   )
