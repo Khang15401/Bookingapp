@@ -52,6 +52,7 @@ const Detail = () => {
   const { data2, loading2, error2, reFetch2 } = useFetch2(
     `/orders/service/${orderId}`
   );
+  console.log(data);
 
   const imgRoom = data.photoRoom;
 
@@ -73,27 +74,26 @@ const Detail = () => {
   const [isRadioSelected2, setIsRadioSelected2] = useState(false);
   const [isCheckBoxSelected, setIsCheckBoxSelected] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
+  const [contentPositive, setContentPositive] = useState("");
+  const [contentNegative, setContentNegative] = useState("");
+
+  const handlePositiveChange = (e) => {
+    setContentPositive(e.target.value);
+  };
+
+  // Hàm xử lý khi nội dung trong textarea Negative thay đổi
+  const handleNegativeChange = (e) => {
+    setContentNegative(e.target.value);
+  };
+
+  console.log(contentPositive);
+  console.log(contentNegative);
+
 
   const handleRadioSelected = (e) => {
     const newValue = e.target.value;
     setSelectedValue(newValue);
   };
-
-  // const handleLabelClick = (radioId) => {
-  //   // Tìm radio input tương ứng
-  //   const radioInput = document.getElementById(radioId);
-
-  //   if (radioInput) {
-  //     // Đảm bảo rằng radio input không bị vô hiệu hóa
-  //     if (!radioInput.disabled) {
-  //       // Đặt thuộc tính checked của radio input thành true
-  //       radioInput.checked = true;
-
-  //       // Kích hoạt sự kiện change trên radio input để cập nhật CSS hoặc thực hiện các xử lý khác
-  //       radioInput.dispatchEvent(new Event("change"));
-  //     }
-  //   }
-  // };
 
   console.log(selectedValue);
   const [checkboxes, setCheckboxes] = useState({
@@ -376,7 +376,44 @@ const Detail = () => {
       window.location.reload();
       return res.data;
     } catch (error) {
-      alert("Hoàn thành thay đổi ngày ở!");
+      alert("Lỗi thay đổi ngày ở!");
+      console.log(error);
+    }
+  };
+
+  const imgUser = localStorage.getItem("user");
+  const user = JSON.parse(imgUser);
+  console.log(user.img);
+
+  const handleClick3 = async (e) => {
+    e.preventDefault();
+    try {
+      const newReview = {
+        userId: data.userId,
+        userName: data.userName,
+        imgUser: user.img,
+        hotelId: data.hotelId,
+        nameHotel: data.nameHotel,
+        rating: selectedValue,
+        roomId: data.roomId,
+        titleRoom: data.titleRoom,
+        timeReview: formattedDateTime,
+        positive: contentPositive,
+        negative: contentNegative,
+      };
+      // console.log(data);
+      await axios.post("/reviews", newReview);
+      alert("Hoàn thành đánh giá phòng ở!");
+      console.log(newReview);
+      setOpenPageReview(false);
+
+      const Reviewed = {
+        reviewed: true,
+      }
+      await axios.patch(`/orders/${orderId}`, Reviewed);
+      console.log(Reviewed);
+    } catch (error) {
+      alert("Không thể gửi đánh giá!");
       console.log(error);
     }
   };
@@ -862,7 +899,8 @@ const Detail = () => {
                   </button>
                 )}
                 {data.status !== "Chưa nhận phòng" &&
-                  data.status !== "Đã hủy" && (
+                  data.status !== "Đã hủy" && 
+                  !data.reviewed && (
                     <button
                       type="button"
                       className="button-cancle-room change-number-room"
@@ -1448,6 +1486,8 @@ const Detail = () => {
                               name="hotel_positive"
                               id=""
                               cols="106"
+                              value={contentPositive}
+                              onChange={handlePositiveChange}
                               rows="9"
                               placeholder="Bạn nghĩ gì về bữa sáng? Địa điểm thì sao?"
                             ></textarea>
@@ -1460,7 +1500,9 @@ const Detail = () => {
                                 icon={faFaceFrown}
                               />
                             </span>
-                            <span className="rv-label">Bạn không thích điều gì?</span>
+                            <span className="rv-label">
+                              Bạn không thích điều gì?
+                            </span>
                             <textarea
                               className="textarea_negative"
                               style={{
@@ -1472,10 +1514,12 @@ const Detail = () => {
                               id=""
                               cols="106"
                               rows="9"
+                              value={contentNegative}
+                              onChange={handleNegativeChange}
                               placeholder="Điều gì có thể cải thiện tốt hơn?"
                             ></textarea>
                           </label>
-                          <button type="submit">
+                          <button type="submit" onClick={handleClick3}>
                             <span className="text-button">Hoàn tất</span>
                           </button>
                         </fieldset>

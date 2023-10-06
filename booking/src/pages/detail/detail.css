@@ -823,7 +823,8 @@
   width: 98.93vw;
   /* height: 1471.97px; */
   /* height: 1652.97px; */
-  height: 1664.97px;
+  /* height: 1664.97px; */
+  height: 1916.97px;
   background-color: rgba(0, 0, 0, 0.418);
   position: absolute;
   top: 50px;
@@ -856,7 +857,7 @@
 }
 
 input[type="radio"],
-input[type="checkbox"] {
+.input-staywith{
   margin-right: 10px;
 }
 
@@ -1416,7 +1417,9 @@ input[type="radio"] + label {
 }
 
 .icon-rv{
-  color: #adedbd;
+  /* color: #adedbd; */
+  color: #7ee397;
+
 }
 
 .icon-rv1{

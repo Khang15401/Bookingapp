@@ -26,7 +26,6 @@ export const createOrder = async (req, res, next) => {
       quantity: req.body.quantity,
       checkIn: req.body.checkIn,
       checkOut: req.body.checkOut,
-
     });
     // console.log({...req.body})
     const saveOrder = await newOrder.save();
