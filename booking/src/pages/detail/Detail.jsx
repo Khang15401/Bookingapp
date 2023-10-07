@@ -52,7 +52,6 @@ const Detail = () => {
   const { data2, loading2, error2, reFetch2 } = useFetch2(
     `/orders/service/${orderId}`
   );
-  console.log(data);
 
   const imgRoom = data.photoRoom;
 
@@ -86,16 +85,11 @@ const Detail = () => {
     setContentNegative(e.target.value);
   };
 
-  console.log(contentPositive);
-  console.log(contentNegative);
-
-
   const handleRadioSelected = (e) => {
     const newValue = e.target.value;
     setSelectedValue(newValue);
   };
 
-  console.log(selectedValue);
   const [checkboxes, setCheckboxes] = useState({
     soloTravel: false,
     withFriends: false,
@@ -350,7 +344,7 @@ const Detail = () => {
   const formattedDateTime = new Intl.DateTimeFormat("en-CA", options).format(
     currentDateTime
   );
-  console.log(formattedDateTime);
+  // console.log(formattedDateTime);
 
   // console.log(PriceBasic);
   const handleClick2 = async (e) => {
@@ -383,7 +377,7 @@ const Detail = () => {
 
   const imgUser = localStorage.getItem("user");
   const user = JSON.parse(imgUser);
-  console.log(user.img);
+  // console.log(user.img);
 
   const handleClick3 = async (e) => {
     e.preventDefault();
@@ -402,9 +396,28 @@ const Detail = () => {
         negative: contentNegative,
       };
       // console.log(data);
-      await axios.post("/reviews", newReview);
+      const res = await axios.post("/reviews", newReview);
       alert("Hoàn thành đánh giá phòng ở!");
       console.log(newReview);
+
+      const reviewId = res.data._id;
+      console.log(reviewId);
+      const hotelDetail = await axios.get(`/hotels/find/${hotelID}`);
+      const currentReviews = hotelDetail.data.reviews;
+
+      // Tạo một đánh giá mới
+      const newAddReview = {
+        _id: reviewId,
+      };
+      console.log(newAddReview);
+
+      const updatedReviews = [...currentReviews, newAddReview];
+      const updateReviewHotel = {
+        reviews: updatedReviews,
+      };
+      await axios.patch(`/hotels/addReview/${hotelID}`, updateReviewHotel);
+      console.log(updateReviewHotel);
+
       setOpenPageReview(false);
 
       const Reviewed = {
@@ -899,7 +912,7 @@ const Detail = () => {
                   </button>
                 )}
                 {data.status !== "Chưa nhận phòng" &&
-                  data.status !== "Đã hủy" && 
+                  data.status !== "Đã hủy" &&
                   !data.reviewed && (
                     <button
                       type="button"

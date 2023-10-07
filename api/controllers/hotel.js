@@ -24,6 +24,19 @@ export const updateHotel = async(req, res, next)=>{
         next(err);
     }
 }
+
+export const updateHotel1 = async(req, res, next)=>{
+    try{
+        const updatedHotel1 = await Hotel.findByIdAndUpdate(
+            req.params.id, 
+            { $set: req.body},
+            { new: true }
+            );
+        res.status(200).json(updatedHotel1);
+    }catch(err){
+        next(err);
+    }
+}
 export const deleteHotel = async(req, res, next)=>{
     try{
         await Hotel.findByIdAndDelete(req.params.id);
