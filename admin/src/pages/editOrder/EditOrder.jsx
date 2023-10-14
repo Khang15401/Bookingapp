@@ -51,10 +51,18 @@ const EditOrder = ({}) => {
   const handleClick = async (e) => {
     e.preventDefault();   
     try {
+
+      const updatedPrice = priceOrder; // Giả sử ban đầu price sẽ là priceOrder
+
+        if (services.length > 0) {
+            updatedPrice += priceService; // Nếu có dịch vụ được chọn, thì thêm giá dịch vụ vào giá đơn hàng
+            updatedPrice *= 1.08; // Sau đó tính thuế GTGT (VAT)
+        }
           const updateOrder = {
             ...info,
             services,
-            price: (priceOrder + priceService) * 1.08,
+            // price: (priceOrder + priceService) * 1.08,
+            price: updatedPrice,
             priceService: priceService,
 
           };
@@ -144,6 +152,7 @@ const EditOrder = ({}) => {
                 <label>Tình trạng</label>
                 <p>{data.status}</p>
                 <select id="status" onChange={handleChange}>
+                  <option value="default" disabled hidden>Tình trạng đặt phòng</option>
                   <option value={'Chưa nhận phòng'}>Chưa nhận phòng</option>
                   <option value={'Đã hủy'}>Đã hủy</option>
                   <option value={'Hoàn thành'}>Hoàn thành</option>
