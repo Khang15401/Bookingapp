@@ -6,7 +6,9 @@ import {
   faAngleLeft,
   faAngleRight,
   faBed,
+  faCalendar,
   faCalendarDays,
+  faChildren,
   faCircleArrowLeft,
   faCircleArrowRight,
   faCircleXmark,
@@ -15,6 +17,9 @@ import {
   faHandPointRight,
   faLocationDot,
   faPerson,
+  faSmileBeam,
+  faSort,
+  faSortDown,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import MailList from "../../components/mailList/MailList";
@@ -38,6 +43,8 @@ const Hotel = () => {
   const [openDetailReview, setOpenDetailReview] = useState(false);
   const [selectedReview, setSelectedReview] = useState("");
   console.log(selectedReview);
+  const [openPanel, setOpenPanel] = useState(false);
+
 
   const { data, loading, error, reFetch } = useFetch(`/hotels/find/${id}`);
   const { data1, loading1, error1, reFetch1 } = useFetch1(
@@ -75,6 +82,8 @@ const Hotel = () => {
       };
     });
   };
+
+  
 
   //CHECK xem co phai dc open tu trang DETAIL khong ?
   const urlParams = new URLSearchParams(window.location.search);
@@ -354,8 +363,8 @@ const Hotel = () => {
                                   </span>
                                 )}
                               </div>
-                              <span className="review-score-all">
-                                <span className="conf-font1">
+                              <span onClick={() => setOpenPanel(true)} className="review-score-all">
+                                <span  className="conf-font1">
                                   Đọc tất cả đánh giá
                                 </span>
                               </span>
@@ -412,15 +421,21 @@ const Hotel = () => {
                                         </div>
                                       </div>
                                       <div className="feauture-more">
-                                        <button onClick={() => {
-                                          const itemId = item._id;
-                                          console.log(itemId)
-                                          setOpenDetailReview(true)
-                                          setSelectedReview(data1.find(review => review._id === itemId));
-                                        } 
-                                        } 
-                                        className="btn-detail-review btn-detail1 btn-detail2">
-                                          <span >Xem chi tiết</span>
+                                        <button
+                                          onClick={() => {
+                                            const itemId = item._id;
+                                            console.log(itemId);
+                                            setOpenDetailReview(true);
+                                            setSelectedReview(
+                                              data1.find(
+                                                (review) =>
+                                                  review._id === itemId
+                                              )
+                                            );
+                                          }}
+                                          className="btn-detail-review btn-detail1 btn-detail2"
+                                        >
+                                          <span>Xem chi tiết</span>
                                         </button>
                                       </div>
                                     </div>
@@ -454,105 +469,115 @@ const Hotel = () => {
                             </div>
                           </div>
                         </div>
-                        <button className="color-btn-see-all-cmt">
+                        <button onClick={() => setOpenPanel(true)} className="color-btn-see-all-cmt">
                           <span>Đọc tất cả đánh giá</span>
                         </button>
 
                         {openDetailReview && selectedReview && (
-                        <div className="wrap-review-detail setup-review-detail">
-                        <div className="container-review-detail">
-                          <div className="move1 move2">
-                            <div className="modelOpen1">
-                              <div className="modelOpen2">
-                                <div className="padding1 padding2 padding3">
-                                  <div className="wrap-btn-off-model">
-                                    <button onClick={() => setOpenDetailReview(false)} className="btn-off-model">
-                                      <span className="btn-off-model1">
-                                        <span className="btn-off-model2">
-                                          <FontAwesomeIcon icon={faXmark} />
-                                        </span>
-                                      </span>
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="block-detail-review">
-                                <div className="review">
-                                  <div className="mr-review">
-                                    <div className="review-avatar">
-                                      <div className="avatar-user-review">
-                                        <div className="img-review">
-                                          <picture className="conf-img conf-img1">
-                                            <img
-                                              src={selectedReview.imgUser}
-                                              loading="lazy"
-                                              alt=""
-                                            />
-                                          </picture>
-                                        </div>
-                                        <div className="name-review">
-                                          <div className="name-reivewer">
-                                            {selectedReview.userName}
-                                          </div>
-                                        </div>
+                          <div className="wrap-review-detail setup-review-detail">
+                            <div className="container-review-detail">
+                              <div className="move1 move2">
+                                <div className="modelOpen1">
+                                  <div className="modelOpen2">
+                                    <div className="padding1 padding2 padding3">
+                                      <div className="wrap-btn-off-model">
+                                        <button
+                                          onClick={() =>
+                                            setOpenDetailReview(false)
+                                          }
+                                          className="btn-off-model"
+                                        >
+                                          <span className="btn-off-model1">
+                                            <span className="btn-off-model2">
+                                              <FontAwesomeIcon icon={faXmark} />
+                                            </span>
+                                          </span>
+                                        </button>
                                       </div>
                                     </div>
-                                    <div className="review-content">
-                                      <div style={{ height: "100%" }}>
-                                        <div className="list-detail-review">
-                                          <div className="detail-review-time-point">
-                                            <div className="status-timereview">
-                                              <div>
-                                                <div>
-                                                  <span className="span-setup">
-                                                     ngày đánh giá: {selectedReview.timeReview}
-                                                  </span>
-                                                </div>
-                                              </div>
-                                              <div className="title-review">
-                                                {selectedReview.ratingText}
+                                  </div>
+                                  <div className="block-detail-review">
+                                    <div className="review">
+                                      <div className="mr-review">
+                                        <div className="review-avatar">
+                                          <div className="avatar-user-review">
+                                            <div className="img-review">
+                                              <picture className="conf-img conf-img1">
+                                                <img
+                                                  src={selectedReview.imgUser}
+                                                  loading="lazy"
+                                                  alt=""
+                                                />
+                                              </picture>
+                                            </div>
+                                            <div className="name-review">
+                                              <div className="name-reivewer">
+                                                {selectedReview.userName}
                                               </div>
                                             </div>
-                                            <div className="point-review">
-                                              <div className="review-score">
-                                                <div className="wrap-review-score">
-                                                  <div className="block-score">
-                                                    {selectedReview.rating}
+                                          </div>
+                                        </div>
+                                        <div className="review-content">
+                                          <div style={{ height: "100%" }}>
+                                            <div className="list-detail-review">
+                                              <div className="detail-review-time-point">
+                                                <div className="status-timereview">
+                                                  <div>
+                                                    <div>
+                                                      <span className="span-setup">
+                                                        ngày đánh giá:{" "}
+                                                        {
+                                                          selectedReview.timeReview
+                                                        }
+                                                      </span>
+                                                    </div>
+                                                  </div>
+                                                  <div className="title-review">
+                                                    {selectedReview.ratingText}
+                                                  </div>
+                                                </div>
+                                                <div className="point-review">
+                                                  <div className="review-score">
+                                                    <div className="wrap-review-score">
+                                                      <div className="block-score">
+                                                        {selectedReview.rating}
+                                                      </div>
+                                                    </div>
                                                   </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                          </div>
-                                          <div className="container-review-positive-text">
-                                            <div className="wrap-review-positive-text">
-                                              <div className="icon-positive">
-                                                <span className="wrap-icon-positive">
-                                                  <FontAwesomeIcon
-                                                    icon={faFaceSmileBeam}
-                                                  />
-                                                </span>
-                                              </div>
-                                              <div className="space"></div>
-                                              <div className="wrap-content-review">
-                                                <div className="content-review">
-                                                  {selectedReview.positive}
+                                              <div className="container-review-positive-text">
+                                                <div className="wrap-review-positive-text">
+                                                  <div className="icon-positive">
+                                                    <span className="wrap-icon-positive">
+                                                      <FontAwesomeIcon
+                                                        icon={faFaceSmileBeam}
+                                                      />
+                                                    </span>
+                                                  </div>
+                                                  <div className="space"></div>
+                                                  <div className="wrap-content-review">
+                                                    <div className="content-review">
+                                                      {selectedReview.positive}
+                                                    </div>
+                                                  </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                          </div>
-                                          <div className="container-review-negative-text">
-                                            <div className="wrap-review-negative-text">
-                                              <div className="icon-negative">
-                                                <span className="wrap-icon-negative">
-                                                  <FontAwesomeIcon
-                                                    icon={faFaceFrown}
-                                                  />
-                                                </span>
-                                              </div>
-                                              <div className="space"></div>
-                                              <div className="wrap-content-review">
-                                                <div className="content-review">
-                                                  {selectedReview.negative}
+                                              <div className="container-review-negative-text">
+                                                <div className="wrap-review-negative-text">
+                                                  <div className="icon-negative">
+                                                    <span className="wrap-icon-negative">
+                                                      <FontAwesomeIcon
+                                                        icon={faFaceFrown}
+                                                      />
+                                                    </span>
+                                                  </div>
+                                                  <div className="space"></div>
+                                                  <div className="wrap-content-review">
+                                                    <div className="content-review">
+                                                      {selectedReview.negative}
+                                                    </div>
+                                                  </div>
                                                 </div>
                                               </div>
                                             </div>
@@ -565,134 +590,238 @@ const Hotel = () => {
                               </div>
                             </div>
                           </div>
-                        </div>
+                        )}
                       </div>
-                      )}
-                      </div>
-
-                      {/* {data1.map((item, index) => ( */}
-                      {/* {openDetailReview && (
-                        <div className="wrap-review-detail setup-review-detail">
-                        <div className="container-review-detail">
-                          <div className="move1 move2">
-                            <div className="modelOpen1">
-                              <div className="modelOpen2">
-                                <div className="padding1 padding2 padding3">
-                                  <div className="wrap-btn-off-model">
-                                    <button onClick={() => setOpenDetailReview(false)} className="btn-off-model">
-                                      <span className="btn-off-model1">
-                                        <span className="btn-off-model2">
-                                          <FontAwesomeIcon icon={faXmark} />
-                                        </span>
-                                      </span>
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="block-detail-review">
-                                <div className="review">
-                                  <div className="mr-review">
-                                    <div className="review-avatar">
-                                      <div className="avatar-user-review">
-                                        <div className="img-review">
-                                          <picture className="conf-img conf-img1">
-                                            <img
-                                              src="http://res.cloudinary.com/kiawdev/image/upload/v1669215256/upload/xvddzqvhxkurlppiivql.jpg"
-                                              loading="lazy"
-                                              alt=""
-                                            />
-                                          </picture>
-                                        </div>
-                                        <div className="name-review">
-                                          <div className="name-reivewer">
-                                            Khang
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="review-content">
-                                      <div style={{ height: "100%" }}>
-                                        <div className="list-detail-review">
-                                          <div className="detail-review-time-point">
-                                            <div className="status-timereview">
-                                              <div>
-                                                <div>
-                                                  <span className="span-setup">
-                                                    Ngày đánh giá: 2023-09-14
-                                                  </span>
-                                                </div>
-                                              </div>
-                                              <div className="title-review">
-                                                Hoàn hảo
-                                              </div>
-                                            </div>
-                                            <div className="point-review">
-                                              <div className="review-score">
-                                                <div className="wrap-review-score">
-                                                  <div className="block-score">
-                                                    9.0
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div className="container-review-positive-text">
-                                            <div className="wrap-review-positive-text">
-                                              <div className="icon-positive">
-                                                <span className="wrap-icon-positive">
-                                                  <FontAwesomeIcon
-                                                    icon={faFaceSmileBeam}
-                                                  />
-                                                </span>
-                                              </div>
-                                              <div className="space"></div>
-                                              <div className="wrap-content-review">
-                                                <div className="content-review">
-                                                  Nhân viên rất thực tế, tươi
-                                                  cười, cung cấp các hoạt động
-                                                  mà không quá xâm phạm. Vị trí
-                                                  tốt, ngay cạnh một số nhà hàng
-                                                  và chợ.
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div className="container-review-negative-text">
-                                            <div className="wrap-review-negative-text">
-                                              <div className="icon-negative">
-                                                <span className="wrap-icon-negative">
-                                                  <FontAwesomeIcon
-                                                    icon={faFaceFrown}
-                                                  />
-                                                </span>
-                                              </div>
-                                              <div className="space"></div>
-                                              <div className="wrap-content-review">
-                                                <div className="content-review">
-                                                  Cách âm chưa tốt lắm nhưng vẫn
-                                                  ở mức vừa đủ.
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      )} */}
-                      {/* ))} */}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          
+          { openPanel && (
+            <div className="container-panel">
+            <div className="sliding-panel-widget is-shown">
+              <div className="sliding-panel-widget-scrollable ">
+                <div onClick={() => setOpenPanel(false)}  className="sliding-panel-widget-close-button">
+                  <i className="bicon-aclose"></i>
+                </div>
+                <div className="sliding-panel-widget-content review_list_block one_col">
+                  <div className="review_list_outer_container clearfix">
+                    <div className="review_list_score_container lang_ltr scores_full_layout">
+                      <div className="reviews_panel_header_score">
+                        <div className="review-score-capla">
+                          <div>
+                            <div className="wrap-point">
+                              <div className="block-point font-point">
+                                {data.rating}
+                              </div>
+                              <div className="status-point">
+                                <div className="font-point">Tuyệt hảo</div>
+                                <div className="total-review">
+                                  {data && data.reviews
+                                    ? `${data.reviews.length} đánh giá`
+                                    : "Không có đánh giá"}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="review-guidelines-capla">
+                          Chúng tôi cố gắng mang đến 100% đánh giá thật
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      className="review_list_container review-list--clean"
+                      style={{ display: "block" }}
+                    >
+                      <div
+                        id="review_list_page_container"
+                        style={{ display: "block" }}
+                      >
+                        <div className="reviewlist-header bui-u-clearfix">
+                          <h3
+                            className="font-point1"
+                            style={{ display: "inline-block" }}
+                          >
+                            Đánh giá của khách{" "}
+                          </h3>
+                          <span className="bui-form__group bui-u-pull-end">
+                            <label
+                              className="bui-form__labe"
+                              htmlFor="review_sort"
+                            >
+                              Sắp xếp đánh giá theo:{" "}
+                            </label>
+                            <span className="bui-input-select">
+                              <select
+                                className="bui-form__control"
+                                id="review_sort"
+                              >
+                                <option value="">Phù hợp nhất</option>
+                                <option value="">Mới nhất</option>
+                                <option value="">Cũ nhất</option>
+                              </select>
+                              <span className="bk-icon -streamline-arrow_menu bui-input-select__icon">
+                                <FontAwesomeIcon icon={faSort} />
+                              </span>
+                            </span>
+                          </span>
+                        </div>
+                        <ul className="review_list">
+                          {data1.map((item, index) => (
+                            <li
+                              key={item._id}
+                              className="review_list_new_item_block"
+                            >
+                              <div className="c-review-block">
+                                <div className="bui-grid">
+                                  <div className="bui-grid__column-3 c-review-block__left">
+                                    <div className="c-review-block__row c-review-block__guest">
+                                      <div className="c-guest bui-avatar-block">
+                                        <div className="c-avatar bui-avatar ">
+                                          <img
+                                            className="bui-avatar__image"
+                                            src={item.imgUser}
+                                            alt=""
+                                          />
+                                        </div>
+                                        <div className="bui-avatar-block__text">
+                                          <span className="bui-avatar-block__title">
+                                            {item.userName}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="c-review-block__row c-review-block__room-info-row         review-block__room-info--disabled">
+                                      <ul className="bui-list bui-list--text bui-list--icon bui_font_caption">
+                                        <li className="bui-list__item review-block__room-info--disabled">
+                                          <span className="bui-list__icon">
+                                            <FontAwesomeIcon
+                                              style={{
+                                                height: "16px",
+                                                width: "16px",
+                                              }}
+                                              icon={faBed}
+                                            />
+                                          </span>
+                                          <span></span>
+                                          <div className="bui-list__body">
+                                            {item.titleRoom}
+                                          </div>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <ul className="bui-list bui-list--text bui-list--icon bui_font_caption c-review-block__row c-review-block__stay-date">
+                                      <li className="bui-list__item">
+                                        <span className="bui-list__icon">
+                                          <FontAwesomeIcon
+                                            style={{
+                                              height: "16px",
+                                              width: "16px",
+                                            }}
+                                            icon={faCalendar}
+                                          />
+                                        </span>
+                                        <div className="bui-list__body">
+                                          1 đêm ·
+                                          <span className="c-review-block__date">
+                                            tháng 3/2023
+                                          </span>
+                                        </div>
+                                      </li>
+                                    </ul>
+                                    <ul className="bui-list bui-list--text bui-list--icon bui_font_caption review-panel-wide__traveller_type c-review-block__row">
+                                      <li className="bui-list__item">
+                                        <span className="bui-list__icon">
+                                          <FontAwesomeIcon
+                                            style={{
+                                              height: "16px",
+                                              width: "16px",
+                                            }}
+                                            icon={faChildren}
+                                          />
+                                        </span>
+                                        <div className="bui-list__body">
+                                          Cặp đôi
+                                        </div>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <div className="bui-grid__column-9 c-review-block__right">
+                                    <div className="c-review-block__row">
+                                      <span className="c-review-block__date">
+                                        Đã đánh giá: ngày 2 tháng 9 năm 2023
+                                      </span>
+                                      <div className="bui-grid">
+                                        <div className="bui-grid__column-11">
+                                          <h3 className=" c-review-block__title c-review__title--ltr   c-review-block__title c-review__title--ltr">
+                                            {item.ratingText}
+                                          </h3>
+                                        </div>
+                                        <div className="bui-grid__column-1 bui-u-text-right">
+                                          <div className="bui-review-score c-score">
+                                            <div className="bui-review-score__badge">
+                                              {item.rating}
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="c-review-block__row">
+                                      <div className="c-review">
+                                        <div className="c-review__row">
+                                          <p className="c-review__inner c-review__inner--ltr">
+                                            <span className="c-review__prefix c-review__prefix--color-green">
+                                              <FontAwesomeIcon
+                                                style={{
+                                                  height: "15.75px",
+                                                  width: "15.75px",
+                                                }}
+                                                icon={faSmileBeam}
+                                              />
+                                            </span>
+                                            <span> · </span>
+                                            <span className="c-review__body">
+                                              {item.positive}
+                                            </span>
+                                          </p>
+                                        </div>
+                                        <div className="c-review__row">
+                                          <p className="c-review__inner c-review__inner--ltr">
+                                            <span className="c-review__prefix color-icon">
+                                              <FontAwesomeIcon
+                                                style={{
+                                                  height: "15.75px",
+                                                  width: "15.75px",
+                                                }}
+                                                icon={faFaceFrown}
+                                              />
+                                            </span>
+                                            <span> · </span>
+                                            <span className="c-review__body">
+                                              {item.negative}
+                                            </span>
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          )}
+          
           <MailList />
           <Footer />
         </div>
