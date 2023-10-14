@@ -73,8 +73,10 @@ const Detail = () => {
   const [isRadioSelected2, setIsRadioSelected2] = useState(false);
   const [isCheckBoxSelected, setIsCheckBoxSelected] = useState(false);
   const [selectedValue, setSelectedValue] = useState("");
+  console.log(selectedValue);
   const [contentPositive, setContentPositive] = useState("");
   const [contentNegative, setContentNegative] = useState("");
+  const [reviewText, setReviewText] = useState("");
 
   const handlePositiveChange = (e) => {
     setContentPositive(e.target.value);
@@ -88,7 +90,9 @@ const Detail = () => {
   const handleRadioSelected = (e) => {
     const newValue = e.target.value;
     setSelectedValue(newValue);
+    setReviewText(e.target.dataset.customValue);
   };
+  console.log(reviewText);
 
   const [checkboxes, setCheckboxes] = useState({
     soloTravel: false,
@@ -389,6 +393,7 @@ const Detail = () => {
         hotelId: data.hotelId,
         nameHotel: data.nameHotel,
         rating: selectedValue,
+        ratingText: reviewText,
         roomId: data.roomId,
         titleRoom: data.titleRoom,
         timeReview: formattedDateTime,
@@ -425,6 +430,7 @@ const Detail = () => {
       }
       await axios.patch(`/orders/${orderId}`, Reviewed);
       console.log(Reviewed);
+      window.location.reload();
     } catch (error) {
       alert("Không thể gửi đánh giá!");
       console.log(error);
@@ -1214,6 +1220,7 @@ const Detail = () => {
                                 onChange={handleRadioSelected}
                                 label="1"
                                 value="1"
+                                data-custom-value="Cực kì tệ"
                               />
                               <label
                                 className="point-range-number-label"
@@ -1240,6 +1247,7 @@ const Detail = () => {
                                 className="point-range-number-input"
                                 onChange={handleRadioSelected}
                                 value="2"
+                                data-custom-value="Rất tệ"
                                 label="2"
                               />
                               <label
@@ -1266,7 +1274,9 @@ const Detail = () => {
                                 className="point-range-number-input"
                                 onChange={handleRadioSelected}
                                 value="3"
+                                data-custom-value="Kém"
                                 label="3"
+                                
                               />
                               <label
                                 className="point-range-number-label"
@@ -1292,6 +1302,8 @@ const Detail = () => {
                                 className="point-range-number-input"
                                 onChange={handleRadioSelected}
                                 value="4"
+                                data-custom-value="Thất vọng"
+                                
                                 label="4"
                               />
                               <label
@@ -1318,6 +1330,8 @@ const Detail = () => {
                                 className="point-range-number-input"
                                 onChange={handleRadioSelected}
                                 value="5"
+                                data-custom-value="Tàm tạm"
+
                                 label="5"
                               />
                               <label
@@ -1344,6 +1358,8 @@ const Detail = () => {
                                 className="point-range-number-input"
                                 onChange={handleRadioSelected}
                                 value="6"
+                                data-custom-value="Dễ chịu"
+
                                 label="6"
                               />
                               <label
@@ -1370,6 +1386,8 @@ const Detail = () => {
                                 className="point-range-number-input"
                                 onChange={handleRadioSelected}
                                 value="7"
+                                data-custom-value="Tốt"
+
                                 label="7"
                               />
                               <label
@@ -1396,6 +1414,8 @@ const Detail = () => {
                                 className="point-range-number-input"
                                 onChange={handleRadioSelected}
                                 value="8"
+                                data-custom-value="Rất tốt"
+
                                 label="8"
                               />
                               <label
@@ -1422,6 +1442,7 @@ const Detail = () => {
                                 className="point-range-number-input"
                                 onChange={handleRadioSelected}
                                 value="9"
+                                data-custom-value="Tuyệt hảo"
                                 label="9"
                               />
                               <label
@@ -1448,6 +1469,7 @@ const Detail = () => {
                                 className="point-range-number-input"
                                 onChange={handleRadioSelected}
                                 value="10"
+                                data-custom-value="Xuất sắc"
                                 label="10"
                               />
                               <label

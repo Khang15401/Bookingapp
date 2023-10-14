@@ -29,6 +29,10 @@ const ReviewSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    ratingText: {
+        type: String,
+        require: true,
+    },
     roomId:{
         type: String,
         required: true,

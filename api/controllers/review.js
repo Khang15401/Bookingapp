@@ -22,6 +22,7 @@ export const createReview = async (req, res, next) => {
       positive: req.body.positive,
       negative: req.body.negative,
       rating: req.body.rating,
+      ratingText: req.body.ratingText,
       timeReview: req.body.timeReview,
     });
     // console.log({...req.body})
