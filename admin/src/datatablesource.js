@@ -1,5 +1,5 @@
 export const userColumns = [
-  { field: "_id", headerName: "ID", width: 200 },
+  // { field: "_id", headerName: "ID", width: 200 },
   {
     field: "user",
     headerName: "User",
@@ -36,16 +36,16 @@ export const userColumns = [
   },
 ];
 export const hotelColumns = [
-  { field: "_id", headerName: "ID", width: 260 },
+  // { field: "_id", headerName: "ID", width: 260 },
   {
     field: "name",
     headerName: "Name",
-    width: 150,
+    width: 200,
   },
   {
     field: "type",
     headerName: "Type",
-    width: 100,
+    width: 180,
   },
   {
     field: "title",
@@ -55,12 +55,12 @@ export const hotelColumns = [
   {
     field: "city",
     headerName: "City",
-    width: 100,
+    width: 180,
   },
 ];
 
 export const roomColumns = [
-  { field: "_id", headerName: "ID", width: 260 },
+  // { field: "_id", headerName: "ID", width: 260 },
   {
     field: "title",
     headerName: "Title",
@@ -69,12 +69,12 @@ export const roomColumns = [
   {
     field: "desc",
     headerName: "Description",
-    width: 200,
+    width: 300,
   },
   {
     field: "price",
     headerName: "Price",
-    width: 100,
+    width: 180,
   },
   {
     field: "maxPeople",
@@ -84,11 +84,11 @@ export const roomColumns = [
 ];
 
 export const orderColumns = [
-  { field: "_id", headerName: "ID", width: 250 },
+  // { field: "_id", headerName: "ID", width: 250 },
   {
     field: "userName",
     headerName: "Name",
-    width: 120,
+    width: 170,
   },
   {
     field: "nameHotel",
@@ -108,17 +108,17 @@ export const orderColumns = [
   {
     field: "price",
     headerName: "Price",
-    width: 100,
+    width: 150,
   },
   {
     field: "status",
     headerName: "Status",
-    width: 100,
+    width: 150,
   },
 ];
 
 export const serviceColumns = [
-  { field: "_id", headerName: "ID", width: 250 },
+  // { field: "_id", headerName: "ID", width: 250 },
   {
     field: "servicename",
     headerName: "Name",
@@ -127,7 +127,7 @@ export const serviceColumns = [
   {
     field: "introduction",
     headerName: "introdution",
-    width: 400,
+    width: 600,
   },
   {
     field: "serviceprice",

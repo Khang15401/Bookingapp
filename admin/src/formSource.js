@@ -13,7 +13,7 @@ export const userInputs = [
   },
   {
     id: "phone",
-    label: "Điện Thoại",
+    label: "Điện thoại",
     type: "text",
     placeholder: "+1 234 567 89",
   },
@@ -24,13 +24,13 @@ export const userInputs = [
   },
   {
     id: "country",
-    label: "Quốc Gia",
+    label: "Quốc gia",
     type: "text",
     placeholder: "Viet Nam",
   },
   {
     id: "city",
-    label: "Thành Phố",
+    label: "Thành phố",
     type: "text",
     placeholder: "TPHCM",
   },
@@ -72,7 +72,7 @@ export const userInputs = [
 export const hotelInputs = [
   {
     id: "name",
-    label: "Tên Khách Sạn",
+    label: "Tên khách sạn",
     type: "text",
     placeholder: "My Hotel",
   },
@@ -84,31 +84,31 @@ export const hotelInputs = [
   },
   {
     id: "city",
-    label: "Thành Phố",
+    label: "Thành phố",
     type: "text",
     placeholder: "New York",
   },
   {
     id: "address",
-    label: "Địa Chỉ",
+    label: "Địa chỉ",
     type: "text",
     placeholder: "elton st, 216",
   },
   {
     id: "distance",
-    label: "Khoảng Cách Đến Thành Phố",
+    label: "Khoảng cách đến thành phố",
     type: "text",
     placeholder: "500",
   },
   {
     id: "title",
-    label: "Tiêu Đề",
+    label: "Tiêu đề",
     type: "text",
     placeholder: "The best Hotel",
   },
   {
     id: "desc",
-    label: "Giới Thiệu",
+    label: "Giới thiệu",
     type: "text",
     placeholder: "giới thiệu",
   },
@@ -123,19 +123,19 @@ export const hotelInputs = [
 export const roomInputs = [
   {
     id: "title",
-    label: "Tiêu Đề",
+    label: "Tiêu đề",
     type: "text",
     placeholder: "2 bed room",
   },
   {
     id: "desc",
-    label: "Giới Thiệu",
+    label: "Giới thiệu",
     type: "text",
     placeholder: "King size bed, 1 bathroom",
   },
   {
     id: "price",
-    label: "Giá Phòng",
+    label: "Giá phòng",
     type: "number",
     placeholder: "100",
   },
@@ -150,19 +150,19 @@ export const roomInputs = [
 export const orderInputs = [
   {
     id: "title",
-    label: "Tiêu Đề",
+    label: "Tiêu đề",
     type: "text",
     placeholder: "2 bed room",
   },
   {
     id: "desc",
-    label: "Giới Thiệu",
+    label: "Giới thiệu",
     type: "text",
     placeholder: "King size bed, 1 bathroom",
   },
   {
     id: "price",
-    label: "Giá Phòng",
+    label: "Giá phòng",
     type: "number",
     placeholder: "100",
   },

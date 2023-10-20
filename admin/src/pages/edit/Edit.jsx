@@ -25,34 +25,28 @@ const Edit = ({}) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  // const handleload = async () => {
-  //   const ttin = await axios.get("/users/" + userId);
-  //   console.log(ttin);
-  // };
-
   const handleClick = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "upload");
+    let newPhoto = info.photo;
     try {
-      const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
-        data
-      );
-      // console.log(uploadRes.data)
-      const { url } = uploadRes.data;
+      if (file) {
+        // Nếu có tải lên ảnh mới, thực hiện upload và cập nhật ảnh
+        const data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", "upload");
+  
+        const uploadRes = await axios.post(
+          "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
+          data
+        );
+        const { url } = uploadRes.data;
+        newPhoto = url;
+      }
 
-      // const updateUser = {
-      //   ...info,
-      //   img: url,
-      // };
       const updateUser = {
         ...info,
-        img: url,
+        img: newPhoto,
       };
-      // console.log(updateUser);
-
       await axios.patch("/users/" + userId, updateUser);
       alert("Sửa thông tin thành công!");
       navigate("/users");

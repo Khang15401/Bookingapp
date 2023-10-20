@@ -45,7 +45,7 @@ const EditRoom = ({}) => {
         data.append("upload_preset", "upload");
   
         const uploadRes = await axios.post(
-          "https://api.cloudinary.com/v1/kiawdev/image/upload",
+          "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
           data
         );
         const { url } = uploadRes.data;
@@ -74,15 +74,15 @@ const EditRoom = ({}) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Sửa Thông Tin Phòng Khách Sạn</h1>
+          <h1>Sửa thông tin phòng khách sạn</h1>
         </div>
         <div className="bottom">
           <div className="left2">
-            <div class="formInput2">
+            <div className="formInput2">
               <label>Ảnh phòng</label>
               <div>
                 <img
-                  class="img-update"
+                  className="img-update"
                   onChange={handleChange}
                   src={data.photo}
                   id="img"
@@ -110,7 +110,7 @@ const EditRoom = ({}) => {
           </div>
           <div className="right">
             <form>
-              <div class="formInput">
+              <div className="formInput">
                 <label>Tiêu Đề Phòng</label>
                 <input
                   onChange={handleChange}

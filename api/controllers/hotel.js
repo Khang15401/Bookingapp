@@ -122,6 +122,28 @@ export const getHotelRooms = async(req, res, next) => {
     }
 }
 
+
+export const getRoomsByHotelID = async (req, res, next) => {
+    try {
+      const { hotelID } = req.params; // Lấy hotelID từ đường dẫn
+  
+      // Tìm khách sạn dựa trên hotelID
+      const hotel = await Hotel.findById(hotelID);
+  
+      if (!hotel) {
+        return res.status(404).json({ message: "Khách sạn không tồn tại" });
+      }
+  
+      // Lấy danh sách phòng dựa trên danh sách roomIDs của khách sạn
+      const rooms = await Room.find({ _id: { $in: hotel.rooms } });
+  
+      res.status(200).json(rooms);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+
 export const getHotelReviews = async(req, res, next) => {
     try{
         const hotel = await Hotel.findById(req.params.id)

@@ -427,7 +427,7 @@ const Detail = () => {
 
       const Reviewed = {
         reviewed: true,
-      }
+      };
       await axios.patch(`/orders/${orderId}`, Reviewed);
       console.log(Reviewed);
       window.location.reload();
@@ -1017,11 +1017,13 @@ const Detail = () => {
                   <img className="img-room" src={data.photoRoom} alt="" />
                   <div className="img-text">
                     Đánh giá {data.nameHotel}
-                    <FontAwesomeIcon
-                      icon={faCircleXmark}
-                      className="rClose1"
-                      onClick={() => setOpenPageReview(!openPageReview)}
-                    />
+                    <div className="rClose1">
+                      <FontAwesomeIcon
+                        icon={faCircleXmark}
+                        
+                        onClick={() => setOpenPageReview(!openPageReview)}
+                      />
+                    </div>
                   </div>
                   <span className="img-text1">
                     {data.checkIn} - {data.checkOut}
@@ -1276,7 +1278,6 @@ const Detail = () => {
                                 value="3"
                                 data-custom-value="Kém"
                                 label="3"
-                                
                               />
                               <label
                                 className="point-range-number-label"
@@ -1303,7 +1304,6 @@ const Detail = () => {
                                 onChange={handleRadioSelected}
                                 value="4"
                                 data-custom-value="Thất vọng"
-                                
                                 label="4"
                               />
                               <label
@@ -1331,7 +1331,6 @@ const Detail = () => {
                                 onChange={handleRadioSelected}
                                 value="5"
                                 data-custom-value="Tàm tạm"
-
                                 label="5"
                               />
                               <label
@@ -1359,7 +1358,6 @@ const Detail = () => {
                                 onChange={handleRadioSelected}
                                 value="6"
                                 data-custom-value="Dễ chịu"
-
                                 label="6"
                               />
                               <label
@@ -1387,7 +1385,6 @@ const Detail = () => {
                                 onChange={handleRadioSelected}
                                 value="7"
                                 data-custom-value="Tốt"
-
                                 label="7"
                               />
                               <label
@@ -1415,7 +1412,6 @@ const Detail = () => {
                                 onChange={handleRadioSelected}
                                 value="8"
                                 data-custom-value="Rất tốt"
-
                                 label="8"
                               />
                               <label

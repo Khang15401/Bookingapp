@@ -125,7 +125,7 @@ const NewService = () => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Thêm dịch vụ mới</h1>
+          <h1 className="h1-conf">Thêm dịch vụ mới</h1>
         </div>
         <div className="bottom">
           <div className="right">

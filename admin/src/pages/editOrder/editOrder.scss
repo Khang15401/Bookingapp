@@ -51,13 +51,19 @@
               .icon {
                 cursor: pointer;
               }
+
             }
 
             input {
               width: 100%;
               padding: 5px;
+              margin-bottom: 15px;
               border: none;
               border-bottom: 1px solid gray;
+            }
+
+            .select-services{
+              margin-bottom: 15px;
             }
           }
 

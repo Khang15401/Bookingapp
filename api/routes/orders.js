@@ -1,5 +1,5 @@
 import  express  from "express";
-import {deleteOrder, getOrder, getOrderId, getOrders, updateOrder, cancleOrder, createOrder, getOrderServices} from "../controllers/order.js";
+import {deleteOrder,getOrdersByHotelID , getOrder, getOrderId, getOrders, updateOrder, cancleOrder, createOrder, getOrderServices} from "../controllers/order.js";
 import Hotel from "../models/Hotel.js";
 import { verifyAdmin } from "../utils/verifyToken.js";
 
@@ -14,6 +14,7 @@ router.patch("/cancle/:id", cancleOrder)
 router.delete("/:id", verifyAdmin, deleteOrder);
 //GET
 router.get("/history/:id", getOrder);
+router.get("/filter/:id", getOrdersByHotelID)
 router.get("/:id", getOrderId);
 
 router.get("/service/:id", getOrderServices)

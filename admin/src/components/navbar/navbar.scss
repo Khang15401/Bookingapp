@@ -8,15 +8,16 @@
 
   .wrapper {
     width: 100%;
-    padding: 20px;
+    padding: 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: #c2ddf4;
 
     .search {
       display: flex;
       align-items: center;
-      border: 0.5px solid lightgray;
+      border: 0px solid lightgray;
       padding: 3px;
 
       input {

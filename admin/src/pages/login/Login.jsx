@@ -43,7 +43,7 @@ const handleClick = async (e) => {
     <div>
       {/* <Link to="/" style={{ textDecoration: "none" }}> */}
           <div className="container-logo">
-            <span className="logo1">Kiawadmin</span>
+            <div className="logo1">Kiawadmin</div>
           </div>
         {/* </Link> */}
       <div className="login">
@@ -52,7 +52,7 @@ const handleClick = async (e) => {
               <input type="text" placeholder="username" id="username" onChange={handleChange} className="lInput" />
               <h2>Mật khẩu: </h2>
               <input type="password" placeholder="password" id="password" onChange={handleChange} className="lInput" />
-              <button disabled={loading} onClick={handleClick} className="lButton">Đăng Nhập</button>
+              <button disabled={loading} onClick={handleClick} className="lButton">Đăng nhập</button>
               {/* <a className="BtnRH" href="/">Trở về Trang Chủ</a> */}
               {error && <span>{error.message}</span>} 
           </div>

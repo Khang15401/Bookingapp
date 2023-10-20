@@ -30,6 +30,12 @@
           padding-right: 10px;
           padding-bottom: 10px;
         }
+
+        .setup-label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
       }
       // .end{
       //   flex: 1;
@@ -85,6 +91,7 @@
               width: 100%;
               padding: 5px;
               border: none;
+              margin-bottom: 15px;
               border-bottom: 1px solid gray;
             }
           }

@@ -66,7 +66,7 @@ const NewHotel = () => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Thêm Khách Sạn Mới</h1>
+          <h1>Thêm khách sạn mới</h1>
         </div>
         <div className="bottom">
           <div className="left2">
@@ -122,26 +122,26 @@ const NewHotel = () => {
                 </div>
               ))}
                 <div className="formInput">
-                  <label>Đánh Giá</label>
+                  <label>Đánh giá</label>
                   <input id="rating" onChange={handleChange} placeholder="Từ 1 - 5 "> 
                   </input>
                 </div>
                 <div className="formInput">
-                  <label>Nổi Bật</label>
+                  <label>Nổi bật</label>
                   <select id="special" onChange={handleChange}>
                     <option value={false}>No</option>
                     <option value={true}>Yes</option>
                   </select>
                 </div>
                 <div className="selectRooms">
-                  <label>Loại Phòng</label>
+                  <label>Loại phòng</label>
                   <select id="rooms" multiple onChange={handleSelect}>
                     {loading ? "loading" : data && data.map(room=>(
                       <option key={room._id} value={room._id}>{room.title}</option>
                     ))}
                   </select>
                 </div>
-                <button onClick={handleClick}>Gửi</button>
+                <button onClick={handleClick}>Thêm</button>
             </form>
           </div>
         </div>

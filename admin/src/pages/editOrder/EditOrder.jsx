@@ -20,17 +20,20 @@ const EditOrder = ({}) => {
   // console.log(orderId);
   const [services, setServices] = useState([]);
   const [priceService, setPriceService] = useState();
+  const [selectedValue, setSelectedValue] = useState('default');
   console.log(services);
   console.log(priceService);
 
   const { data, loading, error } = useFetch(`/orders/${orderId}`);
   const priceOrder = data.price;
   console.log(priceOrder);
-  const {data1, loading1, error1 } = useFetch1(`/services`)
+  const {data1, loading1, error1 } = useFetch1(`/services/filter/:id`)
+  console.log(data1)
   const { order } = useContext(AuthContext);
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setSelectedValue(e.target.value);
   };
 
   const handleSelect = e =>{
@@ -97,7 +100,7 @@ const EditOrder = ({}) => {
           {/* </div> */}
           <div className="right">
             <form>
-              <div class="formInput">
+              <div className="formInput">
                 <label>Tên khách sạn</label>
                 <input
                   // type={input.type}
@@ -122,7 +125,7 @@ const EditOrder = ({}) => {
                   id="distance"
                   name="distance"
                 />
-                <label>Check In</label>
+                <label>Nhận phòng</label>
                 <input
                   onChange={handleChange}
                   type="text"
@@ -131,7 +134,7 @@ const EditOrder = ({}) => {
                   name="title"
                   disabled
                 />
-                <label>Check Out</label>
+                <label>Trả phòng</label>
                 <input
                   onChange={handleChange}
                   type="text"
@@ -142,16 +145,16 @@ const EditOrder = ({}) => {
                 />
               <div className="selectRooms">
                 <label>Loại dịch vụ</label>
-                <select id="rooms" multiple onChange={handleSelect}>
+                <select className="select-services" id="rooms" multiple onChange={handleSelect}>
                   {loading ? "loading" : data1 && data1.map(service=>(
                     <option key={service._id} data-price={service.serviceprice} value={service._id}>{service.servicename}</option>
                   ))}
                 </select>
               </div>
                 
-                <label>Tình trạng</label>
-                <p>{data.status}</p>
-                <select id="status" onChange={handleChange}>
+                <label>Tình trạng: <p>{data.status}</p></label>
+                {/* <p>{data.status}</p> */}
+                <select id="status" value={selectedValue} onChange={handleChange}>
                   <option value="default" disabled hidden>Tình trạng đặt phòng</option>
                   <option value={'Chưa nhận phòng'}>Chưa nhận phòng</option>
                   <option value={'Đã hủy'}>Đã hủy</option>

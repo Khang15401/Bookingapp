@@ -20,5 +20,5 @@ router.get("/countByCity", countByCity);
 router.get("/countByType", countByType);
 router.get("/room/:id", getHotelRooms);
 router.get("/review/:id", getHotelReviews);
-router.get("/:id",verifyAdmin, getHotel1)
+router.get("/filter/:id",verifyAdmin, getHotel1)
 export default router

@@ -8,20 +8,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import ListOutlined from "@mui/icons-material/ListOutlined";
-import GradingIcon from '@mui/icons-material/Grading';
+import GradingIcon from "@mui/icons-material/Grading";
 import { AuthContext } from "../../context/AuthContex";
 
 const Sidebar = () => {
-  
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleLogout = () => {
-    window.localStorage.removeItem('user');
+    window.localStorage.removeItem("user");
     // payload: res.data;
     navigate("/login");
-  }
-  
+  };
+
   const { user } = useContext(AuthContext);
-  
+  const managerHotel = JSON.parse(localStorage.getItem("user"));
+  const staffRole = managerHotel.role;
+  console.log(staffRole);
+
   const { dispatch } = useContext(DarkModeContext);
   return (
     <div className="sidebar">
@@ -33,13 +35,22 @@ const Sidebar = () => {
       <hr />
       <div className="center">
         <ul>
-          <p className="title">Danh Sách</p>
-          <Link to="/users" style={{ textDecoration: "none" }}>
+          <p className="title">Danh sách</p>
+          {/* <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
               <span>Người dùng</span>
             </li>
-          </Link>
+          </Link> */}
+          {staffRole !== "staff" && (
+            <Link to="/users" style={{ textDecoration: "none" }}>
+              <li>
+                <PersonOutlineIcon className="icon" />
+                <span>Người dùng</span>
+              </li>
+            </Link>
+          )}
+
           <Link to="/hotels" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
@@ -64,16 +75,21 @@ const Sidebar = () => {
               <span>Dịch vụ khách sạn</span>
             </li>
           </Link>
-          
+
           <p className="title">USER</p>
           <Link to="/login" style={{ textDecoration: "none" }}>
             <li>
               <ExitToAppIcon className="icon" />
-              {user && <span><button style={{ textDecoration: "none" }} onClick={handleLogout}>Đăng xuất</button></span>}
+              {user && (
+                  <span
+                    style={{ textDecoration: "none" , border:"0px #fff"}}
+                    onClick={handleLogout}
+                  >
+                    Đăng xuất
+                  </span>
+              )}
             </li>
           </Link>
-
-          
 
           {/* <Link to="/login" style={{ textDecoration: "none" }}>
             <li>

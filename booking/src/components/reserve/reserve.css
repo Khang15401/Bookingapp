@@ -29,7 +29,9 @@
     align-items: center;
     gap: 50px;
     padding: 20px;
-  }
+    justify-content: space-between;
+}
+
   
   .rInfo {
     display: flex;

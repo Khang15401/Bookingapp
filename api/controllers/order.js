@@ -43,6 +43,16 @@ export const getOrder = async(req, res, next)=>{
       next(err);
   }
 }
+// GET ORDER BY HOTELID
+export const getOrdersByHotelID = async (req, res, next) => {
+  try {
+    const orders = await Order.find({ hotelId: req.params.id }); // Tìm tất cả các đơn đặt phòng có hotelID tương ứng
+    res.status(200).json(orders);
+  } catch (err) {
+    next(err);
+  }
+};
+
 // GET ORDER BY ID
 export const getOrderId = async(req, res, next)=>{
   try{
@@ -52,6 +62,7 @@ export const getOrderId = async(req, res, next)=>{
       next(err);
   }
 }
+
 export const getOrders = async(req, res, next)=>{
   try{
       const order = await Order.find();
@@ -108,3 +119,7 @@ export const getOrderServices = async(req, res, next) => {
       next(err)
   }
 }
+
+
+
+

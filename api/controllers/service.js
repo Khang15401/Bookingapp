@@ -34,6 +34,15 @@ export const getServices = async(req, res, next)=>{
   }
 }
 
+export const getServices1 = async(req, res, next)=>{
+    try{
+        const service = await Service.find();
+        res.status(200).json(service)
+    }catch(err){
+        next(err);
+    }
+  }
+
 export const updateService = async(req, res, next)=>{
   try{
       const updateService = await Service.findByIdAndUpdate(
