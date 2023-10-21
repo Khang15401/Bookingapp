@@ -63,7 +63,7 @@ const OrderSchema = new mongoose.Schema({
     },
     status:{
         type: String,
-        default: "Chưa nhận phòng",
+        default: "Chờ xác nhận từ khách sạn",
     },
     checkIn:{
         type: String,

@@ -443,6 +443,17 @@ const Detail = () => {
   const handleRadioChange2 = () => {
     setIsRadioSelected2(true);
   };
+
+  // Ham rut gon ma dat phong
+  const shortenBookingCode = (bookingCode) => {
+    if (typeof bookingCode === 'string' && bookingCode.length >= 4) {
+      return bookingCode.slice(-4);
+    }
+    return bookingCode;
+  };
+
+  const shortenCode = shortenBookingCode(data._id);
+  console.log(shortenCode);
   return (
     <div>
       <Navbar />
@@ -454,12 +465,32 @@ const Detail = () => {
                 {data.status}
               </div>
               {/* <header className="detail-header">Đơn đặt đã hoàn tất</header> */}
-              <header className="detail-header">
+              {/* <header className="detail-header">
                 {data.status === "Chưa nhận phòng"
                   ? "Đơn đặt đã được xác nhận"
                   : data.status === "Hoàn thành"
                   ? "Đơn đặt đã hoàn tất"
                   : "Đơn đặt đã được hủy"}
+              </header> */}
+              {/* <header className="detail-header">
+                {data.status === "Chờ xác nhận từ khách sạn"
+                  ? "Đơn đặt đang chờ xác nhận"
+                  : data.status === "Chưa đặt phòng"
+                  ? "Đơn đặt đã được xác nhận"
+                  : data.status === "Hoàn thành"
+                  ? "Đơn đặt đã hoàn tất"
+                  : "Đơn đặt đã được hủy"}
+              </header> */}
+              <header className="detail-header">
+                {data.status === "Chờ xác nhận từ khách sạn"
+                  ? "Đơn đặt đang chờ được xác nhận"
+                  : data.status === "Chưa nhận phòng"
+                  ? "Đơn phòng đã được xác nhận"
+                  : data.status === "Hoàn thành"
+                  ? "Đơn đặt đã hoàn tất"
+                  : data.status === "Đã hủy"
+                  ? "Đơn đặt đã được hủy"
+                  : ""}
               </header>
             </div>
             {(data.status === "Hoàn thành" || data.status === "Đã hủy") && (
@@ -846,7 +877,7 @@ const Detail = () => {
               <div className="booknumber-code">
                 <div className="booknumber-code-item booknumber-font">
                   Mã đặt phòng:
-                  <span className="booknumber-font2">{data._id}</span>
+                  <span className="booknumber-font2">{shortenCode}</span>
                   {/* <span>
                     <FontAwesomeIcon icon={faCopy} />
                   </span> */}
@@ -917,7 +948,8 @@ const Detail = () => {
                     <span className="title-cancle-room">Thay đổi phòng</span>
                   </button>
                 )}
-                {data.status !== "Chưa nhận phòng" &&
+                {data.status !== "Chờ xác nhận từ khách sạn" &&
+                  data.status !== "Chưa nhận phòng" &&
                   data.status !== "Đã hủy" &&
                   !data.reviewed && (
                     <button
@@ -1020,7 +1052,6 @@ const Detail = () => {
                     <div className="rClose1">
                       <FontAwesomeIcon
                         icon={faCircleXmark}
-                        
                         onClick={() => setOpenPageReview(!openPageReview)}
                       />
                     </div>

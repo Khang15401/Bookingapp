@@ -122,12 +122,18 @@ const Order = () => {
                 <div className="WrapperItemOrder" key={order?._id}>
                   <div className="WrapperStatus">
                     <div className="Wrapper-detail">
-                      <span
+                      {/* <span
                         className="conf-font1"
                         style={{ fontWeight: "bold" }}
                       >
                         Mã đơn phòng: {order._id}
-                      </span>
+                      </span> */}
+                      <div>
+                      <span className="conf-font1">Tên khách sạn: </span>
+                      <span
+                        style={{ color: "rgb(0, 53, 128)", fontWeight: "bold" }}
+                      >{`${order.nameHotel}`}</span>
+                    </div>
                       <div>
                         <span className="status-reservation">
                           Trạng thái |{" "}
@@ -144,12 +150,12 @@ const Order = () => {
                         </span>
                       </div>
                     </div>
-                    <div>
+                    {/* <div>
                       <span className="conf-font1">Tên khách sạn: </span>
                       <span
                         style={{ color: "rgb(0, 53, 128)", fontWeight: "bold" }}
                       >{`${order.nameHotel}`}</span>
-                    </div>
+                    </div> */}
                     <div>
                       {/* <span style={{color: 'rgb(90, 32, 193)', fontWeight: 'bold'}}>{`${order.status}`}</span> */}
                     </div>

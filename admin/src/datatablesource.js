@@ -126,7 +126,7 @@ export const serviceColumns = [
   },
   {
     field: "introduction",
-    headerName: "introdution",
+    headerName: "Introdution",
     width: 600,
   },
   {
