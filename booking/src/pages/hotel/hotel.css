@@ -89,6 +89,7 @@
 }
 
 .hotelDesc {
+  white-space: pre-wrap;
   font-size: 14px;
   margin-top: 20px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,

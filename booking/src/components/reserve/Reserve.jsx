@@ -24,6 +24,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   console.log(dates);
   const [showPaypalButton, setShowPaypalButton] = useState(false);
   const [showConfirmButton, setShowConfirmButton] = useState(false);
+  const [orderNow, setOrderNow ] = useState("");
   const idHotel = useParams();
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -48,6 +49,9 @@ const Reserve = ({ setOpen, hotelId }) => {
     const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
     return diffDays;
   };
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user.username);
 
   const days = dayDifference(dates[0]?.endDate, dates[0]?.startDate);
   console.log(days);
@@ -116,13 +120,13 @@ const Reserve = ({ setOpen, hotelId }) => {
   const Quantity = `${jsonOptions.Người_Lớn} người lớn - ${days} đêm, ${jsonOptions.Phòng} phòng`;
 
   const Dola = (priceRoom * days * options.Phòng) / 23500;
-  console.log(Dola.toFixed(2));
+  console.log((Dola*0.1).toFixed(2));
 
   const handleSelect = (e) => {
     const checked = e.target.checked;
     const value = e.target.value;
     console.log({ value });
-    // setShowPaypalButton(true);
+    setShowPaypalButton(true);
     setShowConfirmButton(true);
     setSelectedRoomNumber(e.target.dataset.roomNumber);
     setPriceRoom(e.target.dataset.roomPrice);
@@ -143,7 +147,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   const navigate = useNavigate();
 
   const handleClick = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     try {
       await Promise.all(
         selectedRooms.map((roomId) => {
@@ -163,7 +167,7 @@ const Reserve = ({ setOpen, hotelId }) => {
       const newOrder = {
         ...info,
         rooms: selectedRoomNumber,
-        priceRoom: priceRoom * days * options.Phòng,
+        priceRoom: (priceRoom * days * options.Phòng).toFixed(2),
         priceBasic: priceRoom,
         roomId: roomId,
         userId: user._id,
@@ -176,16 +180,22 @@ const Reserve = ({ setOpen, hotelId }) => {
       };
       // console.log(priceRoom);
       // setOpen(false);
-      await axios.post(`/orders/${hotelId}`, newOrder);
-      console.log(newOrder);
+      const response = await axios.post(`/orders/${hotelId}`, newOrder);
+      // console.log(newOrder._id);
+      const orderId = response.data._id;
+      // const newOrderId = localStorage.setItem("newOrderId", orderId);
+      // console.log(orderId);
+      setOrderNow(orderId);
       e.preventDefault();
-      alert("Đặt phòng thành công!");
-      navigate("/orders/detail/")
+      navigate(`/orders/detail/${orderId}`)
       // navigate("/");
     } catch (err) {
       console.log(err);
     }
   };
+  
+  const orderIdNow = localStorage.getItem("newOrderId")
+  console.log(orderIdNow)
   return (
     <div className="reserve">
       <div className="rContainer">
@@ -194,7 +204,7 @@ const Reserve = ({ setOpen, hotelId }) => {
           className="rClose"
           onClick={() => setOpen(false)}
         />
-        <span>Lựa chọn phòng của bạn:</span>
+        <span className="titleModel">Lựa chọn phòng của bạn:</span>
 
         <form>
           {data.map((item) => (
@@ -211,12 +221,13 @@ const Reserve = ({ setOpen, hotelId }) => {
                     style: "currency",
                     currency: "VND",
                   })}
+                  /1 đêm
                 </div>
               </div>
               <div className="rSelectRooms">
                 {item.roomNumbers.map((roomNumber) => (
                   <div className="room" key={roomNumber._id}>
-                    <label>{roomNumber.number}</label>
+                    <label className="number-room">{roomNumber.number}</label>
                     <input
                       type="checkbox"
                       value={roomNumber._id}
@@ -234,31 +245,43 @@ const Reserve = ({ setOpen, hotelId }) => {
               </div>
             </div>
           ))}
-          {showConfirmButton && (
-            <button onClick={handleClick} className="rButton">Tiến hành đặt phòng</button>
-          )}
+          {/* {showConfirmButton && (
+            // <button onClick={handleClick} className="rButton">Tiến hành đặt phòng</button>\
+            <span className="span-notice">Bạn sẽ cọc chỗ ở với 10% giá tiền phòng</span>
+          )} */}
 
-          {/* {showPaypalButton && (
+          {showPaypalButton && (
+            <>
+              <div className="setup-div">
+                <span className="span-notice">
+                  {/* Bạn sẽ cọc chỗ ở với 10% giá tiền phòng */}
+                  “Xin hãy đặt cọc phòng với giá 10% tiền phòng để đảm bảo chỗ ở của bạn”.
+                </span>
+              </div>
 
-            <PayPalButton 
-            onClick={handleClick}
-            // amount="0.01" 
-            amount={Dola.toFixed(2)}  
-            
-            // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-            onSuccess={(details, data) => {
-              alert("Transaction completed by " + details.payer.name.given_name);
-              
-              // OPTIONAL: Call your server to save the transaction
-              // return fetch(`/orders/${hotelId}`, {
-              //     method: "post",
-              //     body: JSON.stringify({
-              //         orderID: data.orderID,
-              //       })
-              //     });
+              <PayPalButton
+                className="paypal-btn"
+                onClick={handleClick}
+                // amount="0.01"
+                amount={(Dola*0.1).toFixed(2)}
+                // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                onSuccess={(details, data) => {
+                  alert(
+                    "Transaction completed by " + details.payer.name.given_name
+                  );
+                  navigate(`/orders/detail/${orderNow}`)
+
+                  // OPTIONAL: Call your server to save the transaction
+                  // return fetch(`/orders/${orderId}`, {
+                  //     method: "patch",
+                  //     body: JSON.stringify({
+                  //         orderID: data.orderID,
+                  //       })
+                  //     });
                 }}
               />
-          )} */}
+            </>
+          )}
         </form>
       </div>
     </div>

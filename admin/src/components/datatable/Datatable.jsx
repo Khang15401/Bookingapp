@@ -20,33 +20,12 @@ const Datatable = ({ columns }) => {
   console.log(staffRole);
   const { data, loading, error } = useFetch(`/${path}`);
   // console.log(data);
+  const { data2, loading2, error2 } = useFetch2(`/${path}/room/${managerHotelId}`);
+  console.log(data2)
+  
   const { data1, loading1, error1 } = useFetch1(`/${path}/filter/${managerHotelId}`);
   console.log(data1)
 
-  const { data2, loading2, error2 } = useFetch2(`/${path}/room/${managerHotelId}`);
-  console.log(data2)
-
-
-  // useEffect(() => {
-  //   setList(data);
-  // }, [data]);
-
-  // useEffect(() => {
-  //   if (path === 'rooms') {
-  //     setList(data2);
-  //   } else {
-  //     setList(data1);
-  //   }
-  // }, [data1, data2, path]);
-
-
-  // useEffect(() => {
-  //   if (path === 'rooms' && Array.isArray(data2)) {
-  //     setList(data2);
-  //   } else {
-  //     setList(Array.isArray(data1) ? data1 : (data1 ? [data1] : []));
-  //   }
-  // }, [data1, data2, path]);
 
   useEffect(() => {
     if (staffRole === 'staff') {

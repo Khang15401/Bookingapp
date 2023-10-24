@@ -163,17 +163,8 @@ const EditHotel = ({}) => {
               </div>
             </form>
             <div className="formInput" style={{ flex: 1 }}>
-              {/* <div>Ảnh vừa được tải lên</div> */}
-              {/* {Array.from(files).map((file, index) => (
-              <img
-                key={index}
-                src={URL.createObjectURL(file)}
-                alt={`Image ${index}`}
-                className="image-preview"
-              />
-            ))} */}
               <div className="left1">
-                <div>Ảnh thay thế</div>
+                <div>Ảnh tải lên</div>
                 {Array.from(files).map((file, index) => (
                   <img
                     key={index}

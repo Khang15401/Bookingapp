@@ -76,7 +76,7 @@ const Sidebar = () => {
             </li>
           </Link>
 
-          <p className="title">USER</p>
+          <p className="title">Người dùng</p>
           <Link to="/login" style={{ textDecoration: "none" }}>
             <li>
               <ExitToAppIcon className="icon" />

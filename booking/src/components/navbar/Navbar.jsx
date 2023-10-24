@@ -31,7 +31,7 @@ const Navbar = () => {
         </Link>
         
         {user ? <>
-          <div aria-expanded   className="user" onClick={() => setOpen(!open)}>Hello {user.username}</div>
+          <div aria-expanded   className="user" onClick={() => setOpen(!open)}>Chào {user.username}</div>
          {open &&<div className="options">
             <>
             <Link className="link" to='/users'>Thông tin</Link>

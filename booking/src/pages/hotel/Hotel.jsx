@@ -564,6 +564,7 @@ const Hotel = () => {
                                                 </div>
                                               </div>
                                               <div className="container-review-negative-text">
+                                              {selectedReview.negative && (
                                                 <div className="wrap-review-negative-text">
                                                   <div className="icon-negative">
                                                     <span className="wrap-icon-negative">
@@ -579,6 +580,7 @@ const Hotel = () => {
                                                     </div>
                                                   </div>
                                                 </div>
+                                              )}
                                               </div>
                                             </div>
                                           </div>
@@ -752,7 +754,7 @@ const Hotel = () => {
                                   <div className="bui-grid__column-9 c-review-block__right">
                                     <div className="c-review-block__row">
                                       <span className="c-review-block__date">
-                                        Đã đánh giá: ngày 2 tháng 9 năm 2023
+                                        Đã đánh giá: {item.timeReview}
                                       </span>
                                       <div className="bui-grid">
                                         <div className="bui-grid__column-11">
@@ -789,6 +791,7 @@ const Hotel = () => {
                                           </p>
                                         </div>
                                         <div className="c-review__row">
+                                        {item.negative && (
                                           <p className="c-review__inner c-review__inner--ltr">
                                             <span className="c-review__prefix color-icon">
                                               <FontAwesomeIcon
@@ -804,6 +807,7 @@ const Hotel = () => {
                                               {item.negative}
                                             </span>
                                           </p>
+                                          )}
                                         </div>
                                       </div>
                                     </div>

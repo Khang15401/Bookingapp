@@ -60,7 +60,8 @@ const EditRoom = ({}) => {
       // console.log(info);
       await axios.patch("/rooms/" + roomId, updateRoom);
       alert("Sửa thông tin phòng thành công!");
-      navigate("/rooms");
+      // navigate("/rooms");
+      window.location.reload();
     } catch (err) {
       alert("Sửa thông tin không thành công!");
       console.log(err);
@@ -87,7 +88,7 @@ const EditRoom = ({}) => {
                   src={data.photo}
                   id="img"
                 />
-                <div>Ảnh thay thế</div>
+                <div>Ảnh tải lên</div>
                 <img
                   src={
                     file
@@ -159,11 +160,6 @@ const EditRoom = ({}) => {
                 )}
                 <button onClick={handleClick}>Cập nhật</button>
               </div>
-
-              {/* <button className="no-btn" disabled></button>
-              <button className="no-btn" disabled></button>
-              <button className="no-btn" disabled></button> */}
-              {/* <button onClick={handleClick}>Cập nhật</button> */}
             </form>
           </div>
         </div>

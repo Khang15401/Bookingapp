@@ -1035,7 +1035,8 @@ input[type="radio"] + label {
 .rClose1 {
   position: absolute;
   top: -259px;
-  right: -483px;
+  /* right: -450px; */
+  padding-left: 715px;
   cursor: pointer;
 }
 .container-label {
