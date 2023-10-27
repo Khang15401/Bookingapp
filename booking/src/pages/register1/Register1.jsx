@@ -33,8 +33,8 @@ const handleClick = async (e) => {
   return (
     <div>
       <Navbarlo/>
-      <div className="login">
-          <div className="lContainer">
+      <div className="register">
+          <div className="registerContainer">
               <h2>Tài khoản: </h2>
               <input type="text"  placeholder="username" id="username" onChange={handleChange} className="lInput" />
               <h2>Mật khẩu: </h2>

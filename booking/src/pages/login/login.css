@@ -16,7 +16,7 @@
     padding: 10px;
   }
   
-  .lButton {
+  .lButton2 {
     border: none;
     padding: 10px 20px;
     background-color: #0071c2;
@@ -26,7 +26,7 @@
     border-radius: 5px;
   }
   
-  .lButton:disabled{
+  .lButton2:disabled{
     background-color: #0071c28c;
     cursor: not-allowed;
   }

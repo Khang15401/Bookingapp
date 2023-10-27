@@ -1,17 +1,23 @@
-.login {
+.register {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 500px;
+  padding-left: 531.6px;
 }
 
-.lContainer {
+.registerContainer {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
 }
 
-.lContainer>span{
+.registerContainer>span{
   width: 300px;
   height: 30px;
 }

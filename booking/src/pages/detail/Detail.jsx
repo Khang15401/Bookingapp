@@ -863,8 +863,7 @@ const Detail = () => {
                         Booking.com không thu phí khách cho bất kỳ đặt phòng,
                         phí hành chính hay bất kỳ chi phí nào khác.
                         <br />
-                        Đơn vị phát hành thẻ của bạn có thể tính phí giao dịch
-                        ngoại hối.
+                        Khách sạn sẽ trừ lại khoản tiền bạn cọc tiền phòng. Bạn chỉ phải chi trả số tiền còn lại tại khách sạn.
                       </div>
                     </div>
                   </div>

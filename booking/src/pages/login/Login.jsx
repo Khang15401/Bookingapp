@@ -40,8 +40,8 @@ const handleClick = async (e) => {
               <input type="text" placeholder="username" id="username" onChange={handleChange} className="lInput" />
               <h2>Mật khẩu: </h2>
               <input type="password" placeholder="password" id="password" onChange={handleChange} className="lInput" />
-              <button disabled={loading} onClick={handleClick} className="lButton">Đăng Nhập</button>
-              <button disabled={loading} className="lButton"><a className="BtnRH" href="/">Trở về Trang Chủ</a></button>
+              <button disabled={loading} onClick={handleClick} className="lButton2">Đăng Nhập</button>
+              <button disabled={loading} className="lButton2"><a className="BtnRH" href="/">Trở về Trang Chủ</a></button>
               {/* <a className="BtnRH" href="/register">Trở về Trang Chủ</a> */}
               {error && <span>{error.message}</span>}
           </div>
