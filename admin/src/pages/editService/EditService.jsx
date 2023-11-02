@@ -53,7 +53,7 @@ const EditService = ({}) => {
         <div className="bottom">
           <div className="right">
             <form>
-              <div class="formInput">
+              <div className="formInput">
                 {/* <label>Ảnh Khách Sạn</label>
                 <div
                   class="img-update"

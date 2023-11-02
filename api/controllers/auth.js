@@ -3,22 +3,46 @@ import bcrypt from "bcryptjs"
 import { createError } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
-export const register = async (req, res, next)=>{
-    try {
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(req.body.password, salt);
+// export const register = async (req, res, next)=>{
+//     try {
+//         const salt = bcrypt.genSaltSync(10);
+//         const hash = bcrypt.hashSync(req.body.password, salt);
 
-       const newUser = new User({
+//        const newUser = new User({
+//         ...req.body,
+//         password: hash,
+//        })
+
+//        await newUser.save()
+//        res.status(200).send("Người dùng đã được tạo.");
+//     }catch(err){
+//         next(err);
+//     }
+// };
+
+
+export const register = async (req, res, next) => {
+    try {
+      const salt = bcrypt.genSaltSync(10);
+      const hash = bcrypt.hashSync(req.body.password, salt);
+  
+      // Kiểm tra xem người dùng đã kiểm tra checkbox "staff" hay không
+      const isAdmin = req.body.role === "staff";
+  
+      const userData = {
         ...req.body,
         password: hash,
-       })
-
-       await newUser.save()
-       res.status(200).send("Người dùng đã được tạo.");
-    }catch(err){
-        next(err);
+        isAdmin: isAdmin, // Đặt trường "isAdmin" thành true nếu người dùng kiểm tra checkbox "staff"
+      };
+  
+      const newUser = new User(userData);
+      await newUser.save();
+      res.status(200).send("Người dùng đã được tạo.");
+    } catch (err) {
+      next(err);
     }
-};
+  };
+  
 
 export const login = async (req, res, next)=>{
     try {

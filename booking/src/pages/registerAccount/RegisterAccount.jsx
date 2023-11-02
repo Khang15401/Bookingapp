@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContex";
-import "./register1.css";
+import "./registerAccount.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbarlo from "../../components/navbarlo/Navbarlo";
 
-const Register1 = () => {
+const RegisterAccount = () => {
   const [credentials, setCredentials] = useState({});
+  console.log(credentials);
   const { loading, error, dispatch } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -18,11 +19,13 @@ const Register1 = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     dispatch({ type: "REGISTER_START" });
+
+    const userData = { ...credentials, role: credentials.role };
     try {
       const res = await axios.post("/auth/register", credentials);
       dispatch({ type: "REGISTER_SUCCESS", payload: res.data.details });
-      alert("Tạo người dùng thành công!!!");
-      navigate("/login");
+      alert("Tạo tài khoản quản lý thành công!!!");
+      // navigate("/localhost:");
     } catch (err) {
       dispatch({ type: "REGISTER_FAILURE", payload: err.response.data });
     }
@@ -31,9 +34,9 @@ const Register1 = () => {
   return (
     <div>
       <Navbarlo />
-      <h1 className="title-h1">Đăng ký tài khoản người dùng</h1>
-      <div className="register">
-        <div className="registerContainer">
+      <h1 className="title-h1">Đăng ký tài khoản đối tác</h1>
+      <div className="registerAccount">
+        <div className="registerAccountContainer">
           <h2>Tài khoản: </h2>
           <input
             type="text"
@@ -82,7 +85,21 @@ const Register1 = () => {
             onChange={handleChange}
             className="lInput"
           />
-          <div className="btn-register-user">
+          {/* <h2>Xác nhận trở thành đại lý </h2> */}
+          <div className="checkbox-partner">
+            <input
+              type="checkbox"
+              id="role"
+              onChange={(e) => {
+                const newRole = e.target.checked ? "staff" : "";
+                setCredentials((prev) => ({ ...prev, role: newRole }));
+              }}
+            />
+            <span className="confirmPartner">
+              Xin hãy chắc chắn rằng bạn đã đọc qua tất cả <a className="terms-and-policies" href="/policies">Điều khoản và Chính sách</a> khi trở thành đối tác của Kiawbooking
+            </span>
+          </div>
+          <div className="btn-registerAccount-user">
             <button
               disabled={loading}
               onClick={handleClick}
@@ -103,4 +120,4 @@ const Register1 = () => {
   );
 };
 
-export default Register1;
+export default RegisterAccount;

@@ -77,7 +77,7 @@ const Edit = ({}) => {
           </div>
           <div className="right">
             <form>
-              <div class="formInput">
+              <div className="formInput">
                 <label>Ảnh đại diện</label>
                 <img
                   class="img-update"

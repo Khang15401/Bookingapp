@@ -19,7 +19,7 @@
 .logo {
     font-size: larger;
     font-weight: 600;
-    /* font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .navButton {
@@ -40,6 +40,7 @@ span {
     cursor: pointer;
     position: relative;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
 }
 
 .options{
@@ -54,6 +55,7 @@ span {
     flex-direction: column;
     gap: 10px;
     font-weight: 300;
+    z-index: 4;
 }
 
 
@@ -62,4 +64,47 @@ span {
     color: rgb(31, 29, 29);
     font-weight: 400;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container-register-agent {
+    /* border: 1px solid #fff; */
+    /* padding:7px 12px; */
+    margin-left: 550px;
+}
+
+.register-agent{
+    /* border: 1px solid #fff; */
+    text-decoration: none;
+    font-weight: 500;
+}
+.register-agent span{
+    font-size: 16px;
+    line-height: 24px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white;
+}
+
+/* .container-register-agent :hover {
+    text-decoration: none;
+} */
+.register-agent:hover{
+    /* border: 1px solid #fff;  */
+    padding: 6px 11px;
+    background-color: #395172;
+    text-align: center;
+    text-decoration: none;
+}
+
+.wrap-img {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #ffb700;
+    border-radius: 50%;
+    align-items: center;
+}
+
+.img-user{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
 }

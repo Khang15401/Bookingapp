@@ -11,6 +11,9 @@ import Login from "./pages/login/Login";
 import Order from "./pages/order/Order";
 import Edit from "./pages/edit/EditProfile";
 import Detail from "./pages/detail/Detail";
+import RegisterPartner from "./pages/registerPartner/RegisterPartner";
+import RegisterInfo from "./pages/registerInfomation/RegisterInfo";
+import Policies from "./pages/policies/Policies";
 
 // const signOut = (e) => {
 //     //e.preventDefault();
@@ -41,7 +44,10 @@ function App()  {
               <Route path="/register" element={<Register1/>}/>
               <Route path="/orders" element={<Order/>}/>
               <Route path="/users" element={<Edit/>}/> 
-              <Route path="/orders/detail/:orderId" element={<Detail/>}/> 
+              <Route path="/orders/detail/:orderId" element={<Detail/>}/>
+              <Route path="/partner" element={<RegisterPartner/>} /> 
+              <Route path="/partner/register" element={<RegisterInfo/>} /> 
+              <Route path="/policies" element={<Policies/>}/>
           </Routes>
       </BrowserRouter>
   );
