@@ -7,37 +7,88 @@ import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import useFetch1 from "../../hooks/useFetch1";
 import useFetch2 from "../../hooks/useFetch2";
+import useFetch3 from "../../hooks/useFetch3";
 
 const Datatable = ({ columns }) => {
   const location = useLocation();
-  const path = location.pathname.split("/")[1];
+  // const path = location.pathname.split("/")[1];
+  // console.log(path);
+  // const path2 = location.pathname.split("/")[2];
+  // console.log(path2)
+
+  const path = location.pathname.slice(1); // Bỏ dấu '/' ở đầu nếu có
+  console.log(path);
+
+  // const path2 = location.pathname.split("/").slice(1).join("/");
+  // console.log(path2);
   const [list, setList] = useState([]);
-  
-  const managerHotel =JSON.parse( localStorage.getItem("user"));
+
+  const managerHotel = JSON.parse(localStorage.getItem("user"));
   const managerHotelId = managerHotel.hotelId;
   // console.log(managerHotelId);
   const staffRole = managerHotel.role;
   console.log(staffRole);
   const { data, loading, error } = useFetch(`/${path}`);
-  // console.log(data);
-  const { data2, loading2, error2 } = useFetch2(`/${path}/room/${managerHotelId}`);
-  console.log(data2)
-  
-  const { data1, loading1, error1 } = useFetch1(`/${path}/filter/${managerHotelId}`);
-  console.log(data1)
+  console.log(data);
 
+  const staffUsers = data.filter((user) => user.role === 'staff');
+  console.log(staffUsers);
+  const nonAdminUsers = data.filter(item => item.isAdmin === false);
+  console.log(nonAdminUsers);
+
+  const { data2, loading2, error2 } = useFetch2(
+    `/${path}/room/${managerHotelId}`
+  );
+  console.log(data2);
+
+  const { data1, loading1, error1 } = useFetch1(
+    `/${path}/filter/${managerHotelId}`
+  );
+  console.log(data1);
+
+  // useEffect(() => {
+  //   if (staffRole === 'staff') {
+  //     if (path === 'rooms' && Array.isArray(data2)) {
+  //       setList(data2);
+  //     } else {
+  //       setList(Array.isArray(data1) ? data1 : (data1 ? [data1] : []));
+  //     }
+  //   } else if (staffRole === 'admin') {
+  //     setList(data); // Sử dụng `useEffect` thứ nhất cho admin
+  //   }
+  // }, [data, data2, data1, path, staffRole]);
+
+  // useEffect(() => {
+  //   if (staffRole === 'staff') {
+  //     if (path === 'rooms' && Array.isArray(data2)) {
+  //       setList(data2);
+  //     } else {
+  //       setList(Array.isArray(data1) ? data1 : (data1 ? [data1] : []));
+  //     }
+  //   } else if (staffRole === 'admin') {
+  //     if (path === 'users') {
+  //       setList(data);
+  //     } else if (path === 'users/staff') {
+  //       setList(data3);
+  //     }
+  //   }
+  // }, [data, data2, data, data3, path, staffRole]);
 
   useEffect(() => {
-    if (staffRole === 'staff') {
-      if (path === 'rooms' && Array.isArray(data2)) {
+    if (staffRole === "staff") {
+      if (path === "rooms" && Array.isArray(data2)) {
         setList(data2);
       } else {
-        setList(Array.isArray(data1) ? data1 : (data1 ? [data1] : []));
+        setList(Array.isArray(data1) ? data1 : data1 ? [data1] : []);
       }
-    } else if (staffRole === 'admin') {
-      setList(data); // Sử dụng `useEffect` thứ nhất cho admin
+    } else if (staffRole === "admin") {
+      if (path === "users") {
+        setList(nonAdminUsers);
+      } else if (path === "users/staff") {
+        setList(staffUsers);
+      }
     }
-  }, [data, data2, data1, path, staffRole]);
+  }, [data, data1, data2, path, staffRole]);
 
   const handleDelete = async (id) => {
     try {
@@ -75,7 +126,15 @@ const Datatable = ({ columns }) => {
     <div className="datatable">
       <div className="datatableTitle">
         {/* {path} */}
-        {path === "rooms" ? "Phòng" : path === "hotels" ? "Khách sạn" : path === "orders" ? "Đơn đặt phòng" : path === "services" ? "Dịch vụ" : path}
+        {path === "rooms"
+          ? "Phòng"
+          : path === "hotels"
+          ? "Khách sạn"
+          : path === "orders"
+          ? "Đơn đặt phòng"
+          : path === "services"
+          ? "Dịch vụ"
+          : path}
         {path !== "orders" && (
           <Link to={`/${path}/new`} className="link">
             Thêm mới

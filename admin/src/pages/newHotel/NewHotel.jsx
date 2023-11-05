@@ -18,6 +18,9 @@ const NewHotel = () => {
 
   const {data, loading, error} = useFetch("/rooms"); 
 
+  // const getInfoUser = JSON.parse(localStorage.getItem("user"));
+  // const userId = getInfoUser._id;
+
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
@@ -47,16 +50,29 @@ const NewHotel = () => {
           return url;
         })
       );
+      
+      const getInfoUser = JSON.parse(localStorage.getItem("user"));
+      const userId = getInfoUser._id;
 
       const newhotel = {
         ...info,
         rooms,
         photos: list,
       };
+      const response = await axios.post("/hotels", newhotel);
+      const hotelId = response.data._id;
+      getInfoUser.hotelId = hotelId;
+      localStorage.setItem("user", JSON.stringify(getInfoUser))
+      console.log(hotelId);
 
-      await axios.post("/hotels", newhotel);
+      const updateUser = {
+        hotelId: hotelId,
+      
+      };
+      await axios.patch("/users/" + userId, updateUser);
+
       alert('Thêm thông tin khách sạn thành công!')
-      navigate("/hotels");
+      // navigate("/hotels");
     } catch (err) {console.log(err)}
   };
 

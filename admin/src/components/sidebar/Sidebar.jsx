@@ -1,6 +1,7 @@
 import "./sidebar.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import FormatListNumbered from "@mui/icons-material/FormatListNumbered";
+import HandshakeOutlinedIcon from '@mui/icons-material/HandshakeOutlined';
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -37,12 +38,6 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">Danh sách</p>
-          {/* <Link to="/users" style={{ textDecoration: "none" }}>
-            <li>
-              <PersonOutlineIcon className="icon" />
-              <span>Người dùng</span>
-            </li>
-          </Link> */}
           {staffRole !== "staff" && (
             <Link to="/users" style={{ textDecoration: "none" }}>
               <li>
@@ -51,43 +46,57 @@ const Sidebar = () => {
               </li>
             </Link>
           )}
+          
+          {staffRole === "admin" && (
+            <Link to="/users/staff" style={{ textDecoration: "none" }}>
+            <li>
+              <HandshakeOutlinedIcon className="icon" />
+              <span>Đối tác</span>
+            </li>
+          </Link>
+          )}
 
-          <Link to="/hotels" style={{ textDecoration: "none" }}>
-            <li>
-              <StoreIcon className="icon" />
-              <span>Khách sạn</span>
-            </li>
-          </Link>
-          <Link to="/rooms" style={{ textDecoration: "none" }}>
-            <li>
-              <ListOutlined className="icon" />
-              <span>Phòng</span>
-            </li>
-          </Link>
-          <Link to="/orders" style={{ textDecoration: "none" }}>
-            <li>
-              <GradingIcon className="icon" />
-              <span>Lịch đặt phòng</span>
-            </li>
-          </Link>
-          <Link to="/services" style={{ textDecoration: "none" }}>
-            <li>
-              <FormatListNumbered className="icon" />
-              <span>Dịch vụ khách sạn</span>
-            </li>
-          </Link>
+          {staffRole === "staff" && (
+            <>
+              <Link to="/hotels" style={{ textDecoration: "none" }}>
+                <li>
+                  <StoreIcon className="icon" />
+                  <span>Khách sạn</span>
+                </li>
+              </Link>
+              <Link to="/rooms" style={{ textDecoration: "none" }}>
+                <li>
+                  <ListOutlined className="icon" />
+                  <span>Phòng</span>
+                </li>
+              </Link>
+              <Link to="/orders" style={{ textDecoration: "none" }}>
+                <li>
+                  <GradingIcon className="icon" />
+                  <span>Lịch đặt phòng</span>
+                </li>
+              </Link>
+              <Link to="/services" style={{ textDecoration: "none" }}>
+                <li>
+                  <FormatListNumbered className="icon" />
+                  <span>Dịch vụ khách sạn</span>
+                </li>
+              </Link>
+            </>
+          )}
+
 
           <p className="title">Người dùng</p>
           <Link to="/login" style={{ textDecoration: "none" }}>
             <li>
               <ExitToAppIcon className="icon" />
               {user && (
-                  <span
-                    style={{ textDecoration: "none" , border:"0px #fff"}}
-                    onClick={handleLogout}
-                  >
-                    Đăng xuất
-                  </span>
+                <span
+                  style={{ textDecoration: "none", border: "0px #fff" }}
+                  onClick={handleLogout}
+                >
+                  Đăng xuất
+                </span>
               )}
             </li>
           </Link>

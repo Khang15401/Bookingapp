@@ -37,3 +37,12 @@ export const getUsers = async(req, res, next)=>{
         next(err);
     }
 }
+
+export const getUsersByRole = async (req, res, next) => {
+    try {
+        const users = await User.find({ role: "staff" });
+        res.status(200).json(users);
+    } catch (err) {
+        next(err);
+    }
+};

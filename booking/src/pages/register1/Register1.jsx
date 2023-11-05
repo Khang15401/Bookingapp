@@ -4,6 +4,7 @@ import "./register1.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbarlo from "../../components/navbarlo/Navbarlo";
+import NavbarPartner from '../../components/navbarPartner/NavbarPartner';
 
 const Register1 = () => {
   const [credentials, setCredentials] = useState({});
@@ -30,7 +31,7 @@ const Register1 = () => {
 
   return (
     <div>
-      <Navbarlo />
+      <NavbarPartner />
       <h1 className="title-h1">Đăng ký tài khoản người dùng</h1>
       <div className="register">
         <div className="registerContainer">

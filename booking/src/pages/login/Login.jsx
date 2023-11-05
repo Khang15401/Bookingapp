@@ -4,6 +4,7 @@ import "./login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbarlo from "../../components/navbarlo/Navbarlo";
+import NavbarPartner from '../../components/navbarPartner/NavbarPartner';
 
 const Login = () => {
   const [ credentials, setCredentials] = useState({
@@ -33,7 +34,8 @@ const handleClick = async (e) => {
 
   return (
     <div>
-      <Navbarlo/>
+      {/* <Navbarlo/> */}
+      <NavbarPartner/>
       <div className="login">
           <div className="lContainer">
               <h2>Tài khoản: </h2>
