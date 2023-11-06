@@ -1,7 +1,8 @@
 import "./sidebar.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import FormatListNumbered from "@mui/icons-material/FormatListNumbered";
-import HandshakeOutlinedIcon from '@mui/icons-material/HandshakeOutlined';
+import HandshakeOutlinedIcon from "@mui/icons-material/HandshakeOutlined";
+import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -46,14 +47,22 @@ const Sidebar = () => {
               </li>
             </Link>
           )}
-          
+
           {staffRole === "admin" && (
-            <Link to="/users/staff" style={{ textDecoration: "none" }}>
-            <li>
-              <HandshakeOutlinedIcon className="icon" />
-              <span>Đối tác</span>
-            </li>
-          </Link>
+            <>
+              <Link to="/users/staff" style={{ textDecoration: "none" }}>
+                <li>
+                  <HandshakeOutlinedIcon className="icon" />
+                  <span>Đối tác</span>
+                </li>
+              </Link>
+              {/* <Link to="/users/staff" style={{ textDecoration: "none" }}>
+                <li>
+                  <RateReviewOutlinedIcon className="icon" />
+                  <span>Đánh giá</span>
+                </li>
+              </Link> */}
+            </>
           )}
 
           {staffRole === "staff" && (
@@ -84,7 +93,6 @@ const Sidebar = () => {
               </Link>
             </>
           )}
-
 
           <p className="title">Người dùng</p>
           <Link to="/login" style={{ textDecoration: "none" }}>

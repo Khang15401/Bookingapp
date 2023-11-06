@@ -8,16 +8,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  { name: "Tháng Một", Total: 1200 },
-  { name: "Tháng Hai", Total: 2100 },
-  { name: "Tháng Ba", Total: 800 },
-  { name: "Tháng Tư", Total: 1600 },
-  { name: "Tháng Năm", Total: 900 },
-  { name: "Tháng Sáu", Total: 1700 },
-];
 
-const Chart = ({ aspect, title }) => {
+const Chart = ({data,xDataKey, aspect, title }) => {
   return (
     <div className="chart">
       <div className="title">{title}</div>
@@ -34,12 +26,12 @@ const Chart = ({ aspect, title }) => {
               <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="name" stroke="gray" />
+          <XAxis dataKey={xDataKey} stroke="gray" />
           <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
           <Tooltip />
           <Area
             type="monotone"
-            dataKey="Total"
+            dataKey="Doanh_thu"
             stroke="#8884d8"
             fillOpacity={1}
             fill="url(#total)"
