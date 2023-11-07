@@ -16,6 +16,7 @@ import {
   orderColumns,
   serviceColumns,
   staffColumns,
+  reviewColumns,
 } from "./datatablesource";
 import NewHotel from "./pages/newHotel/NewHotel";
 import NewRoom from "./pages/newRoom/NewRoom";
@@ -251,6 +252,33 @@ function App() {
               />
               <Route
                 path=":serviceId"
+                element={
+                  <ProtectedRoute>
+                    <EditService />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <ProtectedRoute>
+                    <NewService />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
+
+            <Route path="reviews">
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <List columns={reviewColumns} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path=":reviewId"
                 element={
                   <ProtectedRoute>
                     <EditService />

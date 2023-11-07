@@ -56,12 +56,12 @@ const Sidebar = () => {
                   <span>Đối tác</span>
                 </li>
               </Link>
-              {/* <Link to="/users/staff" style={{ textDecoration: "none" }}>
+              <Link to="/reviews" style={{ textDecoration: "none" }}>
                 <li>
                   <RateReviewOutlinedIcon className="icon" />
                   <span>Đánh giá</span>
                 </li>
-              </Link> */}
+              </Link>
             </>
           )}
 

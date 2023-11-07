@@ -17,6 +17,8 @@ const EditRoom = ({}) => {
   const [rooms, setRooms] = useState([]);
   const { roomId } = useParams();
   // console.log(roomId);
+  const managerHotel = JSON.parse(localStorage.getItem("user"));
+  const staffRole = managerHotel.role;
 
   const { data, loading, error } = useFetch(`/rooms/${roomId}`);
   // const { room } = useContext(AuthContext);
@@ -30,20 +32,20 @@ const EditRoom = ({}) => {
     e.preventDefault();
     let newPhoto = info.photo; // Giữ nguyên ảnh cũ
     let roomNumbers = info.roomNumbers;
-  
+
     // Kiểm tra kiểu dữ liệu của rooms
-    if (typeof rooms === 'string' && rooms.trim() !== '') {
+    if (typeof rooms === "string" && rooms.trim() !== "") {
       roomNumbers = rooms.split(",").map((room) => ({ number: room }));
       console.log(roomNumbers);
     }
-    
+
     try {
       if (file) {
         // Nếu có tải lên ảnh mới, thực hiện upload và cập nhật ảnh
         const data = new FormData();
         data.append("file", file);
         data.append("upload_preset", "upload");
-  
+
         const uploadRes = await axios.post(
           "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
           data
@@ -67,7 +69,6 @@ const EditRoom = ({}) => {
       console.log(err);
     }
   };
-  
 
   return (
     <div className="new">
@@ -75,11 +76,11 @@ const EditRoom = ({}) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Sửa thông tin phòng khách sạn</h1>
+          <h1>Thông tin phòng khách sạn</h1>
         </div>
         <div className="bottom">
           <div className="left2">
-            <div className="formInput2">
+            <div className="formInput3">
               <label>Ảnh phòng</label>
               <div>
                 <img
@@ -88,79 +89,140 @@ const EditRoom = ({}) => {
                   src={data.photo}
                   id="img"
                 />
-                <div>Ảnh tải lên</div>
-                <img
-                  src={
-                    file
-                      ? URL.createObjectURL(file)
-                      : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-                  }
-                  alt=""
-                />
+                {staffRole === "staff" && (
+                  <>
+                    <div>Ảnh tải lên</div>
+                    <img
+                      src={
+                        file
+                          ? URL.createObjectURL(file)
+                          : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                      }
+                      alt=""
+                    />
+                  </>
+                )}
               </div>
-              <label htmlFor="file">
-                Image: <DriveFolderUploadOutlinedIcon className="icon" />
-              </label>
-              <input
-                type="file"
-                id="file"
-                onChange={(e) => setFile(e.target.files[0])}
-                style={{ display: "none" }}
-              />
+              {staffRole === "staff" && (
+                <>
+                  <label htmlFor="file">
+                    Image: <DriveFolderUploadOutlinedIcon className="icon" />
+                  </label>
+                  <input
+                    type="file"
+                    id="file"
+                    onChange={(e) => setFile(e.target.files[0])}
+                    style={{ display: "none" }}
+                  />
+                </>
+              )}
             </div>
           </div>
           <div className="right">
-            <form>
-              <div className="formInput">
-                <label>Tiêu Đề Phòng</label>
-                <input
-                  onChange={handleChange}
-                  // type={input.type}
-                  placeholder={data.title}
-                  id="title"
-                  name="title"
-                />
-                <label>Giới Thiệu</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.desc}
-                  id="desc"
-                  name="desc"
-                />
-                <label>Giá Phòng</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.price}
-                  id="price"
-                  name="price"
-                />
-                <label>Số Người Tối Đa</label>
-                <input
-                  onChange={handleChange}
-                  type="number"
-                  min={1}
-                  max={15}
-                  placeholder={data.maxPeople}
-                  id="maxPeople"
-                  name="maxPeople"
-                />
-                <label>Mã Phòng Khách Sạn</label>
-                {data && data.roomNumbers && (
+            {staffRole === "staff" ? (
+              <form>
+                <div className="formInput3">
+                  <label>Tiêu Đề Phòng</label>
                   <input
-                    onChange={(e) => setRooms(e.target.value)}
-                    type="text"
-                    placeholder={data.roomNumbers
-                      .map((roomNumber) => roomNumber.number)
-                      .join(", ")}
-                    id="roomNumbers"
-                    name="roomNumbers"
+                    onChange={handleChange}
+                    // type={input.type}
+                    placeholder={data.title}
+                    id="title"
+                    name="title"
                   />
-                )}
-                <button onClick={handleClick}>Cập nhật</button>
-              </div>
-            </form>
+                  <label>Giới Thiệu</label>
+                  <input
+                    onChange={handleChange}
+                    type="text"
+                    placeholder={data.desc}
+                    id="desc"
+                    name="desc"
+                  />
+                  <label>Giá Phòng</label>
+                  <input
+                    onChange={handleChange}
+                    type="text"
+                    placeholder={data.price}
+                    id="price"
+                    name="price"
+                  />
+                  <label>Số Người Tối Đa</label>
+                  <input
+                    onChange={handleChange}
+                    type="number"
+                    min={1}
+                    max={15}
+                    placeholder={data.maxPeople}
+                    id="maxPeople"
+                    name="maxPeople"
+                  />
+                  <label>Mã Phòng Khách Sạn</label>
+                  {data && data.roomNumbers && (
+                    <input
+                      onChange={(e) => setRooms(e.target.value)}
+                      type="text"
+                      placeholder={data.roomNumbers
+                        .map((roomNumber) => roomNumber.number)
+                        .join(", ")}
+                      id="roomNumbers"
+                      name="roomNumbers"
+                    />
+                  )}
+                  <button onClick={handleClick}>Cập nhật</button>
+                </div>
+              </form>
+            ) : (
+              <form>
+                <div className="formInput3">
+                  <div className="formInputRow1">
+                    <label>Tiêu đề phòng:</label>
+                    <div>{data.title}</div>
+                  </div>
+
+                  <div className="formInputRow1">
+                    <label>Giới thiệu:</label>
+                    <div>{data.desc}</div>
+                  </div>
+
+                  <div className="formInputRow1">
+                    <label>Giá phòng:</label>
+                    <div>{data.price}</div>
+                  </div>
+
+                  <div className="formInputRow1">
+                    <label>Số người tối đa:</label>
+                    <div>{data.maxPeople}</div>
+                  </div>
+
+                  <div className="formInputRow1">
+                    <label>Mã phòng khách sạn:</label>
+                    {data && data.roomNumbers && (
+                      <div>
+                        {data.roomNumbers
+                          .map((roomNumber) => roomNumber.number)
+                          .join(", ")}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* <label>Giá Phòng</label>
+                  <div>{data.price}</div>
+
+                  <label>Số Người Tối Đa</label>
+                  <div>{data.maxPeople}</div>
+
+                  <label>Mã Phòng Khách Sạn</label>
+                  {data && data.roomNumbers && (
+                    <div>
+                      {data.roomNumbers
+                        .map((roomNumber) => roomNumber.number)
+                        .join(", ")}
+                    </div>
+                  )} */}
+                  {/* <button onClick={handleClick}>Cập nhật</button> */}
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </div>

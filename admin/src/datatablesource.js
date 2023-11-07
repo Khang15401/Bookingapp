@@ -169,3 +169,39 @@ export const serviceColumns = [
     width: 100,
   },
 ];
+
+export const reviewColumns = [
+  // { field: "_id", headerName: "ID", width: 250 },
+  {
+    field: "userName",
+    headerName: "Name",
+    width: 100,
+  },
+  {
+    field: "nameHotel",
+    headerName: "Hotel",
+    width: 160,
+  },
+  {
+    field: "positive",
+    headerName: "Positive",
+    width: 300,
+  },
+  // {
+  //   field: "negative",
+  //   headerName: "Negative",
+  //   width: 300,
+  // },
+  {
+    field: "rating",
+    headerName: "Rating",
+    width: 80,
+  },
+  {
+    field: "timeReview",
+    headerName: "timeReview",
+    width: 200,
+  },
+
+
+];

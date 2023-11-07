@@ -7,7 +7,7 @@ import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContex";
 import { useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./detailsPartner.scss";
 import useFetch1 from "../../hooks/useFetch1";
 import useFetch2 from "../../hooks/useFetch2";
@@ -103,7 +103,12 @@ const DetailsPartner = ({}) => {
             <div className="setup-Info">
               <label>
                 <div>
-                  <span className="span-hotel">{data1.name}</span>
+                  <a
+                    href={`/hotels/${data1._id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <span className="span-hotel">{data1.name}</span>
+                  </a>
                 </div>
               </label>
               <label>
@@ -117,20 +122,23 @@ const DetailsPartner = ({}) => {
               </label>
               <h3 style={{ paddingBottom: "30px" }}>Danh sách phòng</h3>
 
-              {/* <label>
-                <div>{data1.title}</div>
-              </label>
-              <label>
-                Điểm đánh giá: <div>{data1.rating}</div>
-              </label>
-              <label>
-                Giới thiệu: <div>{data1.title}</div>
-              </label> */}
-
               {data2.map((item, index) => (
                 <div key={index}>
                   <label>
-                    <div>{item.title}: | {item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}/1 đêm</div>
+                    <div className="link-to-room">
+                      <a
+                        href={`/rooms/${item._id}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        {item.title}
+                      </a>
+                      : |{" "}
+                      {item.price.toLocaleString("vi-VN", {
+                        style: "currency",
+                        currency: "VND",
+                      })}
+                      /1 đêm
+                    </div>
                   </label>
                   {/* <label>
                     Điểm đánh giá: <div>{item.rating}</div>

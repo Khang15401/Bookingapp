@@ -21,9 +21,14 @@
 }
 
 .specialTitles{
+    
     position: absolute;
     bottom: 20px;
     left: 20px;
     margin-bottom: 150px;
 
+}
+.specialTitles h1, h2 {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 400;
 }

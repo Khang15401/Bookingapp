@@ -31,9 +31,9 @@ const Datatable = ({ columns }) => {
   const { data, loading, error } = useFetch(`/${path}`);
   console.log(data);
 
-  const staffUsers = data.filter((user) => user.role === 'staff');
+  const staffUsers = data.filter((user) => user.role === "staff");
   console.log(staffUsers);
-  const nonAdminUsers = data.filter(item => item.isAdmin === false);
+  const nonAdminUsers = data.filter((item) => item.isAdmin === false);
   console.log(nonAdminUsers);
 
   const { data2, loading2, error2 } = useFetch2(
@@ -86,6 +86,9 @@ const Datatable = ({ columns }) => {
         setList(nonAdminUsers);
       } else if (path === "users/staff") {
         setList(staffUsers);
+      } else if (path === "reviews") {
+        // Thêm điều kiện cho path là "reviews"
+        setList(data);
       }
     }
   }, [data, data1, data2, path, staffRole]);
@@ -134,12 +137,47 @@ const Datatable = ({ columns }) => {
           ? "Đơn đặt phòng"
           : path === "services"
           ? "Dịch vụ"
+          : path === "users"
+          ? "Người dùng"
+          : path === "users/staff"
+          ? "Đối tác"
+          : path === "reviews"
+          ? "Đánh giá"
           : path}
-        {path !== "orders" && (
+        {/* {path !== "orders" && path !== "reviews" &&(
           <Link to={`/${path}/new`} className="link">
             Thêm mới
           </Link>
-        )}
+        )} */}
+
+        {/* {(staffRole !== "admin" ||
+          (staffRole === "admin" &&
+            ![
+              "hotels",
+              "rooms",
+              "orders",
+              "reviews",
+              "users",
+              "users/staff",
+            ].includes(path))) && (
+          <Link to={`/${path}/new`} className="link">
+            Thêm mới
+          </Link>
+        )} */} 
+        {staffRole !== "admin" &&
+  ((staffRole === "admin" && !["hotels", "rooms", "orders", "reviews", "users", "users/staff"].includes(path)) || (staffRole !== "staff" || path !== "orders")) && (
+    <Link to={`/${path}/new`} className="link">
+      Thêm mới
+    </Link>
+  )
+}
+
+
+        {/* {(staffRole !== "staff" || path !== "orders") && (
+          <Link to={`/${path}/new`} className="link">
+            Thêm mới
+          </Link>
+        )} */}
       </div>
       <DataGrid
         className="datagrid"
