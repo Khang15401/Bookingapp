@@ -114,12 +114,15 @@ const Datatable = ({ columns }) => {
             >
               <div className="viewButton">Xem</div>
             </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row._id)}
-            >
-              Xóa
-            </div>
+
+            {path !== "reviews"  && path !== "users" && (
+              <div
+                className="deleteButton"
+                onClick={() => handleDelete(params.row._id)}
+              >
+                Xóa
+              </div>
+            )}
           </div>
         );
       },
@@ -163,15 +166,23 @@ const Datatable = ({ columns }) => {
           <Link to={`/${path}/new`} className="link">
             Thêm mới
           </Link>
-        )} */} 
+        )} */}
         {staffRole !== "admin" &&
-  ((staffRole === "admin" && !["hotels", "rooms", "orders", "reviews", "users", "users/staff"].includes(path)) || (staffRole !== "staff" || path !== "orders")) && (
-    <Link to={`/${path}/new`} className="link">
-      Thêm mới
-    </Link>
-  )
-}
-
+          ((staffRole === "admin" &&
+            ![
+              "hotels",
+              "rooms",
+              "orders",
+              "reviews",
+              "users",
+              "users/staff",
+            ].includes(path)) ||
+            staffRole !== "staff" ||
+            path !== "orders") && (
+            <Link to={`/${path}/new`} className="link">
+              Thêm mới
+            </Link>
+          )}
 
         {/* {(staffRole !== "staff" || path !== "orders") && (
           <Link to={`/${path}/new`} className="link">

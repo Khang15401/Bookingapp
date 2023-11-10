@@ -27,6 +27,7 @@ import EditOrder from "./pages/editOrder/EditOrder";
 import EditService from "./pages/editService/EditService";
 import NewService from "./pages/newService/NewService";
 import DetailsPartner from "./pages/detailsPartner/DetailsPartner";
+import DetailReview from "./pages/detailReview/DetailReview";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -281,7 +282,7 @@ function App() {
                 path=":reviewId"
                 element={
                   <ProtectedRoute>
-                    <EditService />
+                    <DetailReview />
                   </ProtectedRoute>
                 }
               />

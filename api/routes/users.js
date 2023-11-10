@@ -1,7 +1,14 @@
-import  express  from "express";
-import { deleteUser, getUser, getUsers, getUsersByRole, updateUser } from "../controllers/user.js";
+import express from "express";
+import {
+  deleteUser,
+  getUser,
+  getUsers,
+  getUsersByRole,
+  lockUser,
+  unlockUser,
+  updateUser,
+} from "../controllers/user.js";
 import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken.js";
-
 
 const router = express.Router();
 
@@ -23,12 +30,14 @@ router.patch("/:id", verifyUser, updateUser);
 router.delete("/:id", verifyUser, deleteUser);
 
 //GET
-router.get("/staff", verifyAdmin, getUsersByRole)
+router.get("/staff", verifyAdmin, getUsersByRole);
+
+router.patch("/locked/:id", verifyAdmin, lockUser);
+router.patch("/unlocked/:id", verifyAdmin, unlockUser);
 
 router.get("/:id", verifyUser, getUser);
 //GET ALL
 
 router.get("/", verifyAdmin, getUsers);
 
-
-export default router
+export default router;

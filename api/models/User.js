@@ -42,6 +42,14 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    locked: {
+      type: String,
+      default: "",
+    },
+    lockReason: {
+      type: String,
+      default: null,
+    },
   },
   { timestamps: true }
 );

@@ -5,6 +5,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbarlo from "../../components/navbarlo/Navbarlo";
 import NavbarPartner from '../../components/navbarPartner/NavbarPartner';
+import Alert from "../../components/Alert/Alert";
+import toast from "react-hot-toast";
 
 const Register1 = () => {
   const [credentials, setCredentials] = useState({});
@@ -22,9 +24,12 @@ const Register1 = () => {
     try {
       const res = await axios.post("/auth/register", credentials);
       dispatch({ type: "REGISTER_SUCCESS", payload: res.data.details });
-      alert("Tạo người dùng thành công!!!");
-      navigate("/login");
+       toast.success("Tạo người dùng thành công")
+       setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     } catch (err) {
+      toast.error("Tạo tài khoản thất bại!")
       dispatch({ type: "REGISTER_FAILURE", payload: err.response.data });
     }
   };
@@ -98,6 +103,9 @@ const Register1 = () => {
             </button>
           </div>
           {error && <span>{error.message}</span>}
+        </div>
+        <div>
+          <Alert/>
         </div>
       </div>
     </div>

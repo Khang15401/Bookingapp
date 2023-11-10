@@ -9,6 +9,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileUpload } from "@fortawesome/free-solid-svg-icons";
+import Alert from "../../components/Alert/Alert";
+import toast from "react-hot-toast";
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -47,11 +49,13 @@ const EditProfile = () => {
       };
       await axios.patch("/users/" + userId, updateUser);
       console.log(info);
-      alert("Thông tin được cập nhật thành công!");
+      toast.success("Thông tin được cập nhật thành công!")
       // navigate("/users");
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1100);
     } catch (err) {
-      alert("Thông tin chưa được cập nhật!");
+      toast.error("Cập nhật thông tin thất bại!")
       console.log(err);
     }
   };
@@ -152,6 +156,7 @@ const EditProfile = () => {
           </form>
         </div>
       </div>
+      <Alert/>
       {/* <MailList /> */}
       {/* <Footer/> */}
       {/* <div className="fText"><Footer/></div> */}

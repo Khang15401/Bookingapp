@@ -39,6 +39,8 @@ import { SearchContext, SearchContext1 } from "../../context/SearchContex";
 import useFetch1 from "../../hooks/useFetch1";
 import Reserve from "../../components/reserve/Reserve";
 import useFetch2 from "../../hooks/useFetch2";
+import Alert from "../../components/Alert/Alert";
+import toast from "react-hot-toast";
 const Detail = () => {
   const { orderId } = useParams();
   // console.log(orderId);
@@ -182,7 +184,7 @@ const Detail = () => {
       hideConfirmDialog();
     } catch (error) {
       console.error(error);
-      alert("Hủy đơn đặt phòng thất bại!");
+      toast.error("Hủy đơn đặt phòng thất bại!");
     }
   };
 
@@ -231,6 +233,7 @@ const Detail = () => {
     return dates;
   };
   const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
+  console.log(alldates);
 
   const isAvailable = (roomNumber) => {
     const isFound = roomNumber.unavailableDates.some((date) =>
@@ -333,8 +336,10 @@ const Detail = () => {
       await axios.patch("/orders/" + orderId, updateOrder);
       console.log(updateOrder);
       setOpenValueRoom(false);
-      alert("Hoàn thành chỉnh sửa đơn đặt phòng!");
-      window.location.reload();
+      toast.success("Hoàn thành chỉnh sửa đơn đặt phòng!");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1200);
     } catch (err) {
       console.log(err);
     }
@@ -354,7 +359,15 @@ const Detail = () => {
   const handleClick2 = async (e) => {
     e.preventDefault();
     await localStorage.setItem("dates", JSON.stringify(dates));
+
     try {
+      const jsonData = JSON.parse(localStorage.getItem("dates"));
+      const startDate = jsonData[0].startDate;
+      const endDate = jsonData[0].endDate;
+
+      const formattedStartDate = formatDateToVietnamese(startDate);
+      const formattedEndDate = formatDateToVietnamese(endDate);
+
       const res = axios.put(`/rooms/availability/${IdRoom}`, {
         dates: alldates,
       });
@@ -370,11 +383,13 @@ const Detail = () => {
       await axios.patch("/orders/" + orderId, updateOrder);
       console.log(updateOrder);
       setOpenValueRoom(false);
-      alert("Hoàn thành chỉnh ngày ở phòng!");
-      window.location.reload();
+      toast.success("Hoàn thành chỉnh ngày ở phòng!");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1200);
       return res.data;
     } catch (error) {
-      alert("Lỗi thay đổi ngày ở!");
+      toast.error("Lỗi thay đổi ngày ở!");
       console.log(error);
     }
   };
@@ -402,7 +417,7 @@ const Detail = () => {
       };
       // console.log(data);
       const res = await axios.post("/reviews", newReview);
-      alert("Hoàn thành đánh giá phòng ở!");
+      toast.success("Hoàn thành đánh giá phòng ở!");
       console.log(newReview);
 
       const reviewId = res.data._id;
@@ -432,7 +447,7 @@ const Detail = () => {
       console.log(Reviewed);
       window.location.reload();
     } catch (error) {
-      alert("Không thể gửi đánh giá!");
+      toast.error("Không thể gửi đánh giá!");
       console.log(error);
     }
   };
@@ -446,7 +461,7 @@ const Detail = () => {
 
   // Ham rut gon ma dat phong
   const shortenBookingCode = (bookingCode) => {
-    if (typeof bookingCode === 'string' && bookingCode.length >= 4) {
+    if (typeof bookingCode === "string" && bookingCode.length >= 4) {
       return bookingCode.slice(-4);
     }
     return bookingCode;
@@ -464,23 +479,6 @@ const Detail = () => {
               <div className="reservation-status-title-status">
                 {data.status}
               </div>
-              {/* <header className="detail-header">Đơn đặt đã hoàn tất</header> */}
-              {/* <header className="detail-header">
-                {data.status === "Chưa nhận phòng"
-                  ? "Đơn đặt đã được xác nhận"
-                  : data.status === "Hoàn thành"
-                  ? "Đơn đặt đã hoàn tất"
-                  : "Đơn đặt đã được hủy"}
-              </header> */}
-              {/* <header className="detail-header">
-                {data.status === "Chờ xác nhận từ khách sạn"
-                  ? "Đơn đặt đang chờ xác nhận"
-                  : data.status === "Chưa đặt phòng"
-                  ? "Đơn đặt đã được xác nhận"
-                  : data.status === "Hoàn thành"
-                  ? "Đơn đặt đã hoàn tất"
-                  : "Đơn đặt đã được hủy"}
-              </header> */}
               <header className="detail-header">
                 {data.status === "Chờ xác nhận từ khách sạn"
                   ? "Đơn đặt đang chờ được xác nhận"
@@ -863,7 +861,8 @@ const Detail = () => {
                         Booking.com không thu phí khách cho bất kỳ đặt phòng,
                         phí hành chính hay bất kỳ chi phí nào khác.
                         <br />
-                        Khách sạn sẽ trừ lại khoản tiền bạn cọc tiền phòng. Bạn chỉ phải chi trả số tiền còn lại tại khách sạn.
+                        Khách sạn sẽ trừ lại khoản tiền bạn cọc tiền phòng. Bạn
+                        chỉ phải chi trả số tiền còn lại tại khách sạn.
                       </div>
                     </div>
                   </div>
@@ -1691,6 +1690,7 @@ const Detail = () => {
               </div>
             </div>
           )}
+          <Alert />
         </div>
       </div>
     </div>

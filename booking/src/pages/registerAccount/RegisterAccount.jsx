@@ -4,6 +4,8 @@ import "./registerAccount.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbarlo from "../../components/navbarlo/Navbarlo";
+import toast from "react-hot-toast";
+import Alert from "../../components/Alert/Alert";
 
 const RegisterAccount = () => {
   const [credentials, setCredentials] = useState({});
@@ -24,9 +26,13 @@ const RegisterAccount = () => {
     try {
       const res = await axios.post("/auth/register", credentials);
       dispatch({ type: "REGISTER_SUCCESS", payload: res.data.details });
-      alert("Tạo tài khoản quản lý thành công!!!");
+      toast.success("Tạo tài khoản quản lý thành công!")
       // navigate("/localhost:");
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
     } catch (err) {
+      toast.error("Đăng ký tài khoản thất bại!")
       dispatch({ type: "REGISTER_FAILURE", payload: err.response.data });
     }
   };
@@ -116,6 +122,7 @@ const RegisterAccount = () => {
           {error && <span>{error.message}</span>}
         </div>
       </div>
+      <Alert/>
     </div>
   );
 };

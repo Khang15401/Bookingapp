@@ -18,15 +18,25 @@
         font-size: 20px;
       }
 
-      .left {
+      .left5 {
         flex: 1;
         text-align: center;
 
+        // img {
+        //   width: 100px;
+        //   height: 100px;
+        //   border-radius: 50%;
+        //   object-fit: cover;
+        // }
+       
+        
         img {
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
+          width: 190px;
+          // height: 140px;
           object-fit: cover;
+          // padding-right: 10px;
+          padding-bottom: 10px;
+          padding-top: 10px;
         }
       }
 
@@ -40,19 +50,39 @@
           gap: 30px;
           justify-content: space-between;
 
-          .formInput {
-            width: 40%;
+          .formInput4 {
+            width: 65%;
+            margin-top: 10px;
+
+            .formInputRow2 {
+              display: flex;
+              align-items: center;
+              margin-bottom: 18px;
+              
+              label {
+                flex: 1;
+              }
+
+              div {
+                flex: 2;
+              }
+
+
+            }
 
             label {
               display: flex;
               align-items: center;
               gap: 10px;
+              margin-right: 10px;
 
               .icon {
                 cursor: pointer;
               }
             }
-
+            div {
+              display: flex;
+            }
             input {
               width: 100%;
               padding: 5px;
@@ -60,7 +90,29 @@
               border-bottom: 1px solid gray;
             }
           }
+              
 
+          // .formInput {
+          //   width: 40%;
+
+          //   label {
+          //     display: flex;
+          //     align-items: center;
+          //     gap: 10px;
+
+          //     .icon {
+          //       cursor: pointer;
+          //     }
+          //   }
+
+          //   input {
+          //     width: 100%;
+          //     padding: 5px;
+          //     border: none;
+          //     border-bottom: 1px solid gray;
+          //   }
+          // }
+          
           img {
             height: 120px;
             width: 120px;

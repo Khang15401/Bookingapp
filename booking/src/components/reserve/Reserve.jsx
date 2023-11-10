@@ -7,6 +7,8 @@ import "./reserve.css";
 import axios, { all } from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { PayPalButton } from "react-paypal-button-v2";
+import toast from "react-hot-toast";
+import Alert from "../Alert/Alert";
 const { format, parseISO } = require("date-fns");
 
 const Reserve = ({ setOpen, hotelId }) => {
@@ -24,7 +26,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   console.log(dates);
   const [showPaypalButton, setShowPaypalButton] = useState(false);
   const [showConfirmButton, setShowConfirmButton] = useState(false);
-  const [orderNow, setOrderNow ] = useState("");
+  const [orderNow, setOrderNow] = useState("");
   const idHotel = useParams();
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -120,7 +122,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   const Quantity = `${jsonOptions.Người_Lớn} người lớn - ${days} đêm, ${jsonOptions.Phòng} phòng`;
 
   const Dola = (priceRoom * days * options.Phòng) / 23500;
-  console.log((Dola*0.1).toFixed(2));
+  console.log((Dola * 0.1).toFixed(2));
 
   const handleSelect = (e) => {
     const checked = e.target.checked;
@@ -187,15 +189,18 @@ const Reserve = ({ setOpen, hotelId }) => {
       // console.log(orderId);
       setOrderNow(orderId);
       e.preventDefault();
-      navigate(`/orders/detail/${orderId}`)
+      // toast.success("Giao dịch thành công!");
+      // setTimeout(() => {
+      // }, 1500);
       // navigate("/");
+      navigate(`/orders/detail/${orderId}`);
     } catch (err) {
       console.log(err);
     }
   };
-  
-  const orderIdNow = localStorage.getItem("newOrderId")
-  console.log(orderIdNow)
+
+  const orderIdNow = localStorage.getItem("newOrderId");
+  console.log(orderIdNow);
   return (
     <div className="reserve">
       <div className="rContainer">
@@ -255,7 +260,8 @@ const Reserve = ({ setOpen, hotelId }) => {
               <div className="setup-div">
                 <span className="span-notice">
                   {/* Bạn sẽ cọc chỗ ở với 10% giá tiền phòng */}
-                  “Xin hãy đặt cọc phòng với giá 10% tiền phòng để đảm bảo chỗ ở của bạn”.
+                  “Xin hãy đặt cọc phòng với giá 10% tiền phòng để đảm bảo chỗ ở
+                  của bạn”.
                 </span>
               </div>
 
@@ -263,13 +269,16 @@ const Reserve = ({ setOpen, hotelId }) => {
                 className="paypal-btn"
                 onClick={handleClick}
                 // amount="0.01"
-                amount={(Dola*0.1).toFixed(2)}
+                amount={(Dola * 0.1).toFixed(2)}
                 // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                 onSuccess={(details, data) => {
-                  alert(
-                    "Transaction completed by " + details.payer.name.given_name
-                  );
-                  navigate(`/orders/detail/${orderNow}`)
+                  // alert(
+                  //   "Transaction completed by " + details.payer.name.given_name
+                  // );
+                  toast.success("Giao dịch thành công!");
+                  setTimeout(() => {
+                    navigate(`/orders/detail/${orderNow}`);
+                  }, 1500);
 
                   // OPTIONAL: Call your server to save the transaction
                   // return fetch(`/orders/${orderId}`, {
@@ -284,6 +293,7 @@ const Reserve = ({ setOpen, hotelId }) => {
           )}
         </form>
       </div>
+      <Alert/>
     </div>
   );
 };

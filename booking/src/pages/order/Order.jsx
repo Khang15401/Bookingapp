@@ -9,6 +9,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import toast from "react-hot-toast";
+import Alert from "../../components/Alert/Alert";
 
 const Order = () => {
   const location = useLocation();
@@ -44,18 +46,6 @@ const Order = () => {
     setID(null);
   };
 
-  // const handleClick = async (id, orderID) => {
-  //   try {
-  //     await axios.patch(`/rooms/reservation/${id}`);
-  //     // Thực hiện các bước cập nhật danh sách hiển thị hoặc trạng thái khác nếu cần thiết
-  //     await axios.patch(`/${path}/cancle/${orderID}`);
-  //     window.location.reload();
-  //     alert('Hủy đặt phòng thành công');
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert("Hủy đơn đặt phòng thất bại!");
-  //   }
-  // };
 
   const handleClick = (id, orderID) => {
     data.map((order) => {
@@ -77,7 +67,7 @@ const Order = () => {
       hideConfirmDialog();
     } catch (error) {
       console.error(error);
-      alert("Hủy đơn đặt phòng thất bại!");
+      toast.error("Hủy đơn đặt phòng thất bại!")
     }
   };
 
@@ -279,6 +269,7 @@ const Order = () => {
           )}
         </div>
       </div>
+      <Alert/>
       <MailList />
     </div>
   );
