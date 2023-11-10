@@ -35,7 +35,18 @@ const Login = () => {
         navigate("/");
       }, 800);
     } catch (err) {
-      toast.error("Đăng nhập thất bại!");
+      // toast.error("Đăng nhập thất bại!");
+      // toast.error(error.message);
+      // toast.error(
+      //     "Thất bại!" +
+      //     (error && error.message ? ` ${error.message}` : "")
+      // );
+      const errorMessage =
+        err.response && err.response.data && err.response.data.message
+          ? err.response.data.message
+          : "Đăng nhập thất bại!";
+
+      toast.error(`${errorMessage}`);
       dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
     }
   };
@@ -46,7 +57,7 @@ const Login = () => {
   //   try {
   //     const res = await axios.post("/auth/login", credentials);
   //     const userDetails = res.data.details;
-  
+
   //     if (res.status === 403) {
   //       // Tài khoản bị khóa, hiển thị thông báo toast với lý do bị khóa
   //       toast.error(`Đăng nhập thất bại! ${res.data.error} Lý do: ${res.data.lockReason}`);
@@ -95,7 +106,7 @@ const Login = () => {
             </a>
           </button>
           {/* <a className="BtnRH" href="/register">Trở về Trang Chủ</a> */}
-          {error && <span>{error.message}</span>}
+          {/* {error && <span>{error.message}</span>} */}
         </div>
         <Alert />
       </div>

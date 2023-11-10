@@ -9,12 +9,15 @@ import { AuthContext } from "../../context/AuthContex";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./editHotel.scss";
+import Alert from "../../components/Alert/Alert";
+import toast from "react-hot-toast";
 
 const EditHotel = ({}) => {
   const navigate = useNavigate();
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
   const [hotels, setHotels] = useState([]);
+
   const { hotelId } = useParams();
   console.log(hotelId);
 
@@ -57,10 +60,13 @@ const EditHotel = ({}) => {
       };
       // console.log(data);
       await axios.patch("/hotels/" + hotelId, updateHotel);
-      alert("Sửa thông tin khách sạn thành công!");
-      navigate("/hotels");
+      toast.success("Sửa thông tin khách sạn thành công!");
+
+      setTimeout(() => {
+        navigate("/hotels");
+      }, 800);
     } catch (err) {
-      alert("Sửa thông tin không thành công!");
+      toast.error("Sửa thông tin không thành công!");
       console.log(err);
     }
   };
@@ -70,6 +76,7 @@ const EditHotel = ({}) => {
       <Sidebar />
       <div className="newContainer">
         <Navbar />
+        <Alert />
         <div className="top">
           <h1>Thông tin khách sạn</h1>
         </div>
@@ -97,70 +104,6 @@ const EditHotel = ({}) => {
             )}
           </div>
           <div className="right1">
-            {/* <form style={{ width: "100%" }}>
-              <div className="formInput" style={{ width: "80%" }}>
-                <label>Tên Khách Sạn</label>
-                <input
-                  onChange={handleChange}
-                  // type={input.type}
-                  placeholder={data.name}
-                  id="name"
-                  name="name"
-                />
-                <label>Khoảng Cách</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.distance}
-                  id="distance"
-                  name="distance"
-                />
-                <label>Địa Chỉ</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.address}
-                  id="address"
-                  name="address"
-                />
-                <label>Thành Phố</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.city}
-                  id="city"
-                  name="city"
-                />
-
-                <label>Tiêu Đề</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder={data.title}
-                  id="title"
-                  name="title"
-                />
-                <label>Đánh Giá</label>
-                <input
-                  onChange={handleChange}
-                  type="number"
-                  min={1}
-                  max={5}
-                  placeholder={data.rating}
-                  id="rating"
-                  name="rating"
-                />
-                <label>Nổi bật</label>
-                <p>{data.featured}</p>
-                <select id="featured" onChange={handleChange}>
-                  <option value={false}>No</option>
-                  <option value={true}>Yes</option>
-                </select>
-                <button className="no-btn" disabled></button>
-                <button onClick={handleClick}>Cập nhật</button>
-              </div>
-            </form> */}
-
             {staffRole === "admin" ? (
               <form style={{ width: "100%" }}>
                 <div className="formInput" style={{ width: "82%" }}>
@@ -201,7 +144,7 @@ const EditHotel = ({}) => {
               </form>
             ) : (
               <form style={{ width: "100%" }}>
-                <div className="formInput" style={{ width: "80%" }}>
+                <div className="formInput" style={{ width: "80%", paddingTop: "30px" }}>
                   <label>Tên Khách Sạn</label>
                   <input
                     onChange={handleChange}
@@ -241,7 +184,7 @@ const EditHotel = ({}) => {
                     id="title"
                     name="title"
                   />
-                  <label>Đánh Giá</label>
+                  {/* <label>Đánh Giá</label>
                   <input
                     onChange={handleChange}
                     type="number"
@@ -256,7 +199,7 @@ const EditHotel = ({}) => {
                   <select id="featured" onChange={handleChange}>
                     <option value={false}>No</option>
                     <option value={true}>Yes</option>
-                  </select>
+                  </select> */}
                   <button className="no-btn" disabled></button>
                   <button onClick={handleClick}>Cập nhật</button>
                 </div>

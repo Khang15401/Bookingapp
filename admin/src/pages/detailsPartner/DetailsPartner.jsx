@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
+import Alert from "../../components/Alert/Alert";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
@@ -11,12 +12,16 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import "./detailsPartner.scss";
 import useFetch1 from "../../hooks/useFetch1";
 import useFetch2 from "../../hooks/useFetch2";
+import toast from "react-hot-toast";
 
 const DetailsPartner = ({}) => {
   const navigate = useNavigate();
   const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
   const [users, setUsers] = useState([]);
+  const [isLocked, setIsLocked] = useState(false);
+  const [lockReason, setLockReason] = useState("");
+  const [selectedValue, setSelectedValue] = useState("default");
   const { userId } = useParams();
 
   const { data, loading, error } = useFetch(`/users/${userId}`);
@@ -30,35 +35,66 @@ const DetailsPartner = ({}) => {
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+
+    if (e.target.id === "locked") {
+      setIsLocked(e.target.value === "true");
+    } else {
+      setLockReason(e.target.value);
+    }
+    setSelectedValue(e.target.value);
   };
 
+  // UPDATE INFO USER
+  // const handleClick = async (e) => {
+  //   e.preventDefault();
+  //   let newPhoto = info.photo;
+  //   try {
+  //     if (file) {
+  //       // Nếu có tải lên ảnh mới, thực hiện upload và cập nhật ảnh
+  //       const data = new FormData();
+  //       data.append("file", file);
+  //       data.append("upload_preset", "upload");
+
+  //       const uploadRes = await axios.post(
+  //         "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
+  //         data
+  //       );
+  //       const { url } = uploadRes.data;
+  //       newPhoto = url;
+  //     }
+
+  //     const updateUser = {
+  //       ...info,
+  //       img: newPhoto,
+  //     };
+  //     await axios.patch("/users/" + userId, updateUser);
+  //     toast.success("Sửa thông tin thành công!");
+  //     setTimeout(() => {
+  //       navigate("/users");
+  //     }, 800);
+  //   } catch (err) {
+  //     toast.error("Sửa thông tin không thành công!");
+  //     console.log(err);
+  //   }
+  // };
+
+  // UPDATE STATUS BANNED
   const handleClick = async (e) => {
     e.preventDefault();
-    let newPhoto = info.photo;
     try {
-      if (file) {
-        // Nếu có tải lên ảnh mới, thực hiện upload và cập nhật ảnh
-        const data = new FormData();
-        data.append("file", file);
-        data.append("upload_preset", "upload");
 
-        const uploadRes = await axios.post(
-          "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
-          data
-        );
-        const { url } = uploadRes.data;
-        newPhoto = url;
-      }
-
-      const updateUser = {
+      const updateBanned = {
         ...info,
-        img: newPhoto,
       };
-      await axios.patch("/users/" + userId, updateUser);
-      alert("Sửa thông tin thành công!");
-      navigate("/users");
+      await axios.patch("/users/" + userId, updateBanned);
+      console.log(updateBanned);
+      toast.success("Điều chỉnh chặn người dùng thành công!");
+      
+      setTimeout(() => {
+        navigate("/users");
+      }, 800);
     } catch (err) {
-      alert("Sửa thông tin không thành công!");
+      toast.error("Bị lỗi khi chặn người dùng!");
       console.log(err);
     }
   };
@@ -68,6 +104,7 @@ const DetailsPartner = ({}) => {
       <Sidebar />
       <div className="newContainer">
         <Navbar />
+        <Alert />
         <div className="top">
           <h1>Đối tác</h1>
         </div>
@@ -95,7 +132,54 @@ const DetailsPartner = ({}) => {
                 <label>
                   Điện thoại: <div>{data.phone}</div>
                 </label>
+
+                {/*  */}
+
+                <div className="formInputRow2">
+                  <label>Khóa tài khoản:</label>
+                  <div>
+                    <select
+                      name="lockReason"
+                      value={selectedValue}
+                      id="locked"
+                      onChange={handleChange}
+                    >
+                      <option value="default" disabled hidden>
+                        Hành động
+                      </option>
+                      <option value={true}>Khóa</option>
+                      <option value={""}>Mở khóa</option>
+                    </select>
+                  </div>
+                </div>
+
+                {isLocked && (
+                  <div className="formInputRow2">
+                    <label>Lý do khóa:</label>
+                    <div>
+                      <select id="lockReason" onChange={handleChange}>
+                        <option value="Tài khoản của bạn vi phạm về thanh toán">
+                          Tài khoản của bạn vi phạm về thanh toán
+                        </option>
+                        <option value="Vi phạm quy tắc bình luận">
+                          Vi phạm quy tắc bình luận
+                        </option>
+                        <option value="Vi phạm điều khoản sử dụng">
+                          Vi phạm điều khoản sử dụng
+                        </option>
+                        <option value="Phản hồi tiêu cực từ khách sạn">
+                          Phản hồi tiêu cực từ khách sạn
+                        </option>
+                        <option value="Lạm dụng hệ thống">
+                          Phát hiện lạm dụng hệ thống
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                )}
+                {/*  */}
               </div>
+              <button onClick={handleClick}>Cập nhật</button>
             </form>
           </div>
           <div className="left2">

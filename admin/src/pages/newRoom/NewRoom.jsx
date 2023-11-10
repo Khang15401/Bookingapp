@@ -6,14 +6,19 @@ import { roomInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import useFetch1 from "../../hooks/useFetch1";
 import axios from "axios";
+import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import Alert from "../../components/Alert/Alert";
 
 const NewRoom = () => {
   const navigate = useNavigate();
   const [info, setInfo] = useState({});
   const [hotelId, setHotelId] = useState(undefined);
+  const [file, setFile] = useState("");
+  console.log(file);
   const [rooms, setRooms] = useState([]);
-  const [selectedValue, setSelectedValue] = useState('default');
+  const [selectedValue, setSelectedValue] = useState("default");
   const managerHotel = JSON.parse(localStorage.getItem("user"));
   const managerHotelId = managerHotel.hotelId;
   const staffRole = managerHotel.role;
@@ -34,10 +39,25 @@ const NewRoom = () => {
     const roomNumbers = rooms.split(",").map((room) => ({ number: room }));
     console.log(roomNumbers);
     try {
-      await axios.post(`/rooms/${hotelId}`, { ...info, roomNumbers });
+      const data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", "upload");
+
+        const uploadRes = await axios.post(
+          "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
+          data
+        );
+        const { url } = uploadRes.data;
+        const photo = url
+
+      await axios.post(`/rooms/${hotelId}`, { ...info, roomNumbers,photo: photo });
       // console.log(info, roomNumbers);
-      navigate("/rooms");
+      toast.success("Tạo phòng khách sạn thành công");
+      setTimeout(() => {
+        window.location.reload();
+      }, 800);
     } catch (err) {
+      toast.error("Tạo phòng khách sạn thất bại");
       console.log(err);
     }
   };
@@ -48,10 +68,41 @@ const NewRoom = () => {
       <Sidebar />
       <div className="newContainer">
         <Navbar />
+        <Alert />
         <div className="top">
           <h1>Thêm Phòng Mới</h1>
         </div>
         <div className="bottom">
+          <div className="left2">
+            <div className="formInput3">
+              <label>Ảnh phòng</label>
+              {staffRole === "staff" && (
+                  <>
+                    <img
+                      src={
+                        file
+                          ? URL.createObjectURL(file)
+                          : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
+                      }
+                      alt=""
+                    />
+                  </>
+                )}
+              {staffRole === "staff" && (
+                <>
+                  <label htmlFor="file">
+                    Image: <DriveFolderUploadOutlinedIcon className="icon" />
+                  </label>
+                  <input
+                    type="file"
+                    id="file"
+                    onChange={(e) => setFile(e.target.files[0])}
+                    style={{ display: "none" }}
+                  />
+                </>
+              )}
+            </div>
+          </div>
           <div className="right">
             <form>
               {roomInputs.map((input) => (
@@ -72,20 +123,7 @@ const NewRoom = () => {
                   placeholder="nhập vào mã số giữa các phòng."
                 />
               </div>
-              {/* <div className="formInput">
-                <label>Chọn khách sạn</label>
-                <select
-                  id="hotelId"
-                  onChange={(e) => setHotelId(e.target.value)}
-                >
-                  {loading
-                    ? "loading"
-                    : data &&
-                      data.map((hotel) => (
-                        <option key={hotel._id} value={hotel._id}>{hotel.name}</option>
-                      ))}
-                </select>
-              </div> */}
+
               {staffRole === "admin" ? (
                 <div className="formInput">
                   <label>Chọn khách sạn</label>
@@ -94,7 +132,9 @@ const NewRoom = () => {
                     value={selectedValue}
                     onChange={(e) => setHotelId(e.target.value)}
                   >
-                    <option value="default" disabled hidden>Thêm vào khách sạn</option>
+                    <option value="default" disabled hidden>
+                      Thêm vào khách sạn
+                    </option>
                     {loading
                       ? "loading"
                       : data &&
@@ -112,12 +152,14 @@ const NewRoom = () => {
                     id="hotelId"
                     value={selectedValue}
                     onChange={(e) => setHotelId(e.target.value)}
+                    // onChange={handleChange}
                   >
-                    <option value="default" disabled hidden>Thêm vào khách sạn</option>
+                    <option value="default" disabled hidden>
+                      Thêm vào khách sạn
+                    </option>
                     {loading ? (
                       "loading"
                     ) : (
-                      
                       <option key={data1._id} value={data1._id}>
                         {data1.name}
                       </option>
@@ -127,7 +169,7 @@ const NewRoom = () => {
               ) : null}
 
               <button className="formInput1" onClick={handleClick}>
-              Thêm
+                Thêm
               </button>
             </form>
           </div>

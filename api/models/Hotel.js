@@ -52,6 +52,9 @@ const HotelSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    hotelOwner: {
+        type: String,
+    },
 });
 
 export default mongoose.model("Hotel", HotelSchema)

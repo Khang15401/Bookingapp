@@ -7,6 +7,8 @@ import { hotelInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Alert from "../../components/Alert/Alert";
+import toast from "react-hot-toast"
 
 const NewHotel = () => {
   const navigate = useNavigate()
@@ -58,6 +60,7 @@ const NewHotel = () => {
         ...info,
         rooms,
         photos: list,
+        hotelOwner: userId,
       };
       const response = await axios.post("/hotels", newhotel);
       const hotelId = response.data._id;
@@ -67,13 +70,15 @@ const NewHotel = () => {
 
       const updateUser = {
         hotelId: hotelId,
-      
       };
+
       await axios.patch("/users/" + userId, updateUser);
 
-      alert('Thêm thông tin khách sạn thành công!')
+      toast.success('Thêm thông tin khách sạn thành công!')
+      
       // navigate("/hotels");
-    } catch (err) {console.log(err)}
+    } catch (err) {
+      console.log(err)}
   };
 
   return (
@@ -81,6 +86,7 @@ const NewHotel = () => {
       <Sidebar />
       <div className="newContainer">
         <Navbar />
+        <Alert/>
         <div className="top">
           <h1>Thêm khách sạn mới</h1>
         </div>
@@ -137,7 +143,7 @@ const NewHotel = () => {
                     placeholder={input.placeholder} />
                 </div>
               ))}
-                <div className="formInput">
+                {/* <div className="formInput">
                   <label>Đánh giá</label>
                   <input id="rating" onChange={handleChange} placeholder="Từ 1 - 5 "> 
                   </input>
@@ -148,15 +154,15 @@ const NewHotel = () => {
                     <option value={false}>No</option>
                     <option value={true}>Yes</option>
                   </select>
-                </div>
-                <div className="selectRooms">
+                </div> */}
+                {/* <div className="selectRooms">
                   <label>Loại phòng</label>
                   <select id="rooms" multiple onChange={handleSelect}>
                     {loading ? "loading" : data && data.map(room=>(
                       <option key={room._id} value={room._id}>{room.title}</option>
                     ))}
                   </select>
-                </div>
+                </div> */}
                 <button onClick={handleClick}>Thêm</button>
             </form>
           </div>

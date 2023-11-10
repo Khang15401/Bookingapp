@@ -5,13 +5,15 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Alert from "../../components/Alert/Alert";
+import toast from "react-hot-toast";
 
 const New = ({ inputs, title }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
@@ -34,21 +36,23 @@ const New = ({ inputs, title }) => {
       };
 
       await axios.post("/auth/register", newUser);
-      alert("Thêm người dùng thành công!")
+      toast.success("Thêm người dùng thành công!");
       console.log(newUser);
-      navigate("/users");
+      setTimeout(() => {
+        navigate("/users");
+      }, 800);
     } catch (err) {
-      alert("Thêm người dùng thất bại!")
+      toast.error("Thêm người dùng thất bại!");
       console.log(err);
     }
   };
 
-  
   return (
     <div className="new">
       <Sidebar />
       <div className="newContainer">
         <Navbar />
+        <Alert />
         <div className="top">
           <h1>{title}</h1>
         </div>
@@ -80,11 +84,11 @@ const New = ({ inputs, title }) => {
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input 
-                  onChange={handleChange} 
-                  type={input.type} 
-                  placeholder={input.placeholder} 
-                  id={input.id}
+                  <input
+                    onChange={handleChange}
+                    type={input.type}
+                    placeholder={input.placeholder}
+                    id={input.id}
                   />
                 </div>
               ))}

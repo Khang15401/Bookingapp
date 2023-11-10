@@ -12,7 +12,7 @@ router.put("/availability/:id", updateRoomAvailability);
 //UPDATE ROOM
 router.patch("/reservation/:id", removeRoomAvailability);
 //DELETE
-router.delete("/:id", verifyAdmin, deleteRoom);
+router.delete("/:id/:hotelid", verifyAdmin, deleteRoom);
 //GET
 router.get("/:id", getRoom);
 //GET ALL

@@ -9,6 +9,8 @@ import { AuthContext } from "../../context/AuthContex";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./edit.scss";
+import Alert from "../../components/Alert/Alert";
+import toast from "react-hot-toast";
 
 const Edit = ({}) => {
   const navigate = useNavigate();
@@ -36,36 +38,7 @@ const Edit = ({}) => {
     }
     setSelectedValue(e.target.value);
   };
-  // const handleClick = async (e) => {
-  //   e.preventDefault();
-  //   let newPhoto = info.photo;
-  //   try {
-  //     if (file) {
-  //       // Nếu có tải lên ảnh mới, thực hiện upload và cập nhật ảnh
-  //       const data = new FormData();
-  //       data.append("file", file);
-  //       data.append("upload_preset", "upload");
-
-  //       const uploadRes = await axios.post(
-  //         "https://api.cloudinary.com/v1_1/kiawdev/image/upload",
-  //         data
-  //       );
-  //       const { url } = uploadRes.data;
-  //       newPhoto = url;
-  //     }
-
-  //     const updateUser = {
-  //       ...info,
-  //       img: newPhoto,
-  //     };
-  //     await axios.patch("/users/" + userId, updateUser);
-  //     alert("Sửa thông tin thành công!");
-  //     navigate("/users");
-  //   } catch (err) {
-  //     alert("Sửa thông tin không thành công!");
-  //     console.log(err);
-  //   }
-  // };
+  
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -76,10 +49,13 @@ const Edit = ({}) => {
       };
       await axios.patch("/users/" + userId, updateBanned);
       console.log(updateBanned);
-      alert("Điều chỉnh chặn người dùng thành công!");
-      navigate("/users");
+      toast.success("Điều chỉnh chặn người dùng thành công!");
+      
+      setTimeout(() => {
+        navigate("/users");
+      }, 800);
     } catch (err) {
-      alert("Bị lỗi khi chặn người dùng!");
+      toast.error("Bị lỗi khi chặn người dùng!");
       console.log(err);
     }
   };
@@ -89,6 +65,7 @@ const Edit = ({}) => {
       <Sidebar />
       <div className="newContainer">
         <Navbar />
+        <Alert/>
         <div className="top">
           <h1>Thông tin người dùng</h1>
         </div>

@@ -123,7 +123,7 @@ export const hotelInputs = [
 export const roomInputs = [
   {
     id: "title",
-    label: "Tiêu đề",
+    label: "Tên phòng",
     type: "text",
     placeholder: "2 bed room",
   },

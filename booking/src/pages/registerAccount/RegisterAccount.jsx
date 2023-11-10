@@ -26,7 +26,7 @@ const RegisterAccount = () => {
     try {
       const res = await axios.post("/auth/register", credentials);
       dispatch({ type: "REGISTER_SUCCESS", payload: res.data.details });
-      toast.success("Tạo tài khoản quản lý thành công!")
+      toast.success("Tạo tài khoản quản lý thành công! Bạn có thể đăng nhập để quản lí khách sạn")
       // navigate("/localhost:");
       setTimeout(() => {
         window.location.reload();

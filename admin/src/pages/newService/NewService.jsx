@@ -9,6 +9,8 @@ import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./newService.scss";
+import Alert from "../../components/Alert/Alert";
+import toast from "react-hot-toast"
 
 const NewService = () => {
   const navigate = useNavigate()
@@ -40,83 +42,14 @@ const NewService = () => {
 
       await axios.post("/services", newservice);
       console.log(newservice);
-      alert('Thêm dịch vụ thành công!')
-      navigate("/services");
+      toast.success('Thêm dịch vụ thành công!')
+
+      setTimeout(() => {
+        navigate("/services");
+      }, 800);
+      
     } catch (err) {console.log(err)}
   };
-
-  // return (
-  //   <div className="new">
-  //     <Sidebar />
-  //     <div className="newContainer">
-  //       <Navbar />
-  //       <div className="top">
-  //         <h1>Thêm Khách Sạn Mới</h1>
-  //       </div>
-  //       <div className="bottom">
-  //         {/* <div className="left">
-  //           <img
-  //             src={
-  //               files
-  //                 ? URL.createObjectURL(files[0])
-  //                 : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg"
-  //             }
-  //             alt=""
-  //           />
-  //         </div> */}
-  //         <div className="right">
-  //           <form>
-  //             {/* <div className="formInput">
-  //               <label htmlFor="file">
-  //                 Image: <DriveFolderUploadOutlinedIcon className="icon" />
-  //               </label>
-  //               <input
-  //                 type="file"
-  //                 id="file"
-  //                 multiple
-  //                 onChange={(e) => setFiles(e.target.files)}
-  //                 style={{ display: "none" }}
-  //               />
-  //             </div> */}
-
-  //             {serviceInputs.map((input) => (
-  //               <div className="formInput" key={input.id}>
-  //                 <label>{input.label}</label>
-  //                 <input 
-  //                   id={input.id} 
-  //                   onChange={handleChange} 
-  //                   type={input.type} 
-  //                   placeholder={input.placeholder} />
-  //               </div>
-  //             ))}
-  //               {/* <div className="formInput">
-  //                 <label>Đánh Giá</label>
-  //                 <input id="rating" onChange={handleChange} placeholder="Từ 1 - 5 "> 
-  //                 </input>
-  //               </div> */}
-  //               {/* <div className="formInput">
-  //                 <label>Nổi Bật</label>
-  //                 <select id="special" onChange={handleChange}>
-  //                   <option value={false}>No</option>
-  //                   <option value={true}>Yes</option>
-  //                 </select>
-  //               </div> */}
-  //               {/* <div className="selectRooms">
-  //                 <label>Loại Phòng</label>
-  //                 <select id="rooms" multiple onChange={handleSelect}>
-  //                   {loading ? "loading" : data && data.map(room=>(
-  //                     <option key={room._id} value={room._id}>{room.title}</option>
-  //                   ))}
-  //                 </select>
-  //               </div> */}
-  //               <button onClick={handleClick}>Gửi</button>
-  //           </form>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
-
 
 
   return (
@@ -124,6 +57,7 @@ const NewService = () => {
       <Sidebar />
       <div className="newContainer">
         <Navbar />
+        <Alert/>
         <div className="top">
           <h1 className="h1-conf">Thêm dịch vụ mới</h1>
         </div>

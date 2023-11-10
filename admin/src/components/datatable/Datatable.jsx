@@ -100,6 +100,12 @@ const Datatable = ({ columns }) => {
     } catch (err) {}
   };
 
+  const handleDeleteRoom = async (id) => {
+    try {
+      await axios.delete(`/${path}/${id}/${managerHotelId}`);
+      setList(list.filter((item) => item._id !== id));
+    } catch (err) {}
+  };
   const actionColumn = [
     {
       field: "action",
@@ -115,10 +121,28 @@ const Datatable = ({ columns }) => {
               <div className="viewButton">Xem</div>
             </Link>
 
-            {path !== "reviews"  && path !== "users" && (
+            {/* {path !== "reviews"  && path !== "users" && (
               <div
                 className="deleteButton"
                 onClick={() => handleDelete(params.row._id)}
+              >
+                Xóa
+              </div>
+            )} */}
+
+            {path !== "reviews" && path !== "users" && path !== "rooms" && path !== "users/staff" && (
+              <div
+                className="deleteButton"
+                onClick={() => handleDelete(params.row._id)}
+              >
+                Xóa
+              </div>
+            )}
+
+            {path === "rooms" && (
+              <div
+                className="deleteButton"
+                onClick={() => handleDeleteRoom(params.row._id)}
               >
                 Xóa
               </div>

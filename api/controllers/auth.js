@@ -55,7 +55,7 @@ export const login = async (req, res, next) => {
       //     return next(createError(403,"Lý do khóa:" + user.lockReason));
       // }
       if (!!user.locked) {
-        return next(createError(403,"Lý do khóa:" + user.lockReason));
+        return next(createError(403,"Tài khoản bị khóa.\n Lý do khóa: " + user.lockReason));
     }
 
       const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);

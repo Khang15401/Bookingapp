@@ -9,6 +9,8 @@ import { AuthContext } from "../../context/AuthContex";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./editRoom.scss";
+import Alert from "../../components/Alert/Alert";
+import toast from "react-hot-toast";
 
 const EditRoom = ({}) => {
   const navigate = useNavigate();
@@ -61,11 +63,13 @@ const EditRoom = ({}) => {
       };
       // console.log(info);
       await axios.patch("/rooms/" + roomId, updateRoom);
-      alert("Sửa thông tin phòng thành công!");
+      toast.success("Sửa thông tin phòng thành công!");
       // navigate("/rooms");
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 800);
     } catch (err) {
-      alert("Sửa thông tin không thành công!");
+      toast.error("Sửa thông tin phòng không thành công!");
       console.log(err);
     }
   };
@@ -75,6 +79,7 @@ const EditRoom = ({}) => {
       <Sidebar />
       <div className="newContainer">
         <Navbar />
+        <Alert/>
         <div className="top">
           <h1>Thông tin phòng khách sạn</h1>
         </div>

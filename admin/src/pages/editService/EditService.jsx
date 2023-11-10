@@ -9,6 +9,8 @@ import { AuthContext } from "../../context/AuthContex";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./editService.scss";
+import Alert from "../../components/Alert/Alert";
+import toast from "react-hot-toast";
 
 const EditService = ({}) => {
   const navigate = useNavigate();
@@ -29,15 +31,19 @@ const EditService = ({}) => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-          const updateService = {
-            ...info,
-          };
+      const updateService = {
+        ...info,
+      };
       await axios.patch("/services/" + serviceId, updateService);
-      alert("Sửa thông tin dịch vụ thành công!");
-      console.log(updateService)
+      toast.success("Sửa thông tin dịch vụ thành công!");
+      console.log(updateService);
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 800);
       navigate("/services");
     } catch (err) {
-      alert("Sửa thông tin dịch vụ không thành công!");
+      toast.error("Sửa thông tin dịch vụ không thành công!");
       console.log(err);
     }
   };
@@ -47,6 +53,7 @@ const EditService = ({}) => {
       <Sidebar />
       <div className="newContainer">
         <Navbar />
+        <Alert />
         <div className="top">
           <h1>Sửa thông tin dịch vụ</h1>
         </div>
@@ -77,7 +84,6 @@ const EditService = ({}) => {
                   id="servicename"
                   name="servicename"
                   onChange={handleChange}
-                  
                 />
                 <label>Giới thiệu về dịch vụ</label>
                 <input
@@ -86,7 +92,6 @@ const EditService = ({}) => {
                   id="introduction"
                   name="name"
                   onChange={handleChange}
-                  
                 />
                 <label>Giá dịch vụ</label>
                 <input
