@@ -14,6 +14,7 @@ import Detail from "./pages/detail/Detail";
 import RegisterPartner from "./pages/registerPartner/RegisterPartner";
 import RegisterInfo from "./pages/registerInfomation/RegisterInfo";
 import Policies from "./pages/policies/Policies";
+import Messenger from "./pages/messenger/Messenger";
 
 // const signOut = (e) => {
 //     //e.preventDefault();
@@ -48,6 +49,7 @@ function App()  {
               <Route path="/partner" element={<RegisterPartner/>} /> 
               <Route path="/partner/register" element={<RegisterInfo/>} /> 
               <Route path="/policies" element={<Policies/>}/>
+              <Route path="/messenger" element={<Messenger/>}/>
           </Routes>
       </BrowserRouter>
   );

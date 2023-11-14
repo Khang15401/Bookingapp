@@ -9,7 +9,7 @@ import useFetch from "../../hooks/useFetch";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { user } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
   // const userStore = JSON.parse(localStorage.getItem("user"));
   // const userId = user._id;
   // const { data, loading, error, reFetch } = useFetch(`/users/${userId}`);

@@ -46,6 +46,20 @@ export const getUsersByRole = async (req, res, next) => {
   }
 };
 
+export const getUserByQuery = async (req, res, next) => {
+  const userId = req.query.userId;
+  const username = req.query.username;
+  try {
+    const user = userId
+      ? await User.findById(userId)
+      : await User.findOne({ username: username });
+    const { password, updatedAt, ...other } = user._doc;
+    res.status(200).json(other);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const lockUser = async (req, res, next) => {
   try {
     const { lockReason } = req.body;

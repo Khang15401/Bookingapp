@@ -472,6 +472,7 @@ const Detail = () => {
   return (
     <div>
       <Navbar />
+      {/* <Mess */}
       <div className="container-detailOrder detail-sumary">
         <div className="wrap-detail">
           <div className="reservation-status-container">

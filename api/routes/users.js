@@ -2,6 +2,7 @@ import express from "express";
 import {
   deleteUser,
   getUser,
+  getUserByQuery,
   getUsers,
   getUsersByRole,
   lockUser,
@@ -35,6 +36,7 @@ router.get("/staff", verifyAdmin, getUsersByRole);
 router.patch("/locked/:id", verifyAdmin, lockUser);
 router.patch("/unlocked/:id", verifyAdmin, unlockUser);
 
+router.get("/friend",verifyUser, getUserByQuery)
 router.get("/:id", verifyUser, getUser);
 //GET ALL
 
