@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, Navigate, useLocation, useParams } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
@@ -12,7 +12,6 @@ import {
   faCalendarCheck,
   faList,
   faLocationDot,
-  faCopy,
   faCircleXmark,
   faCalendarDays,
   faBanSmoking,
@@ -30,7 +29,6 @@ import {
   faFaceMeh,
   faFaceGrinWide,
   faFaceSmileBeam,
-  faFaceLaughWink,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../../components/header/Header";
@@ -39,6 +37,7 @@ import { SearchContext, SearchContext1 } from "../../context/SearchContex";
 import useFetch1 from "../../hooks/useFetch1";
 import Reserve from "../../components/reserve/Reserve";
 import useFetch2 from "../../hooks/useFetch2";
+import useFetch3 from "../../hooks/useFetch3"
 import Alert from "../../components/Alert/Alert";
 import toast from "react-hot-toast";
 const Detail = () => {
@@ -46,15 +45,23 @@ const Detail = () => {
   // console.log(orderId);
   const location = useLocation();
   const path = location.pathname.split("/")[1];
+  const navigate = useNavigate();
   const { data, loading, error, reFetch } = useFetch(`/orders/${orderId}`);
   const hotelID = data.hotelId;
   const { data1, loading1, error1, reFetch1 } = useFetch1(
     `/hotels/room/${hotelID}`
   );
+  console.log(data1);
   const { data2, loading2, error2, reFetch2 } = useFetch2(
     `/orders/service/${orderId}`
   );
 
+  const { data3, loading3, error3, reFetch3 } = useFetch3(
+    `/hotels/filter/${hotelID}`
+  );
+  const reveiceId = data3.hotelOwner;
+  console.log(reveiceId);
+    
   const imgRoom = data.photoRoom;
 
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -233,7 +240,7 @@ const Detail = () => {
     return dates;
   };
   const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
-  console.log(alldates);
+  // console.log(alldates);
 
   const isAvailable = (roomNumber) => {
     const isFound = roomNumber.unavailableDates.some((date) =>
@@ -448,6 +455,34 @@ const Detail = () => {
       window.location.reload();
     } catch (error) {
       toast.error("Không thể gửi đánh giá!");
+      console.log(error);
+    }
+  };
+  const senderId = user._id;
+ 
+  const handleClick4 = async (e) => {
+    e.preventDefault();
+    try {
+
+      const newConversation = {
+        senderId: senderId,
+        receiverId: reveiceId,
+      };
+
+      const updateOrder = {
+        chatWith: true,
+      };
+      const res = await axios.post("/conversations", newConversation);
+      console.log(res.data._id);
+      // console.log(data);
+      await axios.patch("/orders/" + orderId, updateOrder);
+      // console.log(data);
+
+      // toast.success("Hoàn thành chỉnh ngày ở phòng!");
+      setTimeout(() => {
+        navigate("/messenger");
+      }, 1000);
+    } catch (error) {
       console.log(error);
     }
   };
@@ -967,9 +1002,10 @@ const Detail = () => {
                   <div className="title-contact">Liên hệ chỗ nghỉ</div>
                   <div className="tele-contact">Điện thoại +84965816876</div>
                   <div className="wrap-link-chat-with">
-                    <a href="#" className="link-chat-with">
+                    {!data.chatWith && (<a onClick={handleClick4} href="#" className="link-chat-with">
                       Nhắn tin
                     </a>
+                    )}
                   </div>
                   <div className="wrap-link-chat-with1">
                     <a href="#" className="link-chat-with">

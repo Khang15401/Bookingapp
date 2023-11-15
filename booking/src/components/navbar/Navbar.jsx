@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContex";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef } from "react";
 import { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
+import { faMessage } from "@fortawesome/free-solid-svg-icons";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { user } = useContext(AuthContext);
@@ -34,8 +36,14 @@ const Navbar = () => {
         {user ? (
           <>
             <div className="container-register-agent">
-              <a className="register-agent" href="/partner">
+              <Link className="link1" to="/messenger">
+                <FontAwesomeIcon style={{width:"20px", height: "19px"}} icon={faMessage} />
+              </Link>
+
+              <Link className="register-agent" to="/partner">
                 <span>Đăng chỗ nghỉ của Quý vị</span>
+              </Link>
+              <a className="register-agent" href="/partner">
               </a>
             </div>
             <div aria-expanded className="user" onClick={() => setOpen(!open)}>
@@ -44,7 +52,7 @@ const Navbar = () => {
                   <img className="img-user" src={user.img} alt="" />
                 </picture>
               </div>
-               {user.username}
+              {user.username}
             </div>
             {open && (
               <div className="options">

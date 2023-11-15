@@ -62,7 +62,7 @@ const EditOrder = ({}) => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const updatedPrice = priceOrder; // Giả sử ban đầu price sẽ là priceOrder
+      let updatedPrice = priceOrder; // Giả sử ban đầu price sẽ là priceOrder
 
       if (services.length > 0) {
         updatedPrice += priceService; // Nếu có dịch vụ được chọn, thì thêm giá dịch vụ vào giá đơn hàng
