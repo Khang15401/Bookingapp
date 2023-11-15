@@ -29,10 +29,9 @@ const Login = () => {
       const res = await axios.post("/auth/login", credentials);
       if (res.data.isAdmin) {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
-        toast.success("Đăng nhập thành công");
-        setTimeout(() => {
-          navigate("/");
-        },800)
+        // toast.success("Đăng nhập thành công");
+
+        navigate("/");
       } else {
         toast.error("Bạn không được phép");
         dispatch({

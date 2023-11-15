@@ -1,5 +1,11 @@
 import React, { useContext, useState } from "react";
-import { Link, Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Navbar from "../../components/navbar/Navbar";
 import Footer from "../../components/footer/Footer";
@@ -37,9 +43,10 @@ import { SearchContext, SearchContext1 } from "../../context/SearchContex";
 import useFetch1 from "../../hooks/useFetch1";
 import Reserve from "../../components/reserve/Reserve";
 import useFetch2 from "../../hooks/useFetch2";
-import useFetch3 from "../../hooks/useFetch3"
+import useFetch3 from "../../hooks/useFetch3";
 import Alert from "../../components/Alert/Alert";
 import toast from "react-hot-toast";
+import useFetch4 from "../../hooks/useFetch4";
 const Detail = () => {
   const { orderId } = useParams();
   // console.log(orderId);
@@ -48,6 +55,7 @@ const Detail = () => {
   const navigate = useNavigate();
   const { data, loading, error, reFetch } = useFetch(`/orders/${orderId}`);
   const hotelID = data.hotelId;
+  console.log(hotelID);
   const { data1, loading1, error1, reFetch1 } = useFetch1(
     `/hotels/room/${hotelID}`
   );
@@ -60,8 +68,14 @@ const Detail = () => {
     `/hotels/filter/${hotelID}`
   );
   const reveiceId = data3.hotelOwner;
-  console.log(reveiceId);
-    
+  // console.log(data3.rating);
+  // console.log(reveiceId);
+  // console.log(data3.reviews);
+  const { data4, loading4, error4, reFetch4 } = useFetch4(
+    `/reviews/getall/${hotelID}`
+  );
+  // console.log(data4);
+
   const imgRoom = data.photoRoom;
 
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -407,6 +421,7 @@ const Detail = () => {
 
   const handleClick3 = async (e) => {
     e.preventDefault();
+    let ratingsArray;
     try {
       const newReview = {
         userId: data.userId,
@@ -452,18 +467,77 @@ const Detail = () => {
       };
       await axios.patch(`/orders/${orderId}`, Reviewed);
       console.log(Reviewed);
-      window.location.reload();
+      //Tinh Rating cho khach san
+
+
+      const ratingPoint = await axios.get(`/reviews/getall/${hotelID}`);
+
+    if (ratingPoint && ratingPoint.data && Array.isArray(ratingPoint.data)) {
+      ratingsArray = ratingPoint.data.map(item => item.rating);
+      console.log(ratingsArray);
+    } else {
+      console.log("Không có thông tin về điểm đánh giá hoặc dữ liệu không phải là mảng.");
+    }
+
+    console.log(ratingsArray);
+
+    if (ratingsArray) {
+      const totalRating = ratingsArray.reduce((acc, rating) => acc + rating, 0);
+      console.log(totalRating);
+      const averageRating = totalRating / ratingsArray.length;
+      console.log(averageRating);
+      const updateRating = {
+        rating: averageRating.toFixed(1),
+      };
+      await axios.patch(`/hotels/${hotelID}`, updateRating);
+      // Sử dụng biến updateRating ở đây
+    } else {
+      console.log("Không có thông tin về điểm đánh giá.");
+    }
+      // const ratingPoint = await axios.get(`/reviews/getall/${hotelID}`);
+
+      // if (ratingPoint && ratingPoint.data && Array.isArray(ratingPoint.data)) {
+      //   const ratingsArray = ratingPoint.data.map(item => item.rating);
+      //   console.log(ratingsArray);
+      // } else {
+      //   console.log("Không có thông tin về điểm đánh giá hoặc dữ liệu không phải là mảng.");
+      // }
+      // console.log(ratingsArray);
+
+      // if (ratingsArray) {
+      //   const totalRating = ratingsArray.reduce((acc, rating) => acc + rating, 0);
+      //   console.log(totalRating);
+      //   const averageRating = totalRating / ratingsArray.length;
+      //   console.log(averageRating);
+      //   const updateRating = {
+      //     rating: averageRating.toFixed(1),
+      //   };
+      //   await axios.patch(`/hotels/${hotelID}`, updateRating);
+      //   // Sử dụng biến updateRating ở đây
+      // } else {
+      //   console.log("Không có thông tin về điểm đánh giá.");
+      // }
+
+      // const totalRating = ratingsArray.reduce((acc, rating) => acc + rating, 0);
+      // console.log(totalRating);
+      // const averageRating = totalRating / ratingArray.length;
+      // console.log(averageRating);
+      // const updateRating = {
+      //   rating: averageRating.toFixed(1),
+      // };
+      // await axios.patch(`/hotels/${hotelID}`, updateRating);
+      // window.location.reload();
     } catch (error) {
       toast.error("Không thể gửi đánh giá!");
       console.log(error);
     }
   };
+
   const senderId = user._id;
- 
+
   const handleClick4 = async (e) => {
     e.preventDefault();
     try {
-
       const newConversation = {
         senderId: senderId,
         receiverId: reveiceId,
@@ -1002,9 +1076,14 @@ const Detail = () => {
                   <div className="title-contact">Liên hệ chỗ nghỉ</div>
                   <div className="tele-contact">Điện thoại +84965816876</div>
                   <div className="wrap-link-chat-with">
-                    {!data.chatWith && (<a onClick={handleClick4} href="#" className="link-chat-with">
-                      Nhắn tin
-                    </a>
+                    {!data.chatWith && (
+                      <a
+                        onClick={handleClick4}
+                        href="#"
+                        className="link-chat-with"
+                      >
+                        Nhắn tin
+                      </a>
                     )}
                   </div>
                   <div className="wrap-link-chat-with1">

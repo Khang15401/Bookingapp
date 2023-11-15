@@ -130,14 +130,18 @@ const Datatable = ({ columns }) => {
               </div>
             )} */}
 
-            {path !== "reviews" && path !== "users" && path !== "rooms" && path !== "users/staff" && (
-              <div
-                className="deleteButton"
-                onClick={() => handleDelete(params.row._id)}
-              >
-                Xóa
-              </div>
-            )}
+            {/* {path !== "reviews" && path !== "users" && path !== "rooms" && path !== "users/staff" && ( */}
+            {path !== "reviews" &&
+              path !== "users" &&
+              path !== "rooms" &&
+              path !== "users/staff" && (
+                <div
+                  className="deleteButton"
+                  onClick={() => handleDelete(params.row._id)}
+                >
+                  Xóa
+                </div>
+              )}
 
             {path === "rooms" && (
               <div
@@ -147,6 +151,15 @@ const Datatable = ({ columns }) => {
                 Xóa
               </div>
             )}
+
+            {/* {path === "reviews" && (
+              <div
+                className="deleteButton"
+                onClick={() => handleDeleteRoom(params.row._id)}
+              >
+                Xóa
+              </div>
+            )} */}
           </div>
         );
       },

@@ -94,7 +94,7 @@ const Sidebar = () => {
             </>
           )}
 
-          <p className="title">Người dùng</p>
+          {/* <p className="title">Người dùng</p>
           <Link to="/login" style={{ textDecoration: "none" }}>
             <li>
               <ExitToAppIcon className="icon" />
@@ -107,7 +107,7 @@ const Sidebar = () => {
                 </span>
               )}
             </li>
-          </Link>
+          </Link> */}
 
           {/* <Link to="/login" style={{ textDecoration: "none" }}>
             <li>

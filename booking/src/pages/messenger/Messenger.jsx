@@ -145,7 +145,7 @@ export default function Messenger() {
               </>
             ) : (
               <span className="noConversationText">
-                Open conversation to start chat.
+                Mở cuộc trò chuyện để bắt đầu trò chuyện.
               </span>
             )}
           </div>

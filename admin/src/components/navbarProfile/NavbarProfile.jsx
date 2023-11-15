@@ -14,7 +14,7 @@ import { Link } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+const NavbarProfile = () => {
   const { dispatch } = useContext(DarkModeContext);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -34,8 +34,7 @@ const Navbar = () => {
     <div className="navbar">
       <div className="wrapper">
         <div className="search">
-          {/* <input type="text" placeholder="Search..." />
-          <SearchOutlinedIcon /> */}
+          Kiawadmin
         </div>
         <div className="items">
           {/* <div className="item">
@@ -84,4 +83,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarProfile;

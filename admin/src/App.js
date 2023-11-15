@@ -28,6 +28,7 @@ import EditService from "./pages/editService/EditService";
 import NewService from "./pages/newService/NewService";
 import DetailsPartner from "./pages/detailsPartner/DetailsPartner";
 import DetailReview from "./pages/detailReview/DetailReview";
+import EditProfile from "./pages/editProfile/EditProfile";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -55,59 +56,7 @@ function App() {
               }
             />
 
-            {/* <Route path="users">
-              <Route
-                index
-                element={
-                  <ProtectedRoute>
-                    <List columns={userColumns} />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path=":userId"
-                element={
-                  <ProtectedRoute>
-                    <Edit />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="new"
-                element={
-                  <ProtectedRoute>
-                    <New inputs={userInputs} title="Thêm Người Dùng Mới" />
-                  </ProtectedRoute>
-                }
-              />
-            </Route>
-
-            <Route path="users/staff">
-              <Route
-                index
-                element={
-                  <ProtectedRoute>
-                    <List columns={staffColumns} />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path=":userId"
-                element={
-                  <ProtectedRoute>
-                    <Edit />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="new"
-                element={
-                  <ProtectedRoute>
-                    <New inputs={userInputs} title="Thêm Người Dùng Mới" />
-                  </ProtectedRoute>
-                }
-              />
-            </Route> */}
+            <Route path="/profile" element={<EditProfile />} />
 
             <Route path="users">
               <Route

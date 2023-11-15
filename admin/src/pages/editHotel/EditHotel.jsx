@@ -60,10 +60,10 @@ const EditHotel = ({}) => {
       };
       // console.log(data);
       await axios.patch("/hotels/" + hotelId, updateHotel);
-      toast.success("Sửa thông tin khách sạn thành công!");
+      toast.success("Cập nhật khách sạn thành công!");
 
       setTimeout(() => {
-        navigate("/hotels");
+        navigate("/");
       }, 800);
     } catch (err) {
       toast.error("Sửa thông tin không thành công!");

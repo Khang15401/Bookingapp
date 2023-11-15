@@ -196,15 +196,15 @@ const DetailsPartner = ({}) => {
                 </div>
               </label>
               <label>
-                Địa chỉ:<div>{data1.address}</div>
+                Địa chỉ:<div style={{width: "260px"}}>{data1.address}</div>
               </label>
               <label>
-                Điểm đánh giá: <div>{data1.rating}</div>
+                Điểm đánh giá: <div style={{width: "260px"}}>{data1.rating}</div>
               </label>
               <label>
-                Giới thiệu: <div>{data1.title}</div>
+                Giới thiệu: <div style={{width: "260px"}}>{data1.title}</div>
               </label>
-              <h3 style={{ paddingBottom: "30px" }}>Danh sách phòng</h3>
+              <h3 style={{ paddingBottom: "30px", width: "260px" }}>Danh sách phòng</h3>
 
               {data2.map((item, index) => (
                 <div key={index}>
