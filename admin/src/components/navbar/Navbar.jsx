@@ -66,11 +66,21 @@ const Navbar = () => {
           {open && (
             <div className="options">
               <>
-                <Link className="link" to = "/profile">
-                  <a style={{textDecoration: "none", color:"inherit"}} href="/profile">Thông tin</a>
+                <Link className="link" to="/profile">
+                  <a
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    href="/profile"
+                  >
+                    Thông tin
+                  </a>
                 </Link>
-                <Link className="link" to="/users">
-                  Đổi mật khẩu
+                <Link className="link" to="/changePassword">
+                  <a
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    href="/changePassword"
+                  >
+                    Đổi mật khẩu
+                  </a>
                 </Link>
                 <Link className="link" onClick={handleLogout} to="/login">
                   Đăng xuất

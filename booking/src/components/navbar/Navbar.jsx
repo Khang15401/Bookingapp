@@ -63,6 +63,9 @@ const Navbar = () => {
                   <Link className="link" to="/orders">
                     Booking
                   </Link>
+                  <Link className="link" to="/changePassword">
+                    Đổi mật khẩu
+                  </Link>
                   <Link className="link" to="/login" onClick={handleLogout}>
                     Đăng xuất
                   </Link>

@@ -1,11 +1,5 @@
-import "./navbar.scss";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
+import "./navbarProfile.scss";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContex";
@@ -34,7 +28,10 @@ const NavbarProfile = () => {
     <div className="navbar">
       <div className="wrapper">
         <div className="search">
-          Kiawadmin
+          {/* Kiawadmin */}
+          <a href="/" style={{ textDecoration: "none" }}>
+            <span className="logo">Kiawadmin</span>
+          </a>
         </div>
         <div className="items">
           {/* <div className="item">
@@ -65,11 +62,21 @@ const NavbarProfile = () => {
           {open && (
             <div className="options">
               <>
-                <Link className="link" to = "/profile">
-                  <a style={{textDecoration: "none", color:"inherit"}} href="/profile">Thông tin</a>
+                <Link className="link" to="/profile">
+                  <a
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    href="/profile"
+                  >
+                    Thông tin
+                  </a>
                 </Link>
-                <Link className="link" to="/users">
-                  Đổi mật khẩu
+                <Link className="link" to="/changePassword">
+                  <a
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    href="/changePassword"
+                  >
+                    Đổi mật khẩu
+                  </a>
                 </Link>
                 <Link className="link" onClick={handleLogout} to="/login">
                   Đăng xuất

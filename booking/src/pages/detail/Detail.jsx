@@ -469,64 +469,35 @@ const Detail = () => {
       console.log(Reviewed);
       //Tinh Rating cho khach san
 
-
       const ratingPoint = await axios.get(`/reviews/getall/${hotelID}`);
 
-    if (ratingPoint && ratingPoint.data && Array.isArray(ratingPoint.data)) {
-      ratingsArray = ratingPoint.data.map(item => item.rating);
+      if (ratingPoint && ratingPoint.data && Array.isArray(ratingPoint.data)) {
+        ratingsArray = ratingPoint.data.map((item) => item.rating);
+        console.log(ratingsArray);
+      } else {
+        console.log(
+          "Không có thông tin về điểm đánh giá hoặc dữ liệu không phải là mảng."
+        );
+      }
+
       console.log(ratingsArray);
-    } else {
-      console.log("Không có thông tin về điểm đánh giá hoặc dữ liệu không phải là mảng.");
-    }
 
-    console.log(ratingsArray);
-
-    if (ratingsArray) {
-      const totalRating = ratingsArray.reduce((acc, rating) => acc + rating, 0);
-      console.log(totalRating);
-      const averageRating = totalRating / ratingsArray.length;
-      console.log(averageRating);
-      const updateRating = {
-        rating: averageRating.toFixed(1),
-      };
-      await axios.patch(`/hotels/${hotelID}`, updateRating);
-      // Sử dụng biến updateRating ở đây
-    } else {
-      console.log("Không có thông tin về điểm đánh giá.");
-    }
-      // const ratingPoint = await axios.get(`/reviews/getall/${hotelID}`);
-
-      // if (ratingPoint && ratingPoint.data && Array.isArray(ratingPoint.data)) {
-      //   const ratingsArray = ratingPoint.data.map(item => item.rating);
-      //   console.log(ratingsArray);
-      // } else {
-      //   console.log("Không có thông tin về điểm đánh giá hoặc dữ liệu không phải là mảng.");
-      // }
-      // console.log(ratingsArray);
-
-      // if (ratingsArray) {
-      //   const totalRating = ratingsArray.reduce((acc, rating) => acc + rating, 0);
-      //   console.log(totalRating);
-      //   const averageRating = totalRating / ratingsArray.length;
-      //   console.log(averageRating);
-      //   const updateRating = {
-      //     rating: averageRating.toFixed(1),
-      //   };
-      //   await axios.patch(`/hotels/${hotelID}`, updateRating);
-      //   // Sử dụng biến updateRating ở đây
-      // } else {
-      //   console.log("Không có thông tin về điểm đánh giá.");
-      // }
-
-      // const totalRating = ratingsArray.reduce((acc, rating) => acc + rating, 0);
-      // console.log(totalRating);
-      // const averageRating = totalRating / ratingArray.length;
-      // console.log(averageRating);
-      // const updateRating = {
-      //   rating: averageRating.toFixed(1),
-      // };
-      // await axios.patch(`/hotels/${hotelID}`, updateRating);
-      // window.location.reload();
+      if (ratingsArray) {
+        const totalRating = ratingsArray.reduce(
+          (acc, rating) => acc + rating,
+          0
+        );
+        console.log(totalRating);
+        const averageRating = totalRating / ratingsArray.length;
+        console.log(averageRating);
+        const updateRating = {
+          rating: averageRating.toFixed(1),
+        };
+        await axios.patch(`/hotels/${hotelID}`, updateRating);
+        // Sử dụng biến updateRating ở đây
+      } else {
+        console.log("Không có thông tin về điểm đánh giá.");
+      }
     } catch (error) {
       toast.error("Không thể gửi đánh giá!");
       console.log(error);

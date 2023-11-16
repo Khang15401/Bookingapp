@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  changePassword,
   deleteUser,
   getUser,
   getUserByQuery,
@@ -26,7 +27,9 @@ const router = express.Router();
 // })
 
 //UPDATE
+
 router.patch("/:id", verifyUser, updateUser);
+router.post("/changePassword/:id", verifyUser, changePassword);
 //DELETE
 router.delete("/:id", verifyUser, deleteUser);
 

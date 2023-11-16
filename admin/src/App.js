@@ -29,6 +29,7 @@ import NewService from "./pages/newService/NewService";
 import DetailsPartner from "./pages/detailsPartner/DetailsPartner";
 import DetailReview from "./pages/detailReview/DetailReview";
 import EditProfile from "./pages/editProfile/EditProfile";
+import ChangePassword from "./pages/changePassword/ChangePassword";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -57,6 +58,7 @@ function App() {
             />
 
             <Route path="/profile" element={<EditProfile />} />
+            <Route path="/changePassword" element={<ChangePassword/>}/>
 
             <Route path="users">
               <Route

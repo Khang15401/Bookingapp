@@ -30,10 +30,8 @@ const Login = () => {
       const res = await axios.post("/auth/login", credentials);
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
 
-      toast.success("Đăng nhập thành công!");
-      setTimeout(() => {
-        navigate("/");
-      }, 800);
+      // toast.success("Đăng nhập thành công!");
+      navigate("/");
     } catch (err) {
       // toast.error("Đăng nhập thất bại!");
       // toast.error(error.message);

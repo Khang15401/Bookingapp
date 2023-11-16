@@ -72,7 +72,7 @@ const EditProfile = () => {
             {/* <div className="div-tong"> */}
             <div className="title-input">
               <h2 className="lH21">Tài khoản </h2>
-              <h2 className="lH21">Email </h2>
+              {/* <h2 className="lH21">Email </h2> */}
               <h2 className="lH21">Quốc gia </h2>
               <h2 className="lH21">Thành phố </h2>
               <h2 className="lH21">Điện thoại </h2>
@@ -86,14 +86,14 @@ const EditProfile = () => {
                 name="username"
                 className="lInput1"
               />
-              <input
+              {/* <input
                 onChange={handleChange}
                 type="text"
                 placeholder={data.email}
                 id="email"
                 name="email"
                 className="lInput1"
-              />
+              /> */}
               <input
                 onChange={handleChange}
                 type="text"

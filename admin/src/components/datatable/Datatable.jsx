@@ -109,7 +109,7 @@ const Datatable = ({ columns }) => {
   const actionColumn = [
     {
       field: "action",
-      headerName: "Action",
+      headerName: "Thao tác",
       width: 200,
       renderCell: (params) => {
         return (

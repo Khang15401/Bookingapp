@@ -1,4 +1,6 @@
 import User from "../models/User.js";
+import bcrypt from "bcryptjs"
+
 
 export const updateUser = async (req, res, next) => {
   try {
@@ -88,6 +90,43 @@ export const unlockUser = async (req, res, next) => {
       { new: true }
     );
     res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const changePassword = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+
+    // Lấy thông tin người dùng từ userId
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json("Người dùng không tồn tại");
+    }
+
+    // So sánh mật khẩu cũ
+    const isPasswordCorrect = await bcrypt.compare(oldPassword, user.password);
+
+    if (!isPasswordCorrect) {
+      return res.status(401).json("Mật khẩu cũ không chính xác");
+    }
+
+    // Kiểm tra xác nhận mật khẩu mới
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json("Xác nhận mật khẩu mới không khớp");
+    }
+
+    // Mã hóa mật khẩu mới
+    const newHashedPassword = bcrypt.hashSync(newPassword, 10);
+
+    // Cập nhật mật khẩu mới cho người dùng
+    user.password = newHashedPassword;
+    await user.save();
+
+    res.status(200).json("Mật khẩu đã được thay đổi thành công");
   } catch (err) {
     next(err);
   }
