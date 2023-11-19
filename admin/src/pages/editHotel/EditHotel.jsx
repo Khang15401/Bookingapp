@@ -145,14 +145,14 @@ const EditHotel = ({}) => {
             ) : (
               <form style={{ width: "100%" }}>
                 <div className="formInput" style={{ width: "80%", paddingTop: "30px" }}>
-                  <label>Tên Khách Sạn</label>
+                  <label>Tên khách sạn</label>
                   <input
                     onChange={handleChange}
                     placeholder={data.name}
                     id="name"
                     name="name"
                   />
-                  <label>Khoảng Cách</label>
+                  <label>Khoảng cách</label>
                   <input
                     onChange={handleChange}
                     type="text"
@@ -160,7 +160,7 @@ const EditHotel = ({}) => {
                     id="distance"
                     name="distance"
                   />
-                  <label>Địa Chỉ</label>
+                  <label>Địa chỉ</label>
                   <input
                     onChange={handleChange}
                     type="text"
@@ -168,7 +168,7 @@ const EditHotel = ({}) => {
                     id="address"
                     name="address"
                   />
-                  <label>Thành Phố</label>
+                  <label>Thành phố</label>
                   <input
                     onChange={handleChange}
                     type="text"
@@ -176,7 +176,7 @@ const EditHotel = ({}) => {
                     id="city"
                     name="city"
                   />
-                  <label>Tiêu Đề</label>
+                  <label>Tiêu đề</label>
                   <input
                     onChange={handleChange}
                     type="text"

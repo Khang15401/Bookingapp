@@ -41,7 +41,7 @@ const Navbar = () => {
               </Link>
 
               <Link className="register-agent" to="/partner">
-                <span>Đăng chỗ nghỉ của Quý vị</span>
+                <span>Đăng ký trở thành đối tác</span>
               </Link>
               <a className="register-agent" href="/partner">
               </a>

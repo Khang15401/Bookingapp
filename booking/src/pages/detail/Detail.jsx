@@ -565,6 +565,8 @@ const Detail = () => {
                   ? "Đơn đặt đang chờ được xác nhận"
                   : data.status === "Chưa nhận phòng"
                   ? "Đơn phòng đã được xác nhận"
+                  : data.status === "Đã nhận phòng"
+                  ? "Khách hàng đã đến chỗ nghỉ"
                   : data.status === "Hoàn thành"
                   ? "Đơn đặt đã hoàn tất"
                   : data.status === "Đã hủy"
@@ -876,7 +878,7 @@ const Detail = () => {
                           <div className="conf-table-content2" scope="row">
                             {data.quantity}
                           </div>
-                          <td className="conf-font">
+                          <td style={{textAlign: "right"}} className="conf-font">
                             {data.priceService
                               ? formatCurrency(
                                   data.price / 1.08 - data.priceService
@@ -889,7 +891,7 @@ const Detail = () => {
                             <div className="conf-table-content2" scope="row">
                               - {service.servicename}
                             </div>
-                            <td className="conf-font td-service">
+                            <td style={{textAlign: "right"}} className="conf-font td-service">
                               {formatCurrency(service.serviceprice)}
                             </td>
                           </tr>
@@ -898,7 +900,7 @@ const Detail = () => {
                           <div className="conf-table-content2" scope="row">
                             8 % Thuế GTGT
                           </div>
-                          <td className="conf-font">
+                          <td style={{textAlign:"right"}} className="conf-font">
                             {data.priceService
                               ? formatCurrency(data.price - data.price / 1.08)
                               : formatCurrency(data.price * 1.08 - data.price)}
@@ -980,7 +982,8 @@ const Detail = () => {
                     </div>
                     <div className="button-cancle-room-container">
                       <div className="wrap-button-cancle">
-                        {data.status !== "Hoàn thành" &&
+                        {data.status !== "Đã nhận phòng" &&
+                          data.status !== "Hoàn thành" &&
                           data.status !== "Đã hủy" && (
                             <button
                               onClick={() => handleClick(data.roomId, data._id)}
@@ -1001,33 +1004,38 @@ const Detail = () => {
                 </div>
               </div>
               <div className="change-time-book">
-                {data.status !== "Hoàn thành" && data.status !== "Đã hủy" && (
-                  <button
-                    type="button"
-                    className="button-cancle-room"
-                    onClick={() => setChangeTime(!changeTime)}
-                  >
-                    <span className="icon-cancle">
-                      <FontAwesomeIcon icon={faCalendarDays} />
-                    </span>
-                    <span className="title-cancle-room">
-                      Thay đổi ngày tháng
-                    </span>
-                  </button>
-                )}
-                {data.status !== "Hoàn thành" && data.status !== "Đã hủy" && (
-                  <button
-                    type="button"
-                    className="button-cancle-room change-number-room"
-                    onClick={handleChageNumberRoom}
-                  >
-                    <span className="icon-cancle">
-                      <FontAwesomeIcon icon={faGears} />
-                    </span>
-                    <span className="title-cancle-room">Thay đổi phòng</span>
-                  </button>
-                )}
-                {data.status !== "Chờ xác nhận từ khách sạn" &&
+                {data.status !== "Đã nhận phòng" &&
+                  data.status !== "Hoàn thành" &&
+                  data.status !== "Đã hủy" && (
+                    <button
+                      type="button"
+                      className="button-cancle-room"
+                      onClick={() => setChangeTime(!changeTime)}
+                    >
+                      <span className="icon-cancle">
+                        <FontAwesomeIcon icon={faCalendarDays} />
+                      </span>
+                      <span className="title-cancle-room">
+                        Thay đổi ngày tháng
+                      </span>
+                    </button>
+                  )}
+                {data.status !== "Đã nhận phòng" &&
+                  data.status !== "Hoàn thành" &&
+                  data.status !== "Đã hủy" && (
+                    <button
+                      type="button"
+                      className="button-cancle-room change-number-room"
+                      onClick={handleChageNumberRoom}
+                    >
+                      <span className="icon-cancle">
+                        <FontAwesomeIcon icon={faGears} />
+                      </span>
+                      <span className="title-cancle-room">Thay đổi phòng</span>
+                    </button>
+                  )}
+                {data.status !== "Đã nhận phòng" &&
+                  data.status !== "Chờ xác nhận từ khách sạn" &&
                   data.status !== "Chưa nhận phòng" &&
                   data.status !== "Đã hủy" &&
                   !data.reviewed && (
@@ -1110,7 +1118,14 @@ const Detail = () => {
           {showConfirmation && (
             <div className="confirmation-dialog">
               <div className="confirmation-content">
+              {data.status === "Chờ xác nhận từ khách sạn" && (
                 <h3 className="conf-font">Xác nhận hủy đặt phòng</h3>
+                )}
+                {data.status === "Chưa nhận phòng" && (
+                  <h3 className="conf-font">
+                    Nếu hủy đặt phòng lúc này bạn sẽ không được hoàn tiền cọc
+                  </h3>
+                )}
                 <p className="conf-font">
                   Bạn có chắc chắn muốn hủy đặt phòng?
                 </p>

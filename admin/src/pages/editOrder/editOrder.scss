@@ -18,9 +18,15 @@
         font-size: 20px;
       }
 
-      .left{
+      .left {
         flex: 1;
         text-align: center;
+
+        .wrap-detail-payment{
+          border: 1px solid;
+          margin-top: 24px;
+        }
+
 
         img {
           width: 100px;
@@ -28,30 +34,140 @@
           border-radius: 50%;
           object-fit: cover;
         }
+
+        .header-title-room {
+          width: 100%;
+          text-align: center;
+          color: #1a1a1a;
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 28px;
+          margin-bottom: 16px;
+          margin-right: 360px;
+          margin-top: 15px;
+        }
+
+        .section {
+          width: 100%;
+          left: 0 !important;
+          max-width: 694px;
+
+          .room {
+            border-top: 3px solid #fafcff;
+            display: flex;
+            flex-direction: column;
+
+            h3 {
+              width: 100%;
+              text-align: center;
+              margin-bottom: 10px;
+            }
+
+            .conf-table {
+              margin-bottom: 0.3em;
+
+              .conf-table-content {
+                font-weight: bold;
+                // padding-right: 2em !important;
+                // text-align: left;
+                // width: 187px;
+                width: 197px;
+                text-align: left;
+              }
+
+              .conf-font {
+                font-size: 14px;
+                line-height: 20px;
+                font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                  "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+                  "Helvetica Neue", sans-serif;
+              }
+
+              .space-block {
+                margin-right: 100px;
+                opacity: 1;
+                margin-right: 300px;
+                text-align: left;
+              }
+            }
+
+            .wrap-price-final {
+              border: 1px solid #ebf3ff;
+              padding: 16px;
+              border-radius: 0;
+              width: 500px;
+              margin-left: 78px;
+
+              .table-price-final {
+                width: 100%;
+
+                .conf-table-content2 {
+                  font-size: 14px;
+                  line-height: 20px;
+                  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+                    "Helvetica Neue", sans-serif;
+                  width: auto;
+                  text-align: left;
+                }
+
+                .conf-price-room {
+                  font-size: 20px;
+                  line-height: 28px;
+                  color: #003b95;
+                }
+
+                .conf-font2 {
+                  font-size: 20px;
+                  line-height: 28px;
+                  color: #003b95;
+                  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+              }
+              }
+            }
+          }
+        }
+        .section-detail {
+          width: 100%;
+          padding: 0;
+          border-width: 0;
+          margin-bottom: 8px;
+
+          h3 {
+            margin-bottom: 10px;
+            margin-right: 305px;
+            // padding-right: 407px;
+          }
+        }
       }
 
       .right {
         flex: 2;
         padding: 0 20px;
 
-        form {
+        .form6 {
           display: flex;
           flex-wrap: wrap;
-          gap: 30px;
+          gap: 136px;
           justify-content: space-between;
 
-          .formInput {
-            width: 40%;
+          .formInput5 {
+            // width: 40%;
+            width: 29%;
 
             label {
               display: flex;
               align-items: center;
               gap: 10px;
+              margin-bottom: 10px;
 
               .icon {
                 cursor: pointer;
               }
+            }
 
+            .div-info {
+              margin-bottom: 10px;
             }
 
             input {
@@ -62,7 +178,7 @@
               border-bottom: 1px solid gray;
             }
 
-            .select-services{
+            .select-services {
               margin-bottom: 15px;
             }
           }
@@ -91,3 +207,210 @@
     }
   }
 }
+
+
+
+
+
+
+// <div className="left">
+//                   <div className="wrap-detail-payment">
+//                     <header className="header-title-room">
+//                       Chi tiết thanh toán
+//                     </header>
+//                     <div className="section section-detail">
+//                       <div className="room">
+//                         <h3>{data.titleRoom}</h3>
+//                         <table className="conf-table">
+//                           <tbody>
+//                             <tr>
+//                               <th scope="row" className="conf-table-content">
+//                                 <h5
+//                                   style={{ paddingLeft: "78px" }}
+//                                   className="conf-font"
+//                                 >
+//                                   Khách hàng
+//                                 </h5>
+//                               </th>
+//                               <td>
+//                                 <p></p>
+//                                 <div className="space-block">
+//                                   <span>
+//                                     <span className="conf-font">
+//                                       {data.userName}
+//                                     </span>
+//                                   </span>
+//                                 </div>
+//                                 <p></p>
+//                                 <p></p>
+//                               </td>
+//                             </tr>
+
+//                             <tr>
+//                               <th scope="row" className="conf-table-content">
+//                                 <h5
+//                                   style={{ paddingLeft: "78px" }}
+//                                   className="conf-font"
+//                                 >
+//                                   Khách sạn
+//                                 </h5>
+//                               </th>
+//                               <td>
+//                                 <p></p>
+//                                 <div className="space-block">
+//                                   <span>
+//                                     <span className="conf-font">
+//                                       {data.nameHotel}
+//                                     </span>
+//                                   </span>
+//                                 </div>
+//                                 <p></p>
+//                                 <p></p>
+//                               </td>
+//                             </tr>
+
+//                             <tr>
+//                               <th scope="row" className="conf-table-content">
+//                                 <h5
+//                                   style={{ paddingLeft: "78px" }}
+//                                   className="conf-font"
+//                                 >
+//                                   Chi tiết lựa chọn
+//                                 </h5>
+//                               </th>
+//                               <td>
+//                                 <p></p>
+//                                 <div className="space-block">
+//                                   <span>
+//                                     <span className="conf-font">
+//                                       {data.quantity}
+//                                     </span>
+//                                   </span>
+//                                 </div>
+//                                 <p></p>
+//                                 <p></p>
+//                               </td>
+//                             </tr>
+//                           </tbody>
+//                         </table>
+//                         <div>
+//                           <div className="wrap-price-final">
+//                             <table className="table-price-final">
+//                               <tbody>
+//                                 <tr>
+//                                   <div className="conf-table-content2">
+//                                     {data.quantity}
+//                                   </div>
+//                                   <td
+//                                     style={{ textAlign: "right" }}
+//                                     className="conf-font"
+//                                   >
+//                                     {data.priceService
+//                                       ? formatCurrency(
+//                                           data.price / 1.08 - data.priceService
+//                                         )
+//                                       : formatCurrency(data.price)}
+//                                   </td>
+//                                 </tr>
+
+//                                 {data2.map((service, index) => (
+//                                   <tr key={index}>
+//                                     <div
+//                                       className="conf-table-content2"
+//                                       scope="row"
+//                                     >
+//                                       - {service.servicename}
+//                                     </div>
+//                                     <td
+//                                       style={{ textAlign: "right" }}
+//                                       className="conf-font td-service"
+//                                     >
+//                                       {formatCurrency(service.serviceprice)}
+//                                     </td>
+//                                   </tr>
+//                                 ))}
+
+//                                 <tr>
+//                                   <div
+//                                     className="conf-table-content2"
+//                                     scope="row"
+//                                   >
+//                                     8 % Thuế GTGT
+//                                   </div>
+//                                   <td
+//                                     style={{ textAlign: "right" }}
+//                                     className="conf-font"
+//                                   >
+//                                     {data.priceService
+//                                       ? formatCurrency(
+//                                           data.price - data.price / 1.08
+//                                         )
+//                                       : formatCurrency(
+//                                           data.price * 1.08 - data.price
+//                                         )}
+//                                   </td>
+//                                 </tr>
+//                               </tbody>
+//                             </table>
+//                           </div>
+//                         </div>
+
+//                         <div>
+//                           <div className="wrap-price-final">
+//                             <table className="table-price-final">
+//                               <tbody>
+//                                 <tr>
+//                                   <div
+//                                     style={{ fontWeight: 0 }}
+//                                     className="conf-table-content2"
+//                                   >
+//                                     <div className="conf-price-room">Giá</div>
+//                                     <div className="conf-price-room-note ">
+//                                       (dành cho 2 khách)
+//                                     </div>
+//                                   </div>
+//                                   <td
+//                                     style={{ textAlign: "right" }}
+//                                     className="conf-font2"
+//                                   >
+//                                     {/* {formatCurrency(data.price)} */}
+//                                     {data.price * 0.08}
+//                                   </td>
+//                                 </tr>
+//                               </tbody>
+//                             </table>
+//                           </div>
+//                         </div>
+
+//                         <div>
+//                           <div className="wrap-price-final">
+//                             <table className="table-price-final">
+//                               <tbody>
+//                                 <tr>
+//                                   <div
+//                                     style={{ fontWeight: 0 }}
+//                                     className="conf-table-content2"
+//                                   >
+//                                     <div className="conf-price-room">
+//                                       Trạng thái
+//                                     </div>
+//                                     {/* <div className="conf-price-room-note ">
+//                                     (dành cho 2 khách)
+//                                   </div> */}
+//                                   </div>
+//                                   <td
+//                                     style={{ textAlign: "right" }}
+//                                     className="conf-font2"
+//                                   >
+//                                     Đã hủy
+//                                   </td>
+//                                 </tr>
+//                               </tbody>
+//                             </table>
+//                           </div>
+//                         </div>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 </div>
+//               )}

@@ -74,12 +74,32 @@ const Datatable = ({ columns }) => {
   //   }
   // }, [data, data2, data, data3, path, staffRole]);
 
+  // useEffect(() => {
+  //   if (staffRole === "staff") {
+  //     if (path === "rooms" && Array.isArray(data2)) {
+  //       setList(data2);
+  //     } else {
+  //       setList(Array.isArray(data1) ? data1 : data1 ? [data1] : []);
+  //     }
+  //   } else if (staffRole === "admin") {
+  //     if (path === "users") {
+  //       setList(nonAdminUsers);
+  //     } else if (path === "users/staff") {
+  //       setList(staffUsers);
+  //     } else if (path === "reviews") {
+  //       // Thêm điều kiện cho path là "reviews"
+  //       setList(data);
+  //     }
+  //   }
+  // }, [data, data1, data2, path, staffRole]);
+
   useEffect(() => {
     if (staffRole === "staff") {
       if (path === "rooms" && Array.isArray(data2)) {
         setList(data2);
       } else {
-        setList(Array.isArray(data1) ? data1 : data1 ? [data1] : []);
+        // Đảo ngược mảng data1 và set vào state
+        setList(Array.isArray(data1) ? data1.slice().reverse() : data1 ? [data1] : []);
       }
     } else if (staffRole === "admin") {
       if (path === "users") {
