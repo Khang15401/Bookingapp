@@ -64,3 +64,14 @@ export const deleteService = async(req, res, next)=>{
       next(err);
   }
 }
+
+export const hiddenService = async (req, res, next) => {
+    try {
+      // Thay vì xóa, chúng ta sẽ cập nhật trạng thái isHidden thành true
+      await Service.findByIdAndUpdate(req.params.id, { isHidden: true });
+  
+      res.status(200).json("Dịch vụ đã bị ẩn");
+    } catch (err) {
+      next(err);
+    }
+  };

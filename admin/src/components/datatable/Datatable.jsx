@@ -15,6 +15,7 @@ const Datatable = ({ columns }) => {
   // console.log(path);
   // const path2 = location.pathname.split("/")[2];
   // console.log(path2)
+  const [searchTerm, setSearchTerm] = useState("");
 
   const path = location.pathname.slice(1); // Bỏ dấu '/' ở đầu nếu có
   console.log(path);
@@ -99,19 +100,34 @@ const Datatable = ({ columns }) => {
         setList(data2);
       } else {
         // Đảo ngược mảng data1 và set vào state
-        setList(Array.isArray(data1) ? data1.slice().reverse() : data1 ? [data1] : []);
+        setList(
+          Array.isArray(data1) ? data1.slice().reverse() : data1 ? [data1] : []
+        );
       }
     } else if (staffRole === "admin") {
       if (path === "users") {
-        setList(nonAdminUsers);
+        setList(nonAdminUsers.reverse());
       } else if (path === "users/staff") {
-        setList(staffUsers);
+        setList(staffUsers.reverse());
       } else if (path === "reviews") {
         // Thêm điều kiện cho path là "reviews"
         setList(data);
       }
     }
   }, [data, data1, data2, path, staffRole]);
+
+  //Ham search
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredList = list.filter((item) =>
+    Object.values(item).some(
+      (value) =>
+        value &&
+        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
 
   const handleDelete = async (id) => {
     try {
@@ -152,6 +168,7 @@ const Datatable = ({ columns }) => {
 
             {/* {path !== "reviews" && path !== "users" && path !== "rooms" && path !== "users/staff" && ( */}
             {path !== "reviews" &&
+              path !== "services" &&
               path !== "users" &&
               path !== "rooms" &&
               path !== "users/staff" && (
@@ -169,6 +186,15 @@ const Datatable = ({ columns }) => {
                 onClick={() => handleDeleteRoom(params.row._id)}
               >
                 Xóa
+              </div>
+            )}
+
+            {path === "services" && (
+              <div
+                className="deleteButton"
+                onClick={() => handleDeleteRoom(params.row._id)}
+              >
+                Ẩn
               </div>
             )}
 
@@ -209,6 +235,14 @@ const Datatable = ({ columns }) => {
             Thêm mới
           </Link>
         )} */}
+        <div>
+          <input
+            type="text"
+            placeholder="Tìm kiếm"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </div>
 
         {/* {(staffRole !== "admin" ||
           (staffRole === "admin" &&
@@ -249,7 +283,8 @@ const Datatable = ({ columns }) => {
       </div>
       <DataGrid
         className="datagrid"
-        rows={list}
+        // rows={list}
+        rows={filteredList}
         columns={columns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}

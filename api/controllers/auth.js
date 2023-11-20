@@ -27,12 +27,12 @@ export const register = async (req, res, next) => {
       const hash = bcrypt.hashSync(req.body.password, salt);
   
       // Kiểm tra xem người dùng đã kiểm tra checkbox "staff" hay không
-      const isAdmin = req.body.role === "staff";
+      // const isAdmin = req.body.role === "staff";
   
       const userData = {
         ...req.body,
         password: hash,
-        isAdmin: isAdmin, // Đặt trường "isAdmin" thành true nếu người dùng kiểm tra checkbox "staff"
+         // Đặt trường "isAdmin" thành true nếu người dùng kiểm tra checkbox "staff"
       };
   
       const newUser = new User(userData);

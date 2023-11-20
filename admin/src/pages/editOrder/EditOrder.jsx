@@ -33,6 +33,10 @@ const EditOrder = ({}) => {
   console.log(priceOrder);
   const { data1, loading1, error1 } = useFetch1(`/services/filter/:id`);
   console.log(data1);
+
+  const filteredData1 = data1.filter((item) => item.isHidden === false);
+
+  console.log(filteredData1);
   const { order } = useContext(AuthContext);
 
   const { data2, loading2, error2, reFetch2 } = useFetch2(
@@ -195,8 +199,8 @@ const EditOrder = ({}) => {
                     >
                       {loading
                         ? "loading"
-                        : data1 &&
-                          data1.map((service) => (
+                        : filteredData1 &&
+                          filteredData1.map((service) => (
                             <option
                               key={service._id}
                               data-price={service.serviceprice}

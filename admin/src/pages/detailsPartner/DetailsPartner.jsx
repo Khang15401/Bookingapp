@@ -18,10 +18,13 @@ const DetailsPartner = ({}) => {
   const navigate = useNavigate();
   const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
+  console.log(info);
   const [users, setUsers] = useState([]);
   const [isLocked, setIsLocked] = useState(false);
   const [lockReason, setLockReason] = useState("");
   const [selectedValue, setSelectedValue] = useState("default");
+  // const [selectedValue1, setSelectedValue1] = useState("default1");
+
   const { userId } = useParams();
 
   const { data, loading, error } = useFetch(`/users/${userId}`);
@@ -42,6 +45,7 @@ const DetailsPartner = ({}) => {
       setLockReason(e.target.value);
     }
     setSelectedValue(e.target.value);
+    // setSelectedValue1(e.target.value);
   };
 
   // UPDATE INFO USER
@@ -88,13 +92,13 @@ const DetailsPartner = ({}) => {
       };
       await axios.patch("/users/" + userId, updateBanned);
       console.log(updateBanned);
-      toast.success("Điều chỉnh chặn người dùng thành công!");
+      toast.success("Cập nhật đối tác thành công!");
       
       setTimeout(() => {
-        navigate("/users");
+        navigate("/users/staff");
       }, 800);
     } catch (err) {
-      toast.error("Bị lỗi khi chặn người dùng!");
+      toast.error("Bị lỗi khi điều chỉnh đối tác!");
       console.log(err);
     }
   };
@@ -135,9 +139,28 @@ const DetailsPartner = ({}) => {
 
                 {/*  */}
 
+                {data.isAdmin === false && (
+                  <div className="formInputRow2">
+                  <label>Đối tác:</label>
+                  <div style={{marginBottom:"10px"}}>
+                    <select
+                      name="isAdmin"
+                      id="isAdmin"
+                      onChange={handleChange}
+                    >
+                      {/* <option value="default" disabled hidden>
+                        Hành động
+                      </option> */}
+                      <option value={false}>Không chấp thuận</option>
+                      <option value={true}>Chấp thuận</option>
+                    </select>
+                  </div>
+                </div>
+                )}
+
                 <div className="formInputRow2">
                   <label>Khóa tài khoản:</label>
-                  <div>
+                  <div style={{marginBottom:"10px"}}>
                     <select
                       name="lockReason"
                       value={selectedValue}

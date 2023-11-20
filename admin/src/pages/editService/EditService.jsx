@@ -19,10 +19,11 @@ const EditService = ({}) => {
   const [services, setServices] = useState([]);
   const { serviceId } = useParams();
   // console.log(orderId);
+  const [selectedValue, setSelectedValue] = useState("default");
 
   const { data, loading, error } = useFetch(`/services/${serviceId}`);
   const { serivce } = useContext(AuthContext);
-  console.log(data);
+  const hiddenService = data.isHidden;
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -39,9 +40,9 @@ const EditService = ({}) => {
       console.log(updateService);
 
       setTimeout(() => {
-        window.location.reload();
+        navigate("/services");
+        // window.location.reload();
       }, 800);
-      navigate("/services");
     } catch (err) {
       toast.error("Sửa thông tin dịch vụ không thành công!");
       console.log(err);
@@ -61,22 +62,6 @@ const EditService = ({}) => {
           <div className="right">
             <form>
               <div className="formInput">
-                {/* <label>Ảnh Khách Sạn</label>
-                <div
-                  class="img-update"
-                  onChange={handleChange}
-                  src={data.photos}
-                  id="photos"
-                ></div> */}
-                {/* <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label> */}
-                {/* <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: "none" }}
-                /> */}
                 <label>Tên dịch vụ</label>
                 <input
                   // type={input.type}
@@ -101,13 +86,27 @@ const EditService = ({}) => {
                   name="serviceprice"
                   onChange={handleChange}
                 />
-                {/* <label>Tình trạng</label>
-                <p>{data.status}</p>
-                <select id="status" onChange={handleChange}>
-                  <option value={'Chưa nhận phòng'}>Chưa nhận phòng</option>
-                  <option value={'Đã hủy'}>Đã hủy</option>
-                  <option value={'Hoàn thành'}>Hoàn thành</option>
-                </select> */}
+                <label>
+                  <p>
+                    <label>
+                      Tình trạng: <p>{hiddenService ? "Đã ẩn" : "Hiển thị"}</p>
+                    </label>
+                  </p>
+                </label>
+                {/* <p>{data.status}</p> */}
+                {data.status !== "Hoàn thành" && data.status !== "Đã hủy" && (
+                  <select
+                    id="isHidden"
+                    value={selectedValue}
+                    onChange={handleChange}
+                  >
+                    <option value="default" disabled hidden>
+                      Trạng thái
+                    </option>
+                    <option value={true}>Ẩn</option>
+                    <option value={false}>Hiển thị</option>
+                  </select>
+                )}
               </div>
 
               <button className="no-btn" disabled></button>

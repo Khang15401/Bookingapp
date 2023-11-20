@@ -18,7 +18,7 @@ const Home = () => {
         <Special/>
         <h1 className="homeTitle">Lưu trú tại các chỗ nghỉ độc đáo hàng đầu</h1>
         <PropertyList/>
-        <h1 className="homeTitle">Nhà ở mà khách yêu thích</h1>
+        <h1 className="homeTitle">Chỗ nghỉ mà khách yêu thích</h1>
         <SpecialProperty/>
         <MailList/>
         <Footer/>

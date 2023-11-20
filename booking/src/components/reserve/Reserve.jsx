@@ -128,6 +128,16 @@ const Reserve = ({ setOpen, hotelId }) => {
     const checked = e.target.checked;
     const value = e.target.value;
     console.log({ value });
+
+    const checkboxes = document.querySelectorAll(
+      '.room input[type="checkbox"]'
+    );
+    checkboxes.forEach((checkbox) => {
+      if (checkbox.value !== value) {
+        checkbox.disabled = checked;
+      }
+    });
+
     setShowPaypalButton(true);
     setShowConfirmButton(true);
     setSelectedRoomNumber(e.target.dataset.roomNumber);
@@ -243,6 +253,7 @@ const Reserve = ({ setOpen, hotelId }) => {
                       // data-room-basicprice={item.}
                       onChange={handleSelect}
                       disabled={!isAvailable(roomNumber)}
+                      // checked={selectedRoom === roomNumber._id}
                     />
                     {/* <label>Xác nhận</label> */}
                   </div>
@@ -293,7 +304,7 @@ const Reserve = ({ setOpen, hotelId }) => {
           )}
         </form>
       </div>
-      <Alert/>
+      <Alert />
     </div>
   );
 };
