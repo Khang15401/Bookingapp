@@ -2,6 +2,18 @@
   width: 100%;
   display: flex;
 
+  button {
+    width: 150px;
+    padding: 10px;
+    border: none;
+    background-color: rgb(237, 64, 64);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 500px;
+  }
+
   .newContainer {
     flex: 6;
 

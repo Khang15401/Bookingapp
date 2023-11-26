@@ -24,7 +24,8 @@ router.delete("/:id/:hotelid", verifyAdmin, deleteReviewHotel1);
 // router.delete("/:id", deleteReview);
 
 //GET
-router.get("/getall/:hotelid", getReviewHotelId);
+// router.get("/getall/:hotelid", getReviewHotelId);
+router.get("/filter/:hotelid", getReviewHotelId);
 router.get("/search/:id", getReview);
 router.get("/:id", getReviewId);
 

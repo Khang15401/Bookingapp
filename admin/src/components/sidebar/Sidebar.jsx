@@ -91,6 +91,12 @@ const Sidebar = () => {
                   <span>Dịch vụ khách sạn</span>
                 </li>
               </Link>
+              <Link to="/reviews" style={{ textDecoration: "none" }}>
+                <li>
+                  <RateReviewOutlinedIcon className="icon" />
+                  <span>Đánh giá</span>
+                </li>
+              </Link>
             </>
           )}
 

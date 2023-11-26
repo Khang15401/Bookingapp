@@ -98,13 +98,13 @@ const EditOrder = ({}) => {
       };
       await axios.patch("/orders/" + orderId, updateOrder);
       console.log(updateOrder);
-      toast.success("Sửa thông tin đơn hàng thành công!");
+      toast.success("Cập nhật đơn phòng thành công!");
 
       setTimeout(() => {
         navigate("/orders");
       }, 800);
     } catch (err) {
-      toast.error("Sửa thông tin không thành công!");
+      toast.error("Cập nhật đơn phòng không thành công!");
       console.log(err);
     }
   };
@@ -115,7 +115,7 @@ const EditOrder = ({}) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Sửa thông tin đơn hàng</h1>
+          <h1>Sửa thông tin đơn đặt phòng</h1>
         </div>
         <div className="bottom">
           {/* <div className="left"> */}

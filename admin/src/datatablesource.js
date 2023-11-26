@@ -131,16 +131,16 @@ export const orderColumns = [
     headerName: "Tên khách hàng",
     width: 170,
   },
-  {
-    field: "nameHotel",
-    headerName: "Tên khách sạn",
-    width: 200,
-  },
-  {
-    field: "city",
-    headerName: "Thành phố",
-    width: 150,
-  },
+  // {
+  //   field: "nameHotel",
+  //   headerName: "Tên khách sạn",
+  //   width: 200,
+  // },
+  // {
+  //   field: "city",
+  //   headerName: "Thành phố",
+  //   width: 150,
+  // },
   {
     field: "rooms",
     headerName: "Phòng",
@@ -154,7 +154,7 @@ export const orderColumns = [
   {
     field: "status",
     headerName: "Tình trạng",
-    width: 150,
+    width: 400,
   },
 ];
 

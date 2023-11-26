@@ -138,6 +138,7 @@ const Datatable = ({ columns }) => {
 
   const handleDeleteRoom = async (id) => {
     try {
+      console.log(id);
       await axios.delete(`/${path}/${id}/${managerHotelId}`);
       setList(list.filter((item) => item._id !== id));
     } catch (err) {}
@@ -198,7 +199,7 @@ const Datatable = ({ columns }) => {
               </div>
             )}
 
-            {/* {path === "reviews" && (
+            {/* {path === "reviews" && staffRole === "admin" && (
               <div
                 className="deleteButton"
                 onClick={() => handleDeleteRoom(params.row._id)}

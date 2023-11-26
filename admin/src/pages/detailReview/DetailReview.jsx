@@ -15,6 +15,7 @@ import { AuthContext } from "../../context/AuthContex";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./detailReview.scss";
+import toast from "react-hot-toast";
 
 const DetailReview = ({}) => {
   const navigate = useNavigate();
@@ -23,11 +24,26 @@ const DetailReview = ({}) => {
   const { reviewId } = useParams();
   console.log(reviewId);
 
+  const managerHotel = JSON.parse(localStorage.getItem("user"));
+  // console.log(managerHotelId);
+  const staffRole = managerHotel.role;
+
   const { data, loading, error } = useFetch(`/reviews/${reviewId}`);
-  console.log(data);
+  const managerHotelId = data.hotelId;
+  console.log(managerHotelId);
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const handleDeleteRoom = async () => {
+    try {
+      await axios.delete(`/reviews/${reviewId}/${managerHotelId}`);
+      toast.success("Xóa đánh giá thành công!");
+      setTimeout(() => {
+        navigate("/reviews");
+      }, 700);
+    } catch (err) {}
   };
 
   return (
@@ -35,6 +51,7 @@ const DetailReview = ({}) => {
       <Sidebar />
       <div className="newContainer">
         <Navbar />
+        <Alert />
         <div className="top">
           <h1>Chi tiết đánh giá</h1>
         </div>
@@ -145,10 +162,12 @@ const DetailReview = ({}) => {
                         }}
                         icon={faSmileBeam}
                       /> */}
-                            <SentimentVerySatisfiedOutlinedIcon style={{
-                          height: "15.75px",
-                          width: "15.75px",
-                        }}/>
+                            <SentimentVerySatisfiedOutlinedIcon
+                              style={{
+                                height: "15.75px",
+                                width: "15.75px",
+                              }}
+                            />
                           </span>
                           <span> · </span>
                           <span className="c-review__body">
@@ -160,10 +179,12 @@ const DetailReview = ({}) => {
                         {data.negative && (
                           <p className="c-review__inner c-review__inner--ltr">
                             <span className="c-review__prefix color-icon">
-                              <SentimentDissatisfiedOutlinedIcon style={{
-                          height: "15.75px",
-                          width: "15.75px",
-                        }}/>
+                              <SentimentDissatisfiedOutlinedIcon
+                                style={{
+                                  height: "15.75px",
+                                  width: "15.75px",
+                                }}
+                              />
                             </span>
                             <span> · </span>
                             <span className="c-review__body">
@@ -178,6 +199,11 @@ const DetailReview = ({}) => {
               </div>
             </div>
           </div>
+        </div>
+        <div>
+          {staffRole === "admin" && (
+            <button onClick={handleDeleteRoom}>Xóa đánh giá</button>
+          )}
         </div>
       </div>
     </div>
