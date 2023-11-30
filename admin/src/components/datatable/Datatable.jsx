@@ -259,7 +259,7 @@ const Datatable = ({ columns }) => {
             Thêm mới
           </Link>
         )} */}
-        {staffRole !== "admin" &&
+        {/* {staffRole !== "admin" &&
           ((staffRole === "admin" &&
             ![
               "hotels",
@@ -274,7 +274,20 @@ const Datatable = ({ columns }) => {
             <Link to={`/${path}/new`} className="link">
               Thêm mới
             </Link>
-          )}
+          )} */}
+
+
+{staffRole !== "admin" &&
+  !(
+    (staffRole === "admin" &&
+      !["hotels", "rooms", "orders", "users", "users/staff"].includes(path)) ||
+    (staffRole === "staff" && path === "reviews") ||
+    path === "orders"
+  ) && (
+    <Link to={`/${path}/new`} className="link">
+      Thêm mới
+    </Link>
+  )}
 
         {/* {(staffRole !== "staff" || path !== "orders") && (
           <Link to={`/${path}/new`} className="link">

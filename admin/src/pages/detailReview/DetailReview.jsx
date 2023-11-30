@@ -21,6 +21,12 @@ const DetailReview = ({}) => {
   const navigate = useNavigate();
   // const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
+
+  // Xac nhan xoa 
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [reviewID, setReviewID] = useState(null);
+  const [id, setID] = useState(null);
+
   const { reviewId } = useParams();
   console.log(reviewId);
 
@@ -38,12 +44,33 @@ const DetailReview = ({}) => {
 
   const handleDeleteRoom = async () => {
     try {
+      setShowConfirmation(true);
+      // await axios.delete(`/reviews/${reviewId}/${managerHotelId}`);
+      // toast.success("Xóa đánh giá thành công!");
+      // setTimeout(() => {
+      //   navigate("/reviews");
+      // }, 700);
+    } catch (err) {}
+  };
+
+  const confirmCancellation = async () => {
+    try {
       await axios.delete(`/reviews/${reviewId}/${managerHotelId}`);
       toast.success("Xóa đánh giá thành công!");
       setTimeout(() => {
         navigate("/reviews");
       }, 700);
-    } catch (err) {}
+      // Tắt hộp thoại xác nhận
+      hideConfirmDialog();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const hideConfirmDialog = () => {
+    setShowConfirmation(false);
+    setReviewID(null);
+    setID(null);
   };
 
   return (
@@ -202,10 +229,31 @@ const DetailReview = ({}) => {
         </div>
         <div>
           {staffRole === "admin" && (
-            <button className="btn-delete-review" onClick={handleDeleteRoom}>Xóa đánh giá</button>
+            <button className="btn-delete-review" onClick={handleDeleteRoom}>
+              Xóa đánh giá
+            </button>
           )}
+
         </div>
       </div>
+      {showConfirmation && (
+        <div className="confirmation-dialog">
+          <div className="confirmation-content">
+            <h3 className="conf-font">Xác nhận hủy đánh giá</h3>
+            <p className="conf-font">
+              Bạn có chắc chắn muốn xóa đánh giá?
+            </p>
+            <div className="confirmation-buttons">
+              <button className="conf-font" onClick={confirmCancellation}>
+                Xác nhận
+              </button>
+              <button className="conf-font" onClick={hideConfirmDialog}>
+                Hủy
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
