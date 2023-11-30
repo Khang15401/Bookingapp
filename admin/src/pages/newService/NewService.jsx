@@ -33,11 +33,16 @@ const NewService = () => {
  
   console.log(files)
 
+
   const handleClick = async (e) => {
     e.preventDefault();
     try {
+      const getInfoUser = JSON.parse(localStorage.getItem("user"));
+      const hotelId = getInfoUser.hotelId;
+
       const newservice = {
         ...info,
+        hotelId: hotelId,
       };
 
       await axios.post("/services", newservice);
@@ -75,9 +80,9 @@ const NewService = () => {
                   />
                 </div>
               ))}
+              {/* <button className="no-btn" disabled></button>
               <button className="no-btn" disabled></button>
-              <button className="no-btn" disabled></button>
-              <button className="no-btn" disabled></button>
+              <button className="no-btn" disabled></button> */}
 
               <button className="formInput1" onClick={handleClick}>Thêm</button>
             </form>

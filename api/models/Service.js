@@ -6,11 +6,13 @@ const ServiceSchema = new mongoose.Schema(
     servicename: {
       type: String,
       required: true,
-      unique: true,
     },
     serviceprice: {
       type: Number,
       required: true,
+    },
+    hotelId: {
+      type: String,
     },
     introduction: {
       type: String,

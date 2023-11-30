@@ -198,12 +198,13 @@ const Reserve = ({ setOpen, hotelId }) => {
       // const newOrderId = localStorage.setItem("newOrderId", orderId);
       // console.log(orderId);
       setOrderNow(orderId);
+      navigate(`/orders/detail/${orderId}`);
       e.preventDefault();
       // toast.success("Giao dịch thành công!");
       // setTimeout(() => {
       // }, 1500);
       // navigate("/");
-      navigate(`/orders/detail/${orderId}`);
+
     } catch (err) {
       console.log(err);
     }
@@ -278,18 +279,20 @@ const Reserve = ({ setOpen, hotelId }) => {
 
               <PayPalButton
                 className="paypal-btn"
-                onClick={handleClick}
                 // amount="0.01"
+                // onClick={handleClick}
                 amount={(Dola * 0.1).toFixed(2)}
                 // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-                onSuccess={(details, data) => {
+                onSuccess={async (details, data) => {
                   // alert(
                   //   "Transaction completed by " + details.payer.name.given_name
-                  // );
                   toast.success("Giao dịch thành công!");
-                  setTimeout(() => {
-                    navigate(`/orders/detail/${orderNow}`);
-                  }, 1500);
+                  // );
+                  await handleClick();
+
+                  // setTimeout(() => {
+                  //   navigate(`/orders/detail/${orderNow}`);
+                  // }, 3000);
 
                   // OPTIONAL: Call your server to save the transaction
                   // return fetch(`/orders/${orderId}`, {

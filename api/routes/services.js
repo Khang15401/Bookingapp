@@ -14,7 +14,7 @@ router.patch("/:id", verifyAdmin, updateService);
 router.delete("/:id", verifyAdmin, hiddenService);
 //GET
 router.get("/:id", getService);
-router.get("/filter/:id", getServices);
+router.get("/filter/:hotelid", getServices);
 //GET ALL
 router.get("/", getServices1);
 export default router

@@ -202,7 +202,7 @@ const DetailReview = ({}) => {
         </div>
         <div>
           {staffRole === "admin" && (
-            <button onClick={handleDeleteRoom}>Xóa đánh giá</button>
+            <button className="btn-delete-review" onClick={handleDeleteRoom}>Xóa đánh giá</button>
           )}
         </div>
       </div>

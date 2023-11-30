@@ -27,11 +27,24 @@ export const getService = async(req, res, next)=>{
 // GET ALL SERVICE
 export const getServices = async(req, res, next)=>{
   try{
-      const service = await Service.find();
+      const hotelId = req.params.hotelid;
+
+      const service = await Service.find({ hotelId: hotelId });
       res.status(200).json(service)
   }catch(err){
       next(err);
   }
+
+  // try {
+  //   const hotelId = req.params.hotelid;
+  //   // const hotel = await Hotel.findById(req.params.hotelid);
+
+  //   // Sử dụng Mongoose để tìm tất cả reviews có hotelId trùng khớp
+  //   const reviews = await Review.find({ hotelId: hotelId });
+  //   res.status(200).json(reviews);
+  // } catch (err) {
+  //   next(err);
+  // }
 }
 
 export const getServices1 = async(req, res, next)=>{

@@ -33,6 +33,7 @@ import { AuthContext } from "../../context/AuthContex";
 import Reserve from "../../components/reserve/Reserve";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
+import { useMemo } from "react";
 
 const Hotel = () => {
   const location = useLocation();
@@ -44,6 +45,9 @@ const Hotel = () => {
   const [selectedReview, setSelectedReview] = useState("");
   console.log(selectedReview);
   const [openPanel, setOpenPanel] = useState(false);
+
+  const [sortBy, setSortBy] = useState(""); // Thêm dòng này
+
 
 
   const { data, loading, error, reFetch } = useFetch(`/hotels/find/${id}`);
@@ -143,6 +147,16 @@ const Hotel = () => {
     }
   };
   const ulRef = useRef(null);
+
+  const sortedReviews = useMemo(() => {
+    if (sortBy === "newest") {
+      return [...data1].sort((a, b) => new Date(b.timeReview) - new Date(a.timeReview));
+    } else if (sortBy === "oldest") {
+      return [...data1].sort((a, b) => new Date(a.timeReview) - new Date(b.timeReview));
+    } else {
+      return data1;
+    }
+  }, [data1, sortBy]);
 
   return (
     <div>
@@ -660,10 +674,11 @@ const Hotel = () => {
                               <select
                                 className="bui-form__control"
                                 id="review_sort"
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value)}
                               >
-                                <option value="">Phù hợp nhất</option>
-                                <option value="">Mới nhất</option>
-                                <option value="">Cũ nhất</option>
+                                <option value="newest">Mới nhất</option>
+                                <option value="oldest">Cũ nhất</option>
                               </select>
                               <span className="bk-icon -streamline-arrow_menu bui-input-select__icon">
                                 <FontAwesomeIcon icon={faSort} />
@@ -672,7 +687,7 @@ const Hotel = () => {
                           </span>
                         </div>
                         <ul className="review_list">
-                          {data1.map((item, index) => (
+                          {sortedReviews.map((item, index) => (
                             <li
                               key={item._id}
                               className="review_list_new_item_block"

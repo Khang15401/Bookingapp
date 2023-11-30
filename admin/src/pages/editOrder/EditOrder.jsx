@@ -31,7 +31,11 @@ const EditOrder = ({}) => {
   const { data, loading, error } = useFetch(`/orders/${orderId}`);
   const priceOrder = data.price;
   console.log(priceOrder);
-  const { data1, loading1, error1 } = useFetch1(`/services/filter/:id`);
+
+  const getInfoUser = JSON.parse(localStorage.getItem("user"));
+  const hotelId = getInfoUser.hotelId;
+
+  const { data1, loading1, error1 } = useFetch1(`/services/filter/${hotelId}`);
   console.log(data1);
 
   const filteredData1 = data1.filter((item) => item.isHidden === false);
@@ -415,9 +419,9 @@ const EditOrder = ({}) => {
                                     className="conf-table-content2"
                                   >
                                     <div className="conf-price-room">Giá</div>
-                                    <div className="conf-price-room-note ">
+                                    {/* <div className="conf-price-room-note ">
                                       (dành cho 2 khách)
-                                    </div>
+                                    </div> */}
                                   </div>
                                   <td
                                     style={{ textAlign: "right" }}
